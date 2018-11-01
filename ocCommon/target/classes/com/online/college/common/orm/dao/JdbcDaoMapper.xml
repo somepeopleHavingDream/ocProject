@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://10.20.91.130/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.online.college.common.orm.dao.JdbcDao">
+	
+	<select id="getById" resultType="java.util.Map">
+		<![CDATA[ 
+		${param1}
+		]]>
+	</select>
+	
+	<select id="query" resultType="java.util.Map">
+		<![CDATA[ 
+		${param1}
+		]]>
+	</select>
+	
+	<select id="count" resultType="java.lang.Integer">
+		<![CDATA[ 
+		${param1}
+		]]>
+	</select>
+	
+	<insert id="create" flushCache="true" useGeneratedKeys="true" keyProperty="param2.id" >
+		<![CDATA[ 
+		${param1}
+		 ]]>
+	</insert>
+	
+	<insert id="createAll">  
+	    ${param1.sql1}
+	    <foreach  collection="param2" item="item" index="index" separator="," >  
+	    	<![CDATA[
+	        ${param1.sql2}
+	    	 ]]>
+	    </foreach> 
+	</insert>
+	
+	<update id="update" flushCache="true">
+		<![CDATA[ 
+		${param1}
+		 ]]>
+	</update>
+	
+	<delete id="delete">
+		<![CDATA[ 
+		${param1}
+		 ]]>
+	</delete>
+	
+	<delete id="deleteById">
+		<![CDATA[ 
+		${param1}
+		 ]]>
+	</delete>
+	
+	<delete id="deleteByIds">
+		${param1}
+		<foreach item="item" collection="param2" open="(" separator="," close=")">
+		#{item}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteByFilter">
+		<![CDATA[ 
+		${param1}
+		 ]]>
+	</delete>
+	
+	
+</mapper>
+
+
+
