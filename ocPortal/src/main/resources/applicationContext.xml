@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans        
+    						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd        
+    						http://www.springframework.org/schema/context        
+   							http://www.springframework.org/schema/context/spring-context-2.5.xsd
+   							http://www.springframework.org/schema/tx    
+          					http://www.springframework.org/schema/tx/spring-tx-4.0.xsd 
+     						http://www.springframework.org/schema/aop 
+     						http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+   							http://www.springframework.org/schema/mvc  
+						    http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+	<!-- 默认的注解映射的支持 -->
+	<context:annotaion-config></context:annotaion-config>
+	<context:component-scan base-package="com.online.college"></context:component-scan>
+	
+	<!-- 针对ResponseBody转码 -->
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			<bean class="com.online.college.common.web.UTF8HttpMessageConverter"></bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	
+	<!-- 加载jdbc和app配置文件 -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" lazy-init="true">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE">
+		</property>
+		<property name="ignoreResourceNotFound" value="true"></property>
+		<property name="locations">
+			<list>
+				<value>classpath:/jdbc.properties</value>
+				<value>classpath:/application.properties</value>
+			</list>
+		</property>
+	</bean>
+</beans>

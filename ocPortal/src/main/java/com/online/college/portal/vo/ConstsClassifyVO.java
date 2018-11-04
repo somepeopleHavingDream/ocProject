@@ -38,6 +38,4 @@ public class ConstsClassifyVO extends ConstsClassify{
 	public void setRecomdCourseList(List<Course> recomdCourseList) {
 		this.recomdCourseList = recomdCourseList;
 	}
-	
-	
 }
