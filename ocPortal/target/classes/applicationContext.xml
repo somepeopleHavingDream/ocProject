@@ -40,4 +40,39 @@
 			</list>
 		</property>
 	</bean>
+	
+	<!-- 配置数据源 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${datasource.driverClassName}"></property>
+		<property name="jdbcUrl" value="${datasource.url}"></property>
+		<property name="user" value="${datasource.username}"></property>
+		<property name="password" value="${datasource.password}"></property>
+		<property name="acquireIncrement" value="${c3p0.acquireIncrement}"></property>
+		<property name="initialPoolSize" value="${c3p0.initialPoolSize}"></property>
+		<property name="minPoolSize" value="${c3p0.minPoolSize}"></property>
+		<property name="maxPoolSize" value="${c3p0.maxPoolSize}"></property>
+		<property name="maxStatements" value="${c3p0.maxStatements}"></property>
+		<property name="autoCommitOnClose" value="${c3p0.autoCommitOnClose}"></property>
+	</bean>
+	
+	<!-- 配置sql会话工厂 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mapperLocations" value="classpath*:com/**/dao/*Mapper.xml"></property>
+	</bean>
+	
+	<!-- sqlSession -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+	
+	<!-- mapper扫描配置 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.**.dao"></property>
+	</bean>
+	
+	<!-- 配置多部件处理器，主要用于上传下载 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	</bean>
 </beans>
