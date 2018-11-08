@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<title>网校在线学习平台</title>
+		<#include "./common/res.html">
+	</head>
+
+	<body>
+		<#include "./common/header.html">
+		<div class="f-main clearfix">
+			<div class="main-course-left">
+					<div class="course-info">
+						<div class="course-title">${(course.name)!}</div>
+						
+						<div class="course-meta">
+							<a href="${s.base}/course/video/12.html" class="learn-btn" >继续学习</a>
+							
+							<div class="static-item"  >
+								<div class="meta">上次学到</div>
+								<div class="meta-value">1-1 感受神秘的涟漪效果之美感受神秘的涟漪效果之美</div>
+							</div>
+							<div class="static-item"  >
+								<div class="meta">学习人数</div>
+								<div class="meta-value">${(course.studyCount)!}</div>
+							</div>
+							<div class="static-item">
+								<div class="meta">难度级别</div>
+								<div class="meta-value">
+									<#if course?? && course.level??>
+										<#if course.level == 1>
+										初级
+										<#elseif course.level == 2>
+										中级
+										<#else>
+										高级
+										</#if>
+									</#if>
+								</div>
+							</div>
+							<div class="static-item">
+								<div class="meta">课程时长</div>
+								<div class="meta-value">${(course.time)!}</div>
+							</div>
+						</div>
+						
+						<div class="course-brief">
+								${(course.brief)!}
+						</div>
+						
+						<div class="course-menu">
+							<a  href=""><span class="menu-item cur">章节</span></a>
+							<a  href="${s.base}/course/comment.html"><span class="menu-item">评论</span></a>
+							<a  href="${s.base}/course/comment.html"><span class="menu-item">问答</span></a>
+						</div>
+				</div>
+								
+				<div>
+					<!-- <div class="preview-btn">继续学习</div> -->
+					<#if chaptSections??>
+					<#list chaptSections as item>
+					<div class="chapter">
+						<a href="javascript:void(0);" class="js-open">
+							<h3>
+								<strong><div class="icon-chapter">=</div>${item.name!}</strong>
+								<span class="drop-down">▼</span> 
+							</h3>
+						</a>
+						<ul class="chapter-sub">
+							<#if item.sections??>
+							<#list item.sections as section>
+							<a href="${s.base}/course/video/${section.id!}.html" > 
+								<li class="chapter-sub-li">
+									<i class="icon-video">▶</i>${section.name!} (${section.time!})
+								</li>
+							</a>
+							</#list>
+							</#if>
+						</ul>
+					</div>
+					</#list>
+					</#if>
+					
+				</div>
+			</div>
+			
+			
+			<div class="main-course-right"  >
+				
+				<div class="lecturer-item" style="width: 100%;">
+					<img class="lecturer-uimg" src="${s.base}/res/i/header.jpg">
+					<span class="lecturer-name">${courseTeacher.realname!}</span>
+					<span class="lecturer-title">${courseTeacher.collegeName!} · ${courseTeacher.education!}</span>
+					<span class="lecturer-p" >${courseTeacher.title!}，${courseTeacher.sign!}</span>
+					<a href="javascript:void(0)" ><span class="follow-btn">关注+</span></a>
+				</div>
+				
+				<h4 class="mt-50">推荐课程</h4>
+				<#if recomdCourseList?? && recomdCourseList?size gt 0 >
+				<#list recomdCourseList as item>
+				<a href="" class="mb-5" title="${item.name!}"><li class="ellipsis oc-color-hover">${item.name!}</li></a>
+				</#list>
+				</#if>
+			</div>
+			
+		</div>
+		
+		<#include "./common/footer.html">
+		
+		<script type="text/javascript">
+			$(function(){
+				$('.chapter li').hover(function(){
+					$(this).find('.icon-video').css('color','#FFF');
+				},function(){
+					$(this).find('.icon-video').css('color','#777');
+				});
+				
+				$('.js-open').click(function(){
+					var display = $(this).parent().find('ul').css('display');
+					if(display == 'none'){
+						$(this).parent().find('ul').css('display','block');
+						$(this).find('.drop-down').html('▼');
+					}else{
+						$(this).parent().find('ul').css('display','none');
+						$(this).find('.drop-down').html('▲');
+					}
+				});
+			});	
+		</script>
+		
+	</body>
+	
+</html>

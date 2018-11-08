@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<title>网校在线学习平台</title>
+		<link href="../res/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+		<link href="../res/css/reset.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" src="../res/js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="../res/js/bootstrap.min.js"></script>
+		
+		<!--[if lt IE 9]>
+		  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		  <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		
+		<link rel="icon" type="image/png" href="../res/i/ico.png" sizes="16x16">
+		
+		<script type="text/javascript">
+		CONETXT_PATH = '${s.base}';
+		</script>
+	</head>
+
+	<body style="min-width: 1200px;min-height: 500px;">
+		<div class="cms-header">
+			<div class="cms-header-box clearfix">
+				<nav class="header-nav">
+					<a href="${s.base}"  class="cms-logo"  title="网校在线学习平台"></a>
+					<a href="${s.base}" class="header-nav-item" style="color: #FFF;width:200px;line-height:20px;">网校在线后台管理</a>
+				</nav>
+			
+				<nav class="header-nav" style="float:right">
+			        <a href="#" class="header-nav-item"  style="margin-left:0px;color: #FFF;line-height:20px;" id="userdetail">当前用户</a>
+				</nav>
+			</div>
+		</div>
+
+		<div id="cms-main" class="cms-main">
+				<div class="cms-main-left">
+					<ul class="cms-menu-nav-block">
+						<a href="${s.base}/user/home.html"><li class="cms-menu-nav-cur">主 页</li></a>
+						<a href="${s.base}/user/info.html"><li class="cms-menu-nav">我的课程</li></a>
+						<a href="${s.base}/user/info.html"><li class="cms-menu-nav">我的消息</li></a>
+						<a href="${s.base}/user/info.html"><li class="cms-menu-nav">个人资料</li></a>
+						<a href=""><li class="cms-menu-nav">修改密码</li></a>
+					</ul>
+				</div>
+				
+				<div id="cms-main-right" class="cms-main-right">
+					<div class="cms-content">
+						<div class="cms-sub-menu-nav-block">
+							<a href=""><div class="cms-sub-menu-nav-cur">章列表</div></a>
+							<a href=""><div class="cms-sub-menu-nav">评论列表</div></a>
+							<a href=""><div class="cms-sub-menu-nav">学生列表</div></a>
+						</div>
+					</div>
+				</div>
+		</div>
+		
+		<script type="text/javascript">
+			function renderScreen(){
+				var mainHeight = document.body.clientHeight - 70;
+				var mainRightWidth = document.body.clientWidth - 170;
+				$('#cms-main').css('height',mainHeight);
+				$('#cms-main-right').css('width',mainRightWidth);
+			}
+			$(function(){
+				renderScreen();
+				$(window).resize(function() {
+					renderScreen();
+				});
+			});	
+		</script>
+		
+	</body>
+	
+</html>

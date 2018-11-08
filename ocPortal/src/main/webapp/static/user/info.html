@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<title>个人主页</title>
+		<#include "../common/res.html">
+	</head>
+
+	<body>
+		<#include "../common/header.html">
+		<div class="f-main clearfix">
+			<div class="setting-left">
+					<img class="setting-header" src="${s.base}/res/i/header.jpg"></img>
+					<div>牛氓gadfly</div>
+					
+					<div class="split-line" style="margin-bottom: 20px;"></div>
+					
+					<ul class="user-menu-nav-block">
+						<a href="${s.base}/user/home.html"><li class="user-menu-nav">主页 <span>&gt;</span></li></a>
+						<a href="${s.base}/user/info.html"><li class="user-menu-nav-cur">个人信息  <span>&gt;</span></li></a>
+						<a href=${s.base}/user/password.html><li class="user-menu-nav">修改密码  <span>&gt;</span></li></a>
+					</ul>
+			</div>
+			
+			
+			<div class="setting-right"  >
+				<div>
+					<span class="f-16">个人信息</span>
+					<a href="javascript:void(0);"  style="float: right;margin-right: 10px;"><span class="oc-color-hover">编辑</span></a>
+				</div>
+				<div class="split-line" style="margin: 20px 0px;"></div>
+				
+				<div>
+					<form class="oc-form">
+						<li><label>昵称</label> <div class="display-text">显示内容</div></li>
+						<li><label>职位</label> <div class="display-text">显示内容</div></li>
+						<li><label>个性签名</label> <div class="display-text">显示内容</div></li>
+					</form>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		<#include "../common/footer.html">
+		
+		<script type="text/javascript">
+			$(function(){
+				$('.user-menu-nav').hover(function(){
+					$(this).find('span').css('color','#0089D2');
+				},function(){
+					$(this).find('span').css('color','#777');
+				});
+			});	
+		</script>
+		
+	</body>
+	
+</html>

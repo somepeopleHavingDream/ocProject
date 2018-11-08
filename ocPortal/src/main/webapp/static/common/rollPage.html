@@ -1,0 +1,9 @@
+<div class="pagination-div">
+	<input type="hidden" id="_id_pageNum" name="pageNum" value="${pagination.pageNum}"/>
+	<a href="javascript:void(0);" <#if pagination.firstPage> disabled="disabled" class="disable-a" <#else> onclick="_gotoPage('1')" </#if> >首 页</a> 
+	<a href="javascript:void(0);" <#if pagination.firstPage> disabled="disabled" class="disable-a" <#else> onclick="_gotoPage('${pagination.pageNum - 1}');" </#if> >上一页</a> 
+	<span>第 ${pagination.pageNum!}/${pagination.totalPageCount!} 页</span>
+	<a href="javascript:void(0);" <#if pagination.lastPage> disabled="disabled" class="disable-a" <#else> onclick="_gotoPage('${pagination.pageNum + 1}');" </#if> >下一页</a> 
+	<a href="javascript:void(0);" <#if pagination.lastPage> disabled="disabled" class="disable-a" <#else> onclick="_gotoPage('${pagination.totalPageCount}');" </#if> >尾 页</a> 
+	<span style="float:right;">共 ${pagination.totalItemsCount!} 条记录</span>
+</div>
