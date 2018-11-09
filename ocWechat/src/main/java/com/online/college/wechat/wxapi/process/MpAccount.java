@@ -59,6 +59,9 @@ public class MpAccount implements Serializable {
 	}
 
 	public Integer getMsgcount() {
+		if (msgcount == null) {
+			msgcount = 5;	// 默认5条
+		}
 		return msgcount;
 	}
 
