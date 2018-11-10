@@ -34,11 +34,4 @@
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>ocService</name>
-			<type>2</type>
-			<location>E:/JAVA/ocProject/ocService</location>
-		</link>
-	</linkedResources>
 </projectDescription>

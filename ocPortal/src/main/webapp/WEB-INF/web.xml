@@ -17,6 +17,20 @@
 		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
 	
+	<!-- 用来解决 javax.naming.NameNotFoundException的环境参数 -->
+	<context-param>
+		<param-name>spring.profiles.active</param-name>
+		<param-value>dev</param-value>
+	</context-param>
+	<context-param>
+		<param-name>spring.profiles.default</param-name>
+		<param-value>dev</param-value>
+	</context-param>
+	<context-param>
+		<param-name>spring.liveBeansView.mbeanDomain</param-name>
+		<param-value>dev</param-value>
+	</context-param>
+	
 	<!-- jsessionid filter -->
 	<filter>
 		<filter-name>jessionidFilter</filter-name>

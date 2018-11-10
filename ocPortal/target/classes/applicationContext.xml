@@ -18,7 +18,7 @@
 						    http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
 	<!-- 默认的注解映射的支持 -->
-	<context:annotaion-config></context:annotaion-config>
+	<context:annotation-config></context:annotation-config>
 	<context:component-scan base-package="com.online.college"></context:component-scan>
 	
 	<!-- 针对ResponseBody转码 -->

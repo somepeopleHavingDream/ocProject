@@ -47,7 +47,7 @@
 		<property name="prefix" value="/WEB-INF/pages/"></property>
 		<property name="suffix" value=".html"></property>
 		<property name="cache" value="true"></property>
-		<property name="contentType" value="text/html" charset="UTF-8"></property>
+		<property name="contentType" value="text/html;charset=UTF-8"></property>
 		<property name="requestContextAttribute" value="request"></property>
 	</bean>
 	

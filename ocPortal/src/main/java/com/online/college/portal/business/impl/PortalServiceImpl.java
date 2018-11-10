@@ -10,6 +10,7 @@ import java.util.Map;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.online.college.core.consts.CourseEnum;
 import com.online.college.core.consts.domain.ConstsClassify;
@@ -27,6 +28,7 @@ import com.online.college.portal.vo.CourseSectionVO;
  * 首页业务层
  * @author Admin!
  */
+@Service
 public class PortalServiceImpl implements IPortalService{
 
 	@Autowired

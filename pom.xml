@@ -185,10 +185,11 @@
 			<version>${shiro.version}</version>
 		</dependency>
 		
+		<!-- 将freemarker的依赖包版本从2.3.20升级到2.3.28 -->
 		<dependency>
 			<groupId>org.freemarker</groupId>
 			<artifactId>freemarker</artifactId>
-			<version>2.3.20</version>
+			<version>2.3.28</version>
 		</dependency>
 
 		<dependency>
@@ -290,8 +291,8 @@
 		<module>ocPortal</module>
 		<module>ocOperator</module>
 		<module>ocWechat</module>
-    <module>ocOperatioin</module>
-  </modules>
+    	<module>ocOperatioin</module>
+  	</modules>
 	
 	<build>
 		<plugins>
