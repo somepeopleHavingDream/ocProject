@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<title>网校在线学习平台</title>
+		<#include "./common/res.html">
+	</head>
+
+	<body>
+		<#include "./common/header.html">
+		<div class="f-main clearfix">
+			<div class="main-course-left">
+					<div class="course-info">
+						<div class="course-title" style="font-size: 24px;">${(courseSection.name)!}</div>
+						
+						<div class="course-video">
+							<video src="${s.base}/res/demo.mp4" width="100%" height="100%" controls preload></video>
+						</div>
+						
+						<div  id="page-anchor" name="page-anchor" class="course-menu">
+							<a  href="javascript:void(0)" onclick="_queryPage(1,0);"><span id="comment_btn" class="menu-item  cur">评论</span></a>
+							<a  href="javascript:void(0)" onclick="_queryPage(1,1);"><span id="qa_btn" class="menu-item">问答</span></a>
+						</div>
+				</div>
+				
+				<!-- 评论区 start -->
+				<div id="comment_qa">
+				</div>
+				<!-- 评论区 end -->
+			</div>
+			
+			
+			<div class="main-course-right"  >
+				<h4 class="mt-50">所有章节</h4>
+				<div class="video-course-fix-parent">
+					<div class="video-course-fix">
+						<#if chaptSections??>
+						<#list chaptSections as item>
+						<div class="chapter" style="padding: 0px ;border: none;">
+							<a href="javascript:void(0);" class="js-open">
+								<h3>
+									<strong>${item.name!}</strong>
+									<span class="drop-down">▼</span> 
+								</h3>
+							</a>
+							<ul class="chapter-sub" style="padding-left:10px;">
+								<#if item.sections??>
+								<#list item.sections as section>
+								<a href="${s.base}/course/video/${section.id!}.html" > 
+									<li class="ellipsis video-li"><i class="icon-video">▶</i> ${section.name!}</li>
+								</a>
+								</#list>
+								</#if>
+							</ul>
+						</div>
+						</#list>
+						</#if>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		<#include "./common/footer.html">
+		
+		<script type="text/javascript">
+			$(function(){
+				$('.chapter li').hover(function(){
+					$(this).find('.icon-video').css('color','#0089D2');
+				},function(){
+					$(this).find('.icon-video').css('color','#777');
+				});
+				
+				$('.js-open').click(function(){
+					var display = $(this).parent().find('ul').css('display');
+					if(display == 'none'){
+						$(this).parent().find('ul').css('display','block');
+						$(this).find('.drop-down').html('▼');
+					}else{
+						$(this).parent().find('ul').css('display','none');
+						$(this).find('.drop-down').html('▲');
+					}
+				});
+				
+				//默认加载评论
+				_queryPage(1,0);
+			});	
+			
+			/**
+			* courseId：课程id
+			* sectionId: 章节id
+			* type : 类型 0-评论；1-答疑 
+			*/
+			var _type = 0; //全局变量 
+			function _queryPage(pageNum,type){
+				if(type == undefined)
+					type = _type;
+				else
+					_type = type;
+				
+				if(type == 0){//评论按钮 
+					$('#comment_btn').addClass('cur');
+					$('#qa_btn').removeClass('cur');
+				}else{
+					$('#qa_btn').addClass('cur');
+					$('#comment_btn').removeClass('cur');
+				}
+				//加载评论或者QA
+				if(pageNum == undefined)
+					pageNum = 1;
+				
+				var courseId = ${(courseSection.courseId)!};//课程id
+				var sectionId = ${(courseSection.id)!};//章节id
+				
+				var url = '${s.base}/course/comment/segment.html';
+				$("#comment_qa").load(
+							url,
+							{'courseId':courseId,'sectionId':sectionId,'type':type,'pageNum':pageNum},
+							function(){ }
+						);
+				$(document).scrollTop(600);
+			}
+		</script>
+		
+	</body>
+	
+</html>

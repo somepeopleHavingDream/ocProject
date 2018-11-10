@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.online.college</groupId>
 	<artifactId>ocProject</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	
+
 	<properties>
 		<spring.version>4.3.17.RELEASE</spring.version>
 		<shiro.version>1.4.0</shiro.version>
@@ -14,14 +16,14 @@
 	</properties>
 
 	<dependencies>
-		
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -184,7 +186,7 @@
 			<artifactId>shiro-spring</artifactId>
 			<version>${shiro.version}</version>
 		</dependency>
-		
+
 		<!-- 将freemarker的依赖包版本从2.3.20升级到2.3.28 -->
 		<dependency>
 			<groupId>org.freemarker</groupId>
@@ -239,10 +241,12 @@
 			<version>1.4.2</version>
 		</dependency>
 
+		<!-- mysql驱动依赖，将5.1.5版本升级到8.0.13 -->
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.5</version>
+			<version>8.0.13</version>
 		</dependency>
 
 		<dependency>
@@ -282,7 +286,7 @@
 			<artifactId>aspectjtools</artifactId>
 			<version>1.8.3</version>
 		</dependency>
-		
+
 	</dependencies>
 
 	<modules>
@@ -291,9 +295,9 @@
 		<module>ocPortal</module>
 		<module>ocOperator</module>
 		<module>ocWechat</module>
-    	<module>ocOperatioin</module>
-  	</modules>
-	
+		<module>ocOperatioin</module>
+	</modules>
+
 	<build>
 		<plugins>
 			<plugin>

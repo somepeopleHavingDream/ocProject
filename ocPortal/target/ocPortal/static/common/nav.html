@@ -1,0 +1,136 @@
+<section class="side-small">
+	<nav class="side-nav">
+		<div class="side-nav-item">
+			<#if cur_nav?? && cur_nav?index_of("index_") == 0>
+			<a class="nav-item-f open">
+			<#else>
+			<a class="nav-item-f">
+			</#if>
+				<div class="icon-1"><span>总览</span></div>
+			</a>
+			<div class="clearfix">
+				<#if cur_nav?? && cur_nav?index_of("index_") == 0>
+				<div class="side-nav-child">
+				<#else>
+				<div class="side-nav-child hidden">
+				</#if>
+					<a <#if cur_nav?? && cur_nav == 'index_todo'> class="cur" </#if> href="${s.base}/doctor/todo.html">待处理事项</a>
+				</div>
+			</div>
+		</div>
+		<div class="side-nav-item">
+			<#if cur_nav?? && cur_nav?index_of("inquiry_") == 0>
+			<a class="nav-item-f open" href="javascript:void(0)">
+			<#else>
+			<a class="nav-item-f" href="javascript:void(0)">
+			</#if>
+				<div class="icon-2"><span>问诊</span></div>
+			</a>
+			<div class="clearfix">
+				<#if cur_nav?? && cur_nav?index_of("inquiry_") == 0>
+				<div class="side-nav-child">
+				<#else>
+				<div class="side-nav-child hidden">
+				</#if>
+					<a <#if cur_nav?? && cur_nav == 'inquiry_schedule'> class="cur" </#if> href="${s.base}/doctor/inquiry/inquirySchedule.html">问诊日程</a>
+					<a <#if cur_nav?? && cur_nav == 'inquiry_finished'> class="cur" </#if> href="${s.base}/doctor/inquiry/queryFinishedInquiry.html">已完成问诊</a>
+					<a <#if cur_nav?? && cur_nav == 'inquiry_medicine'> class="cur" </#if> href="${s.base}/doctor/medicine/query.html">用药查询</a>
+				</div>
+			</div>
+		</div>
+		<div class="side-nav-item">
+			<#if cur_nav?? && cur_nav?index_of("patient_") == 0>
+			<a class="nav-item-f open" href="javascript:void(0)">
+			<#else>
+			<a class="nav-item-f" href="javascript:void(0)">
+			</#if>
+				<div class="icon-3"><span>患者</span></div>
+			</a>
+			<div class="clearfix">
+				<#if cur_nav?? && cur_nav?index_of("patient_") == 0>
+				<div class="side-nav-child">
+				<#else>
+				<div class="side-nav-child hidden">
+				</#if>
+					<a <#if cur_nav?? && cur_nav == 'patient_list'> class="cur" </#if> href="${s.base}/doctor/patient/query.html">患者</a>
+				</div>
+			</div>
+		</div>
+		<div class="side-nav-item">
+			<#if cur_nav?? && cur_nav?index_of("ec_") == 0>
+			<a class="nav-item-f open" href="javascript:void(0)">
+			<#else>
+			<a class="nav-item-f" href="javascript:void(0)">
+			</#if>
+				<div class="icon-4"><span>收入</span></div>
+			</a>
+			<div class="clearfix">
+				<#if cur_nav?? && cur_nav?index_of("ec_") == 0>
+				<div class="side-nav-child">
+				<#else>
+				<div class="side-nav-child hidden">
+				</#if>
+					<a <#if cur_nav?? && cur_nav == 'ec_income'> class="cur" </#if> href="${s.base}/doctor/income/index.html">收入详情</a>
+					<a <#if cur_nav?? && cur_nav == 'ec_card'> class="cur" </#if> href="${s.base}/doctor/ecaccount/card.html">收入设置</a>
+				</div>
+			</div>
+		</div>
+		<div class="side-nav-item">
+			<#if cur_nav?? && cur_nav?index_of("personal_") == 0>
+			<a class="nav-item-f open" href="javascript:void(0)">
+			<#else>
+			<a class="nav-item-f" href="javascript:void(0)">
+			</#if>
+				<div class="icon-5"><span>我</span></div>
+			</a>
+			<div class="clearfix">
+				<#if cur_nav?? && cur_nav?index_of("personal_") == 0>
+				<div class="side-nav-child">
+				<#else>
+				<div class="side-nav-child hidden">
+				</#if>
+					<a <#if cur_nav?? && cur_nav == 'personal_info'> class="cur" </#if> href="${s.base}/doctor/info.html">个人信息</a>
+					<a <#if cur_nav?? && cur_nav == 'personal_setting'> class="cur" </#if> href="${s.base}/doctor/setting/toSet.html">提醒设置</a>
+					<a <#if cur_nav?? && cur_nav == 'personal_password'> class="cur" </#if> href="${s.base}/doctor/password.html">修改密码</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+</section>
+<script>
+	$(document).ready(function(){
+		$(document).on('click','.nav-item-f',function(){
+			$(this).parent().parent().find('.nav-item-f').removeClass('open');
+			$(this).parent().parent().find('.side-nav-child').addClass('hidden');
+			$(this).toggleClass('open');
+			$(this).parent().find('.side-nav-child').toggleClass('hidden');
+		});
+		$(document).on('click','.avatar-box',function(){
+			$('.nav-ext').removeClass('hidden');
+			$('.header-user-info-num').addClass('open');
+		});
+		$(document).on('click','.message',function(){
+			$('.header-user-info-num').addClass('hidden');
+			$('.nav-ext').addClass('hidden');
+		});
+		$(document).on('click','.side-close',function(){
+			$('.side-small').css('width','90px');
+			$('.side-close').css('left','92px');
+			$('.f2-main-box').css('padding-left','120px');
+			$(this).addClass('side-closed');
+		});
+		$(document).on('click','.side-closed',function(){
+			$('.side-small').css('width','180px');
+			$('.side-close').css('left','182px');
+			$('.f2-main-box').css('padding-left','210px');
+			$(this).removeClass('side-closed');
+		});
+		$('.header-user-small').hover(function(){
+			$('.nav-ext').removeClass('hidden');
+			$('.header-user-info-num').addClass('open');
+		},function(){
+			$('.header-user-info-num').removeClass('open');
+			$('.nav-ext').addClass('hidden');
+		});
+	});
+</script>

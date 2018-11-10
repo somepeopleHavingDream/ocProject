@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<title>后台管理</title>
+		<#include "../common/res.html">
+	</head>
+
+	<body style="min-width: 1200px;min-height: 500px;">
+		<#include "../common/cms-header.html">
+		
+		<div id="cms-main" class="cms-main">
+				<div class="cms-main-left">
+					<ul class="cms-menu-nav-block">
+						<a href="${s.base}/user/home.html"><li class="cms-menu-nav-cur">主 页</li></a>
+						<a href="${s.base}/user/info.html"><li class="cms-menu-nav">网校管理</li></a>
+						<a href="${s.base}/user/info.html"><li class="cms-menu-nav">教师管理</li></a>
+						<a href="${s.base}/user/info.html"><li class="cms-menu-nav">学生管理</li></a>
+						<a href="${s.base}/user/info.html"><li class="cms-menu-nav">运营人员管理</li></a>
+						<a href="${s.base}/user/info.html"><li class="cms-menu-nav">课程分类管理</li></a>
+						<a href="${s.base}/user/info.html"><li class="cms-menu-nav">课程管理</li></a>
+						<a href="${s.base}/user/info.html"><li class="cms-menu-nav">轮播配置</li></a>
+						<a href="${s.base}/user/info.html"><li class="cms-menu-nav">课程推荐</li></a>
+						<a href=""><li class="cms-menu-nav">修改密码</li></a>
+					</ul>
+				</div>
+				
+				<div id="cms-main-right" class="cms-main-right">
+					<div class="cms-content">
+						<div class="cms-sub-menu-nav-block">
+							<a href=""><div class="cms-sub-menu-nav-cur">章列表</div></a>
+							<a href=""><div class="cms-sub-menu-nav">评论列表</div></a>
+							<a href=""><div class="cms-sub-menu-nav">学生列表</div></a>
+						</div>
+					</div>
+				</div>
+		</div>
+		
+		<script type="text/javascript">
+			function renderScreen(){
+				var mainHeight = document.body.clientHeight - 70;
+				var mainRightWidth = document.body.clientWidth - 170;
+				$('#cms-main').css('height',mainHeight);
+				$('#cms-main-right').css('width',mainRightWidth);
+			}
+			$(function(){
+				renderScreen();
+				$(window).resize(function() {
+					renderScreen();
+				});
+			});	
+		</script>
+		
+	</body>
+	
+</html>

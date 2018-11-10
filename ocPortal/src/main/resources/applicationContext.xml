@@ -18,7 +18,10 @@
 						    http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
 	<!-- 默认的注解映射的支持 -->
+	<!-- 注解配置 -->
 	<context:annotation-config></context:annotation-config>
+	
+	<!-- 成分扫描 -->
 	<context:component-scan base-package="com.online.college"></context:component-scan>
 	
 	<!-- 针对ResponseBody转码 -->
@@ -71,6 +74,39 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.**.dao"></property>
 	</bean>
+	
+	<!-- 配置数据库事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- 配置事务 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- REQUIRED：指定当前方法必须在事务环境中运行，如果当前有事务环境就加入当前正在执行的事务环境，如果当前没有事务，就新建一个事务 -->
+			<tx:method name="do*" propagation="REQUIRED"></tx:method>
+			<tx:method name="delete*" propagation="REQUIRED"></tx:method>
+			<tx:method name="merge*" propagation="REQUIRED"></tx:method>
+			<tx:method name="add*" propagation="REQUIRED"></tx:method>
+			<tx:method name="save*" propagation="REQUIRED"></tx:method>
+			<tx:method name="create*" propagation="REQUIRED"></tx:method>
+			<tx:method name="insert*" propagation="REQUIRED"></tx:method>
+			<tx:method name="update*" propagation="REQUIRED"></tx:method>
+			<tx:method name="enable*" propagation="REQUIRED"></tx:method>
+			<tx:method name="disable*" propagation="REQUIRED"></tx:method>
+			<tx:method name="generate*" propagation="REQUIRED"></tx:method>
+			
+			<!-- 只读事务 -->
+			<tx:method name="*" read-only="true"></tx:method>
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- 配置AOP切面 -->
+	<aop:config>
+		<!-- 定义切点函数 -->
+		<aop:pointcut expression="execution(* com.online.college.*.service.*.*(..))" id="services"></aop:pointcut>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="services"></aop:advisor>
+	</aop:config>
 	
 	<!-- 配置多部件处理器，主要用于上传下载 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

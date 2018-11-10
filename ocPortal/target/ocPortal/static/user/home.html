@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<title>个人主页</title>
+		<#include "../common/res.html">
+	</head>
+
+	<body>
+		<#include "../common/header.html">
+		<div class="f-main clearfix">
+			<div class="setting-left">
+					<img class="setting-header" src="${s.base}/res/i/header.jpg"></img>
+					<div>牛氓gadfly</div>
+					
+					<div class="split-line" style="margin-bottom: 20px;"></div>
+					
+					<ul class="user-menu-nav-block">
+						<a href="${s.base}/user/home.html"><li class="user-menu-nav-cur">主页 <span>&gt;</span></li></a>
+						<a href="${s.base}/user/courses.html"><li class="user-menu-nav">我的课程  <span>&gt;</span></li></a>
+						<a href="${s.base}/user/collect.html"><li class="user-menu-nav">我的收藏  <span>&gt;</span></li></a>
+						<a href="${s.base}/user/info.html"><li class="user-menu-nav">个人信息  <span>&gt;</span></li></a>
+						<a href=""><li class="user-menu-nav">修改密码  <span>&gt;</span></li></a>
+					</ul>
+			</div>
+			
+			
+			<div class="setting-right"  >
+				<div><span class="f-16">最新动态</span></div>
+				<div class="split-line" style="margin: 20px 0px;"></div>
+				<div class="comment clearfix">
+					<div class="comment-header">
+						<img class="lecturer-uimg" src="${s.base}/res/i/header.jpg">
+					</div>
+					
+					<div class="comment-main" style="width: 840px;">
+						<div class="user-name">我是张三</div>
+						<div class="comment-content">
+						这门课真实用！一个列表嵌套好多种布局的时候，用recyclerview控件优雅实现，效率果然提高不少，老板肯定又会夸我，啊哈哈！！！
+						这门课真实用！一个列表嵌套好多种布局的时候，用recyclerview控件优雅实现，效率果然提高不少，老板肯定又会夸我，啊哈哈！！！</div>
+						<div class="comment-footer">时间：2016-12-05
+						</div>
+					</div>
+				</div>		
+			</div>
+			
+		</div>
+		
+		<#include "../common/footer.html">
+		
+		<script type="text/javascript">
+			$(function(){
+				$('.user-menu-nav').hover(function(){
+					$(this).find('span').css('color','#0089D2');
+				},function(){
+					$(this).find('span').css('color','#777');
+				});
+			});	
+		</script>
+		
+	</body>
+	
+</html>
