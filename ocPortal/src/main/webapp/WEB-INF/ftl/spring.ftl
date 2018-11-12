@@ -1,2 +1,2 @@
-<#-- 设置context全局变量 springMACroRequestContext.getContextUrl("") -->
-<#assign base=springMacroRequestContext.getContextUrl("")>
+<#-- 设置context全局变量 springMacroRequestContext.getContextUrl("") -->
+<#assign base = springMacroRequestContext.getContextUrl("")>
