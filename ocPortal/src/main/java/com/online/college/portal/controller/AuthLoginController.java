@@ -36,10 +36,10 @@ public class AuthLoginController {
 	 * 注册页面
 	 * @return
 	 */
-	@RequestMapping(value = "register")
+	/*@RequestMapping(value = "register")
 	public ModelAndView register() {
 		return new ModelAndView("auth/register");
-	}
+	}*/
 	
 	@RequestMapping(value = "/ajaxlogin")
 	@ResponseBody

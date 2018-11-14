@@ -70,7 +70,9 @@ public class AuthUserServiceImpl implements IAuthUserService{
 		entityDao.deleteLogic(entity);
 	}
 
-
-
+	@Override
+	public void createSelectivity(AuthUser entity) {
+		entityDao.createSelectivity(entity);
+	}
 }
 

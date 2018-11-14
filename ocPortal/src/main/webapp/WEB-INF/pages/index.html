@@ -7,7 +7,7 @@
 	content="width=device-width, user-scalable=no, initial-scale=1">
 <meta name="keywords" content="">
 <meta name="description" content="">
-<title>网校在线学习平台</title>
+<title>在线网校学习平台</title>
 <link href="${s.base}/res/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 <link href="${s.base}/res/css/reset.css" rel="stylesheet"
@@ -36,20 +36,18 @@
 			<nav class="header-nav">
 				<a href="${s.base}" class="header-nav-item">首 页</a> <a
 					href="${s.base}/course/list.html" class="header-nav-item">课 程</a> <a
-					href="${s.base}/course/learn.html" class="header-nav-item">Java</a>
-				<a href="${s.base}/user/home.html" class="header-nav-item">我的</a> <a
-					href="${s.base}/cms/index.html" target="_blank"
-					class="header-nav-item">教师端</a> <a href="${s.base}/opt/index.html"
-					target="_blank" class="header-nav-item">运营</a>
+					href="${s.base}/user/home.html" class="header-nav-item">我的</a> <a
+					href="${s.base}/opt/index.html" style="width: 100px;"
+					target="_blank" class="header-nav-item">运营CMS</a>
 			</nav>
 
 			<nav class="header-nav" style="float: right">
 				<a href="#myModal" class="header-nav-item" data-toggle="modal"
 					onclick="login();" style="margin-right: 0px; font-size: 14px;">登录</a>
-				<a href="#myModal" class="header-nav-item" data-toggle="modal"
-					onclick="registe();" style="margin-left: 0px; font-size: 14px;">注册</a>
-				<a href="#" class="header-nav-item"
-					style="margin-left: 0px; font-size: 14px;" id="userdetail">头像</a>
+				<a href="${s.base}/auth/register.html" class="header-nav-item"
+					style="margin-left: 0px; font-size: 14px;">注册</a> <a href="#"
+					class="header-nav-item" style="margin-left: 0px; font-size: 14px;"
+					id="userdetail">头像</a>
 			</nav>
 
 		</div>
@@ -180,8 +178,7 @@
 
 	<div class="f-main">
 		<div class="clearfix">
-			<!-- 给这个地方的div类加上一对双引号 -->
-			<div class="main-category">
+			<div class=main-category>
 				<div class="main-bg">
 					<div class="main-bg-item "
 						style="background-image: url('${s.base}/res/i/c1.jpg');">
@@ -617,7 +614,6 @@
 			index = index % 3;
 			rollBg(index);
 		}, timer);
-
 	});
 </script>
 </html>
