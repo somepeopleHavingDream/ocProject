@@ -483,8 +483,7 @@
 
 	<delete id="delete"
 		parameterType="com.online.college.core.auth.domain.AuthUser">
-		delETE
-		FROM t_auth_user
+		DELETE FROM t_auth_user
 		WHERE id = #{id, jdbcType=INTEGER}
 	</delete>
 
