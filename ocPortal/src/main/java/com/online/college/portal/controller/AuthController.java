@@ -16,10 +16,10 @@ import com.online.college.core.auth.service.IAuthUserService;
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
-	
+
 	@Autowired
 	private IAuthUserService authUserService;
-	
+
 	/**
 	 * 注册页面
 	 */
@@ -27,7 +27,7 @@ public class AuthController {
 	public ModelAndView register() {
 		return new ModelAndView("auth/register");
 	}
-	
+
 	/**
 	 * 实现注册
 	 */

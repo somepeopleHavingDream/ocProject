@@ -12,4 +12,7 @@
 	6）完成一个业务流程：注册；
 	7）专注于一个表的开发：CRUD，分页实现；
 	
+	源码下载地址：https://git.oschina.net/huhan/ocPortal
+	
+	
 	
