@@ -18,26 +18,34 @@
 			<!-- 轮播 分类-start -->
 			<div class="clearfix">
 				<div class=main-category>
+					
+					<!-- 轮播区-start -->
 					<div class="main-bg">
-						<div class="main-bg-item " style="background-image: url('${s.base}/res/i/c1.jpg'); ">
-							<div class="main-title-1"></div>
-						</div>
-		
-						<div class="main-bg-item " style="background-image: url('${s.base}/res/i/c2.jpg'); ">
-							<div class="main-title-2"></div>
-						</div>
-		
-						<div class="main-bg-item " style="background-image: url('${s.base}/res/i/c3.jpg'); ">
-							<div class="main-title-3"></div>
-						</div>
-					</div>
-		
-					<div class="f-nav-box">
-						<div class="bg-nav">
-							<a class="cur"></a> <a></a> <a></a>
-						</div>
+						<#if carouselList?? && carouselList?size gt 0>
+						<#list carouselList as item>
+						<a href="${s.base}${item.url!''}">
+							<div class="main-bg-item"  style='background-image: url("${item.picture!}"); '></div>
+						</a>
+						</#list>
+						</#if>
 					</div>
 					
+					<div class="f-nav-box">
+						<div class="bg-nav">
+							<#if carouselList?? && carouselList?size gt 0>
+							<#list carouselList as item>
+								<#if item_index == 0>
+								<a class="cur"></a> 
+								<#else>
+								<a></a> 
+								</#if>
+							</#list>
+							</#if>
+						</div>
+					</div>
+					<!-- 轮播区-end -->
+					
+					<!-- 分类区-start -->
 					<div class="main-category-menu">
 						<div class="category" c-id="a">
 							<a><div class="group">数据开发 </div></a>
@@ -63,31 +71,25 @@
 							<a><div class="group">UI设计</div></a>
 						</div>
 					</div>
-										
 					<div class="main-category-submenu-content"  id="a" >
 						AAAAAAAAAA
 					</div>
-					
 					<div class="main-category-submenu-content"  id="b" >
 						BBBBBBBBBBBB
 					</div>
-					
 					<div class="main-category-submenu-content"  id="c" >
 						CCCCCCCCCCCC
 					</div>
-					
 					<div class="main-category-submenu-content"  id="d" >
 						DDDDDDDDDDDDDD
 					</div>
-					
 					<div class="main-category-submenu-content"  id="e" >
 						EEEEEEEEE
 					</div>
-					
 					<div class="main-category-submenu-content"  id="f" >
 						FFFFFFFFFF
 					</div>
-					
+					<!-- 分类区-end -->
 				</div>
 			</div>
 			<!-- 轮播 分类-end -->
@@ -430,5 +432,42 @@
 		
 		<#include "./common/footer.html">
 	</body>
+	
+	<script type="text/javascript">
+	
+	$(function(){
+		//轮播效果 -start
+		<#if carouselList?? && carouselList?size gt 0>
+		var size = Number('${carouselList?size}');
+		<#else>
+		var size = 0;
+		</#if>
 		
+		var index = 0;
+		var timer = 4000;
+		$('.bg-nav a').click(function(){
+			index = $('.bg-nav a').index($(this));
+			rollBg(index);
+		});
+		$('.index-roll-item').click(function(){
+			index = $('.index-roll-item').index($(this));
+			rollBg(index);
+		});
+		var rollBg = function(i){
+			$('.main-bg-item').fadeOut(1000);
+			$($('.main-bg-item')[i]).fadeIn(1000);
+			$('.bg-nav a').removeClass('cur');
+			$($('.bg-nav a')[i]).addClass('cur');
+			$('.index-roll-item').removeClass('cur');
+			$($('.index-roll-item')[i]).addClass('cur');
+		}
+		setInterval(function(){
+			index += 1;
+			index = index%size;
+			rollBg(index);
+		}, timer);
+		//轮播效果 -end
+	});
+	</script>
+	
 </html>

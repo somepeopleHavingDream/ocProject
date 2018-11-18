@@ -16,5 +16,4 @@ public class QiniuKeyGenerator {
 	public static String generateKey(){
 		return MessageFormat.format(KEY, "default", "all", "0", CommonUtil.getUID());
 	}
-	
 }

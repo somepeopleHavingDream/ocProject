@@ -15,5 +15,4 @@ public class LongModel implements Identifier<Long> ,Serializable{
 	public Long getId() {
 		return id;
 	}
-	
 }
