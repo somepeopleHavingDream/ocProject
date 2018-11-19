@@ -9,6 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.online.college.core.consts.domain.ConstsSiteCarousel;
 import com.online.college.core.consts.service.IConstsSiteCarouselService;
+import com.online.college.portal.business.IPortalBusiness;
+import com.online.college.portal.vo.ConstsClassifyVO;
 
 /**
  * 网站主页
@@ -17,6 +19,9 @@ import com.online.college.core.consts.service.IConstsSiteCarouselService;
 @RequestMapping()
 public class PortalController {
 
+	@Autowired
+	private IPortalBusiness portalBusiness;
+	
 	@Autowired
 	private IConstsSiteCarouselService siteCarouselService;
 	
@@ -30,6 +35,13 @@ public class PortalController {
 		// 加载轮播
 		List<ConstsSiteCarousel> carouselList = siteCarouselService.queryCarousels(4);
 		mv.addObject("carouselList", carouselList);
+		
+		// 课程分类（一级分类）
+		List<ConstsClassifyVO> classifys = portalBusiness.queryAllClassify();
+		
+		// 课程推荐
+		portalBusiness.prepareRecomdCourse(classifys);
+		mv.addObject("classifys", classifys);
 		
 		return mv;
 	}
