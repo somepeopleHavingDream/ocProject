@@ -262,55 +262,24 @@
 			<!--名校讲师-start -->
 			<div class="types-block clearfix">
 				<h3 class="types-title">名校讲师</h3>
+				<#if recomdTeacherList?? && recomdTeacherList?size gt 0>
+				<#list recomdTeacherList as item>
 				<a href="">
-					<div class="lecturer-card-container">
+					<div class="lecturer-card-container" <#if item_index == 4 >style="margin-right: 0px;"</#if> >
 						<div class="lecturer-item">
+							<#if item.header?? && item.header != ''>
+							<img class="lecturer-uimg" src="${item.header!}">
+							<#else>
 							<img class="lecturer-uimg" src="${s.base}/res/i/header.jpg">
-							<span class="lecturer-name">王阳明</span>
-							<span class="lecturer-title">中华大学</span>
-							<span class="lecturer-p" >中华大学高级讲师，擅长写代码</span>
+							</#if>
+							<span class="lecturer-name">${item.realname!}</span>
+							<span class="lecturer-title">${item.collegeName!} · ${item.education!}</span>
+							<span class="lecturer-p" >${item.title!}，${item.sign!}</span>
 						</div>
 					</div>
 				</a>
-					
-				<a href="">
-					<div class="lecturer-card-container">
-						<div class="lecturer-item">
-							<img class="lecturer-uimg" src="${s.base}/res/i/header.jpg">
-							<span class="lecturer-name">王阳明</span>
-							<span class="lecturer-title">中华大学</span>
-							<span class="lecturer-p" >中华大学高级讲师，擅长写代码</span>
-						</div>
-					</div>
-				</a>
-
-				<div class="lecturer-card-container">
-					<div class="lecturer-item">
-						<img class="lecturer-uimg" src="${s.base}/res/i/header.jpg">
-						<span class="lecturer-name">王阳明</span>
-						<span class="lecturer-title">中华大学</span>
-						<span class="lecturer-p" >中华大学高级讲师，擅长写代码</span>
-					</div>
-				</div>
-
-				<div class="lecturer-card-container"  >
-					<div class="lecturer-item">
-						<img class="lecturer-uimg" src="${s.base}/res/i/header.jpg">
-						<span class="lecturer-name">王阳明</span>
-						<span class="lecturer-title">中华大学</span>
-						<span class="lecturer-p" >中华大学高级讲师，擅长写代码</span>
-					</div>
-				</div>
-					
-				<div class="lecturer-card-container" style="margin-right: 0px;">
-					<div class="lecturer-item">
-						<img class="lecturer-uimg" src="${s.base}/res/i/header.jpg">
-						<span class="lecturer-name">王阳明</span>
-						<span class="lecturer-title">中华大学</span>
-						<span class="lecturer-p" >中华大学高级讲师，擅长写代码</span>
-					</div>
-				</div>
-					
+				</#list>
+				</#if>
 			</div>
 			<!--名校讲师-end -->
 		</div>

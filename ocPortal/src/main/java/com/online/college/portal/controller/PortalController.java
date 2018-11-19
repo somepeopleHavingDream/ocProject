@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.online.college.core.auth.domain.AuthUser;
+import com.online.college.core.auth.service.IAuthUserService;
 import com.online.college.core.consts.CourseEnum;
 import com.online.college.core.consts.domain.ConstsSiteCarousel;
 import com.online.college.core.consts.service.IConstsSiteCarouselService;
@@ -31,6 +33,9 @@ public class PortalController {
 	
 	@Autowired
 	private ICourseService courseService;
+	
+	@Autowired
+	private IAuthUserService authUserService;
 	
 	/**
 	 * 首页
@@ -70,6 +75,10 @@ public class PortalController {
 		queryEntity.descSortField("studyCount");// 按照studyCount降序排列
 		List<Course> javaCourseList = this.courseService.queryList(queryEntity);
 		mv.addObject("javaCourseList", javaCourseList);
+		
+		// 加载讲师
+		List<AuthUser> recomdTeacherList = authUserService.queryRecomd();
+		mv.addObject("recomdTeacherList", recomdTeacherList);
 		
 		return mv;
 	}

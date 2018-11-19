@@ -309,5 +309,4 @@ public class AuthUser extends BaseEntity {
 	public void setWeight(Integer weight) {
 		this.weight = weight;
 	}
-
 }

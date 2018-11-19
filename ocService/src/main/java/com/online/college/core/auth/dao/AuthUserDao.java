@@ -66,8 +66,8 @@ public interface AuthUserDao {
 
 	/**
 	 * 创建新记录
+	 * 
 	 * @param entity
 	 */
 	public void createSelectivity(AuthUser entity);
-
 }

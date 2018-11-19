@@ -15,7 +15,7 @@ public class QiNiuTest extends TestCase {
 	
 	public void testImages() {
 		// 测试上传代码
-		byte[] buff = CommonUtil.getFileBytes(new File("E://大学//实训//最后项目//七牛云图片//c5.jpg"));
+		byte[] buff = CommonUtil.getFileBytes(new File("E://大学//实训//最后项目//七牛云图片//丁当和小老虎在上网.jpg"));
 		String key = QiniuStorage.uploadImage(buff);
 		System.out.println("key = " + key);
 		

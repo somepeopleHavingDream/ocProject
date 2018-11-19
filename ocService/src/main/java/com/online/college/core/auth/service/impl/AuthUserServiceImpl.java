@@ -2,10 +2,13 @@ package com.online.college.core.auth.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.online.college.common.page.TailPage;
+import com.online.college.common.storage.QiniuStorage;
 import com.online.college.core.auth.dao.AuthUserDao;
 import com.online.college.core.auth.domain.AuthUser;
 import com.online.college.core.auth.service.IAuthUserService;
@@ -38,7 +41,15 @@ public class AuthUserServiceImpl implements IAuthUserService {
 	 * 获取首页推荐5个讲师
 	 **/
 	public List<AuthUser> queryRecomd() {
-		return entityDao.queryRecomd();
+		List<AuthUser> recomdList = entityDao.queryRecomd();
+		if (CollectionUtils.isNotEmpty(recomdList)) {
+			for (AuthUser item : recomdList) {
+				if (StringUtils.isNotEmpty(item.getHeader())) {
+					item.setHeader(QiniuStorage.getUrl(item.getHeader()));
+				}
+			}
+		}
+		return recomdList;
 	}
 
 	public TailPage<AuthUser> queryPage(AuthUser queryEntity, TailPage<AuthUser> page) {
