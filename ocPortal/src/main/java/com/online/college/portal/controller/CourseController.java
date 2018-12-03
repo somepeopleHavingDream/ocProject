@@ -25,7 +25,7 @@ import com.online.college.portal.vo.CourseSectionVO;
  * 课程管理
  */
 @Controller
-@RequestMapping("/course")
+//@RequestMapping("/course")
 public class CourseController {
 	
 	@Resource

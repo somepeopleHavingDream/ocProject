@@ -229,5 +229,4 @@
 		WHERE id = #{id,
 		jdbcType=INTEGER}
 	</update>
-
 </mapper>

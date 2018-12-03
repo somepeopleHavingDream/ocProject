@@ -9,9 +9,9 @@ import java.util.List;
  */
 public class TailPage<E> extends AbstractPage<E> {
 
-	protected int showPage = 10;// 显示10个页码
+	protected int showPage = 10;	// 显示10个页码
 	protected List<Integer> showNums = new ArrayList<Integer>();
-	protected boolean showDot = true;
+	protected boolean showDot = true;	// 不知道这个属性是用来干嘛的？
 
 	public TailPage() {
 	}
@@ -27,7 +27,7 @@ public class TailPage<E> extends AbstractPage<E> {
 	}
 
 	public TailPage(int pageNum, int pageSize, int itemsTotalCount, Collection<E> items) {
-		this.setItemsTotalCount(itemsTotalCount);
+		this.setItemsTotalCount(itemsTotalCount); // 这个地方，一定要调用setter方法才能给字段赋初值么？
 		this.setPageNum(pageNum);
 		this.setPageSize(pageSize);
 		this.setItems(items);
