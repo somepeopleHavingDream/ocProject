@@ -50,13 +50,13 @@ public class CourseServiceImpl implements ICourseService{
 	@Override
 	public TailPage<Course> queryPage(Course queryEntity ,TailPage<Course> page){
 		Integer itemsTotalCount = entityDao.getTotalItemsCount(queryEntity);
-		List<Course> items = entityDao.queryPage(queryEntity,page);
+		List<Course> items = entityDao.queryPage(queryEntity, page);	// 到这里之前，分页对象TailPage一直用的是它所继承抽象类AbstractPage的代码，没有使用到自己的业务逻辑
 		if(CollectionUtils.isNotEmpty(items)){
 			for(Course item : items){
 				prepareCoursePicture(item);
 			}
 		}
-		page.setItemsTotalCount(itemsTotalCount);
+		page.setItemsTotalCount(itemsTotalCount);	// 这个地方用到了TailPage类的代码
 		page.setItems(items);
 		return page;
 	}

@@ -11,7 +11,7 @@ public class TailPage<E> extends AbstractPage<E> {
 
 	protected int showPage = 10;	// 显示10个页码
 	protected List<Integer> showNums = new ArrayList<Integer>();
-	protected boolean showDot = true;	// 不知道这个属性是用来干嘛的？
+	protected boolean showDot = true;	// 不知道这个属性是用来干嘛的？好像是用来高亮显示当前页号按钮的。
 
 	public TailPage() {
 	}
@@ -49,7 +49,7 @@ public class TailPage<E> extends AbstractPage<E> {
 	}
 
 	/**
-	 * 不知道这里是干嘛的，先过了吧，后面结合到业务再看这一段的源码
+	 * 对页码做出一些设置，这也是为什么这个类叫做“TailPage”的原因。
 	 */
 	private void initShowNum() {
 		int startIndex;
@@ -69,7 +69,7 @@ public class TailPage<E> extends AbstractPage<E> {
 			this.showNums.add(Integer.valueOf(i));
 		}
 		if (this.firstPage || this.lastPage) {
-			showDot = false;
+			showDot = false;	// showDot是用来标识当前的光标在哪个页码上的吗？后面再看吧。
 		} else {
 			if (showNums.size() > 0) {
 				if (showNums.get(showNums.size() - 1) == this.pageTotalCount) {

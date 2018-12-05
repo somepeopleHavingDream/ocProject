@@ -61,9 +61,9 @@ public abstract class AbstractPage<E> implements Page<E> {
 	public void setItems(Collection<E> items) {
 		if (items == null)
 			items = Collections.emptyList();
-		this.items = new ArrayList<E>(items);
-		this.lastPage = this.pageNum == this.pageTotalCount;
-		this.firstPage = this.pageNum == DEFAULT_FIRST_PAGE_NUM;
+		this.items = new ArrayList<E>(items);	// 设置记录属性，此处的items变量不是方法形参items，而是成员变量items.
+		this.lastPage = this.pageNum == this.pageTotalCount;	// 设置首页标记
+		this.firstPage = this.pageNum == DEFAULT_FIRST_PAGE_NUM;	// 设置尾页标记
 	}
 
 	@Override
@@ -95,18 +95,22 @@ public abstract class AbstractPage<E> implements Page<E> {
 		return items.isEmpty();
 	}
 
+	/**
+	 * 给AbstractPage对象的一些属性赋值
+	 * @param itemsTotalCount
+	 */
 	public void setItemsTotalCount(int itemsTotalCount) {
-		this.itemsTotalCount = itemsTotalCount;
-		if (itemsTotalCount % this.pageSize == 0) {
+		this.itemsTotalCount = itemsTotalCount;	// 设置总记录数，默认为0
+		if (itemsTotalCount % this.pageSize == 0) {	// 设置总页数，默认为0
 			this.pageTotalCount = itemsTotalCount / this.pageSize;
 		} else {
 			this.pageTotalCount = itemsTotalCount / this.pageSize + 1;
 		}
-		if (this.pageNum > this.pageTotalCount) {
+		if (this.pageNum > this.pageTotalCount) {	// 设置当前页号，默认为DEFAULT_FIRST_PAGE_NUM=1
 			this.pageNum = DEFAULT_FIRST_PAGE_NUM;
 		}
-		if (this.itemsTotalCount <= this.pageSize) {
-			this.firstPage = true;
+		if (this.itemsTotalCount <= this.pageSize) {	// 如果总记录数小于等于页面记录大小，则设置首页尾页标记
+			this.firstPage = true;	// 成员变量firstPage、lastPage没有被赋初值，应该默认为false.
 			this.lastPage = true;
 		}
 	}
@@ -122,6 +126,12 @@ public abstract class AbstractPage<E> implements Page<E> {
 		return itemsTotalCount;
 	}
 
+	/**
+	 * startIndex原本是没有初值的，不带任何参数地创建TailPage对象时，默认是调用TailPage类的空构造方法。
+	 * 当在CourseMapper.xml文件中调用param2.startIndex值时，实际上调用的是TailPage对象所继承的getStartIndex方法，在这个方法中，
+	 * startIndex被赋了一个值。
+	 * @return
+	 */
 	public int getStartIndex() {
 		this.startIndex = (this.pageNum - 1) * this.pageSize;
 		if (this.startIndex <= 0) {
