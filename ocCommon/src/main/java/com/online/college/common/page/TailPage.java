@@ -30,7 +30,7 @@ public class TailPage<E> extends AbstractPage<E> {
 		this.setItemsTotalCount(itemsTotalCount); // 这个地方，一定要调用setter方法才能给字段赋初值么？
 		this.setPageNum(pageNum);
 		this.setPageSize(pageSize);
-		this.setItems(items);
+		this.setItems(items);	// 此语句在setItems方法中设置了首页尾页标记
 		this.initShowNum();
 	}
 
@@ -66,10 +66,10 @@ public class TailPage<E> extends AbstractPage<E> {
 			endIndex = pageTotalCount <= showPage ? pageTotalCount : showPage;
 		}
 		for (int i = startIndex; i <= endIndex; i++) {
-			this.showNums.add(Integer.valueOf(i));
+			this.showNums.add(Integer.valueOf(i));	// 将页码存入页码集合中
 		}
 		if (this.firstPage || this.lastPage) {
-			showDot = false;	// showDot是用来标识当前的光标在哪个页码上的吗？后面再看吧。
+			showDot = false;	// showDot是用来标识当前的光标在哪个页码上的吗？后面再看吧。似乎当从首页点击课程按钮进入到list页面时，接下来的一系列程序中就会执行这段代码，也就是showDot被设置成false
 		} else {
 			if (showNums.size() > 0) {
 				if (showNums.get(showNums.size() - 1) == this.pageTotalCount) {

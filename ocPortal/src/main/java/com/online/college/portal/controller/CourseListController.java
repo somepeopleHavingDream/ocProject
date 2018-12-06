@@ -56,7 +56,7 @@ public class CourseListController {
 		}
 		mv.addObject("classifys", classifysList);	// 返回给list页面的参数1：一级分类集合对象
 		
-		// 当前分类
+		// 当前分类，这个地方可以根据从页面传进来的参数设置当前分类对象，再通过当前分类对象得到当前方向code和当前分类code
 		ConstsClassify curClassify = constsClassifyService.getByCode(c);
 		
 		// 返回给list页面的参数2：二级分类集合对象
@@ -101,7 +101,7 @@ public class CourseListController {
 		
 		// 分页参数
 		queryEntity.setOnsale(CourseEnum.ONSALE.value());
-		page = this.courseService.queryPage(queryEntity, page);
+		page = this.courseService.queryPage(queryEntity, page);	// 在courseService对象中，通过queryEntity，完成对page对象相关属性的设置
 		mv.addObject("page", page);	// 返回给list页面的参数6：分页对象
 		return mv;
 	}

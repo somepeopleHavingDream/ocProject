@@ -62,8 +62,8 @@ public abstract class AbstractPage<E> implements Page<E> {
 		if (items == null)
 			items = Collections.emptyList();
 		this.items = new ArrayList<E>(items);	// 设置记录属性，此处的items变量不是方法形参items，而是成员变量items.
-		this.lastPage = this.pageNum == this.pageTotalCount;	// 设置首页标记
-		this.firstPage = this.pageNum == DEFAULT_FIRST_PAGE_NUM;	// 设置尾页标记
+		this.lastPage = this.pageNum == this.pageTotalCount;	// 设置尾页标记（当前页是否是尾页），初值应为false
+		this.firstPage = this.pageNum == DEFAULT_FIRST_PAGE_NUM;	// 设置首页标记，初值应为true
 	}
 
 	@Override
