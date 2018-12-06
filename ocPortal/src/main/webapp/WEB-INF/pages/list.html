@@ -114,32 +114,32 @@
 		<script type="text/javascript">
 			var _code = '${curCode}';
 			var _subCode = '${curSubCode}';
-			var _sort = '${sort!}';
+			var _sort = '${sort!}';	// _根据CourseListController，_sort的初始值为last
 			
-			function _queryPage(pageNum,code,sort){
-				var params = '?pageNum='+pageNum;
+			function _queryPage(pageNum, code, sort){	// code表示了页面光标所在的那个分类
+				var params = '?pageNum=' + pageNum;
 				//分类，参数没有就用页面缓存 
-				if(code == undefined){//来自于分页按钮
+				if (code == undefined){//来自于分页按钮
 					code = _code;
-					if(_subCode != '-2'){
-						code = _subCode; //优先使用 subCode 
+					if (_subCode != '-2') {
+						code = _subCode; //优先使用subCode 
 					}
 				}
-				if(code == '-2'){//点击分类的全部
+				if (code == '-2') {//点击分类的全部
 					code = _code;
 				}
-				if(code != '-1' && code != ''){
-					params += '&c='+code;
+				if (code != '-1' && code != '') {
+					params += '&c=' + code;
 				}
 				
 				//排序，函数参数没有就用页面缓存 
-				if(sort == undefined && _sort != ''){
+				if (sort == undefined && _sort != '') {
 					sort = _sort;
 				}
-				if(sort != undefined){
-					params += '&sort='+sort;
+				if (sort != undefined){
+					params += '&sort=' + sort;
 				}
-				window.location.href='${s.base}/course/list.html'+params;
+				window.location.href='${s.base}/course/list.html' + params;
 			}
 		</script>	
 	</body>
