@@ -49,15 +49,17 @@ public class CourseController {
 		// 获取课程章节
 		ModelAndView mv = new ModelAndView("learn");
 		List<CourseSectionVO> chaptSections = this.courseBusiness.queryCourseSection(courseId);
-		mv.addObject("course", course);
-		mv.addObject("chaptSections", chaptSections);
+		mv.addObject("course", course);	// 向learn.html页面传递参数1：课程对象course
+		mv.addObject("chaptSections", chaptSections);	// 向learn.html页面传递参数2：章节集合对象chaptSections
 		
 		// 获取讲师
 		AuthUser courseTeacher = this.authUserService.getByUsername(course.getUsername());
+		System.out.println("这是authUserService.getByUsername方法后的一句话。");
 		if (StringUtils.isNotEmpty(courseTeacher.getHeader())) {
 			courseTeacher.setHeader(QiniuStorage.getUrl(courseTeacher.getHeader()));
+			System.out.println("courseTeacher.getHeader(): " + courseTeacher.getHeader());
 		}
-		mv.addObject("courseTeacher", courseTeacher);
+		mv.addObject("courseTeacher", courseTeacher);	// 向learn.html页面传递参数3：讲师对象courseTeacher
 		
 		// 获取推荐课程
 		CourseQueryDto queryEntity = new CourseQueryDto();
@@ -65,7 +67,7 @@ public class CourseController {
 		queryEntity.setCount(5);// 5门推荐课程
 		queryEntity.setSubClassify(course.getSubClassify());
 		List<Course> recomdCourseList = this.courseService.queryList(queryEntity);
-		mv.addObject("recomdCourseList", recomdCourseList);
+		mv.addObject("recomdCourseList", recomdCourseList);	// 向learn.html页面传递参数4：推荐课程recomdCourseList集合对象
 		
 		return mv;
 	}

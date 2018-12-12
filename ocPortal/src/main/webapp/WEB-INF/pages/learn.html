@@ -96,7 +96,7 @@
 			<div class="main-course-right"  >
 				<div class="lecturer-item" style="width: 100%;">
 					<#if courseTeacher.header?? && courseTeacher.header != ''>
-					<img class="lecturer-uimg" src="${item.header!}">
+					<img class="lecturer-uimg" src="${courseTeacher.header!}">
 					<#else>
 					<img class="lecturer-uimg" src="${s.base}/res/i/header.jpg">
 					</#if>
@@ -144,7 +144,7 @@
 						$(this).find('.drop-down').html('▲');
 					}
 				});
-			});
+			});	
 			
 			function doFollow(followId){
 				$.ajax({
@@ -161,6 +161,6 @@
 				    } 
 				});
 			}
-		</script>
+		</script>	
 	</body>
 </html>

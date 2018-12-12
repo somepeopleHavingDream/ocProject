@@ -72,6 +72,5 @@ public class JsonView {
 	
 	public String toString(){
 		return JSONObject.fromObject(this).toString();
-	}
-	
+	}	
 }

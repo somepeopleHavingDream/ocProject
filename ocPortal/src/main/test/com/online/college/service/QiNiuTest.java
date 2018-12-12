@@ -9,6 +9,9 @@ import com.online.college.common.util.CommonUtil;
 
 import junit.framework.TestCase;
 
+/**
+ * 七牛云服务器图片测试
+ */
 public class QiNiuTest extends TestCase {
 
 	Logger log = Logger.getLogger(QiNiuTest.class);
