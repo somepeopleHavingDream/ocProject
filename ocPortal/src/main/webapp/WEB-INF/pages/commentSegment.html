@@ -1,0 +1,19 @@
+
+<#if (page.items)??>
+<#list page.items as item>
+<div class="comment clearfix">
+	<div class="comment-header"><img class="lecturer-uimg" src="${s.base}/res/i/header.jpg"></div>
+	<div class="comment-main">
+		<div class="user-name">${item.username!}</div>
+		<div class="comment-content">${item.content!}</div>
+		<div class="comment-footer">
+			<#if item.createTime??>
+			<span>时间：${item.createTime?string('yyyy-MM-dd')} </span>
+			</#if>
+			<a href="${s.base}/course/video/${item.id!}.html" >${item.sectionTitle!}</a>
+		</div>
+	</div>
+</div>	
+</#list>	
+<#include "./common/tailPage.html">
+</#if>

@@ -13,22 +13,27 @@ import com.online.college.core.course.service.ICourseCommentService;
  * 课程评论管理
  */
 @Controller
-@RequestMapping("/courseCommet")
+@RequestMapping("/courseComment")
 public class CourseCommentController {
-
+	
 	@Autowired
 	private ICourseCommentService courseCommentService;
 	
 	/**
-	 * 课程管理
+	 * @param queryEntity
+	 * @param page
+	 * springmvc接收learn.html中_queryPage中json格式的数据，并且将数据自动封装进对象中
+	 * @return
 	 */
-	@RequestMapping("/pagelist")
-	public ModelAndView commentSegment(CourseComment queryEntity, TailPage<CourseComment> page) {
-		ModelAndView mv = new ModelAndView("cms/course/readComment");
-		queryEntity.setCourseId(1L);
+	@RequestMapping("/segment")
+	public ModelAndView segment(CourseComment queryEntity, TailPage<CourseComment> page) {
+		if (null == queryEntity.getCourseId() || queryEntity.getType() == null) {
+			return new ModelAndView("error/404");
+		}
+		
+		ModelAndView mv = new ModelAndView("commentSegment");
 		TailPage<CourseComment> commentPage = this.courseCommentService.queryPage(queryEntity, page);
 		mv.addObject("page", commentPage);
-		mv.addObject("queryEntity", queryEntity);
 		return mv;
 	}
 }

@@ -64,6 +64,9 @@ public abstract class AbstractPage<E> implements Page<E> {
 		this.items = new ArrayList<E>(items);	// 设置记录属性，此处的items变量不是方法形参items，而是成员变量items.
 		this.lastPage = this.pageNum == this.pageTotalCount;	// 设置尾页标记（当前页是否是尾页），初值应为false
 		this.firstPage = this.pageNum == DEFAULT_FIRST_PAGE_NUM;	// 设置首页标记，初值应为true
+		
+		System.out.println("lastPage: " + lastPage);
+		System.out.println("firstPage: " + firstPage);
 	}
 
 	@Override
@@ -128,7 +131,7 @@ public abstract class AbstractPage<E> implements Page<E> {
 
 	/**
 	 * startIndex原本是没有初值的，不带任何参数地创建TailPage对象时，默认是调用TailPage类的空构造方法。
-	 * 当在CourseMapper.xml文件中调用param2.startIndex值时，实际上调用的是TailPage对象所继承的getStartIndex方法，在这个方法中，
+	 * 当在mapper文件中调用param2.startIndex值时，实际上调用的是TailPage对象所继承的getStartIndex方法，在这个方法中，
 	 * startIndex被赋了一个值。
 	 * @return
 	 */

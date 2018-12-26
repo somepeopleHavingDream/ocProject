@@ -45,7 +45,18 @@ public class TailPage<E> extends AbstractPage<E> {
 	@Override
 	public void setItemsTotalCount(int itemsTotalCount) {
 		super.setItemsTotalCount(itemsTotalCount);
+		
+		System.out.println("itemsTotalCount: " + itemsTotalCount);
+		System.out.println("pageTotalCount: " + pageTotalCount);
+		System.out.println("pageNum: " + pageNum);
+		System.out.println("pageSize: " + pageSize);
+		System.out.println("firstPage: " + firstPage);
+		System.out.println("lastPage: " + lastPage);
+		
 		initShowNum();
+		
+		System.out.println("showPage: " + showPage);
+		System.out.println("showDot: " + showDot);
 	}
 
 	/**
@@ -54,7 +65,7 @@ public class TailPage<E> extends AbstractPage<E> {
 	private void initShowNum() {
 		int startIndex;
 		int endIndex;
-		if (pageNum - showPage / 2 > 1) {
+		if (pageNum - showPage / 2 > 1) {	// 这一部分的作用是使当前页面的光标始终显示在中间位置的设置
 			startIndex = pageNum - showPage / 2;
 			endIndex = pageNum + showPage / 2 - 1;
 			if (endIndex > pageTotalCount) {
@@ -66,7 +77,7 @@ public class TailPage<E> extends AbstractPage<E> {
 			endIndex = pageTotalCount <= showPage ? pageTotalCount : showPage;
 		}
 		for (int i = startIndex; i <= endIndex; i++) {
-			this.showNums.add(Integer.valueOf(i));	// 将页码存入页码集合中
+			this.showNums.add(Integer.valueOf(i));	// 将页码装箱存入页码集合中
 		}
 		if (this.firstPage || this.lastPage) {
 			showDot = false;	// showDot是用来标识当前的光标在哪个页码上的吗？后面再看吧。似乎当从首页点击课程按钮进入到list页面时，接下来的一系列程序中就会执行这段代码，也就是showDot被设置成false
