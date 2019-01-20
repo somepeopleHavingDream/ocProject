@@ -1,12 +1,14 @@
 package com.online.college.core.course.service.impl;
 
 import java.util.List;
-import com.online.college.common.page.TailPage;
-import org.springframework.stereotype.Service;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.online.college.common.page.TailPage;
+import com.online.college.core.course.dao.CourseCommentDao;
 import com.online.college.core.course.domain.CourseComment;
 import com.online.college.core.course.service.ICourseCommentService;
-import com.online.college.core.course.dao.CourseCommentDao;
 
 
 @Service
@@ -28,9 +30,8 @@ public class CourseCommentServiceImpl implements ICourseCommentService{
 	@Override
 	public TailPage<CourseComment> queryPage(CourseComment queryEntity ,TailPage<CourseComment> page){
 		Integer itemsTotalCount = entityDao.getTotalItemsCount(queryEntity);
-		System.out.println("itemsTotalCount: " + itemsTotalCount);
 		List<CourseComment> items = entityDao.queryPage(queryEntity,page);
-		page.setItemsTotalCount(itemsTotalCount);	// 再次涉及到分页功能，需要结合业务来看
+		page.setItemsTotalCount(itemsTotalCount);
 		page.setItems(items);
 		return page;
 	}
@@ -38,6 +39,13 @@ public class CourseCommentServiceImpl implements ICourseCommentService{
 	@Override
 	public void create(CourseComment entity){
 		entityDao.create(entity);
+	}
+	
+	/**
+	 * 创建
+	 */
+	public void createSelectivity(CourseComment entity){
+		entityDao.createSelectivity(entity);
 	}
 
 	@Override
@@ -59,8 +67,6 @@ public class CourseCommentServiceImpl implements ICourseCommentService{
 	public void deleteLogic(CourseComment entity){
 		entityDao.deleteLogic(entity);
 	}
-
-
-
 }
+
 

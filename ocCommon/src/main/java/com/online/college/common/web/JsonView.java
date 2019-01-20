@@ -4,7 +4,7 @@ import net.sf.json.JSONObject;
 
 public class JsonView {
 	
-	//错误代码 0-成功
+	//错误代码 0
 	private Integer errcode = 0;
 	
 	// 消息

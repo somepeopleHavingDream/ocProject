@@ -15,11 +15,16 @@ public class SessionContext {
 	public static final String IDENTIFY_CODE_KEY = "_consts_identify_code_key_";// 其他人不得占用
 	public static final String AUTH_USER_KEY = "_consts_auth_user_key_";// 其他人不得占用
 
-	public static Long getUserId(){
+	public static Long getUserId() {
 		return 1L;
-//		return getAuthUser().getUserId();
+		// return getAuthUser().getUserId();
 	}
-	
+
+	public static String getUsername() {
+		return "wangyangming";
+		// return getAuthUser().getUserId();
+	}
+
 	// 获取当前登录用户
 	public static SessionUser getAuthUser() {
 		return (SessionUser) SecurityUtils.getSubject().getPrincipal();
@@ -49,8 +54,8 @@ public class SessionContext {
 		request.getSession().removeAttribute(key);
 	}
 
-	//shiro logout
-	public static void shiroLogout(){
+	// shiro logout
+	public static void shiroLogout() {
 		Subject currentUser = SecurityUtils.getSubject();
 		try {
 			currentUser.logout();

@@ -23,8 +23,9 @@
 							
 							<div class="static-item"  >
 								<div class="meta">上次学到</div>
-								<div class="meta-value" title="1-1 上次学习的章节上次学习的章节上次学习的章节">1-1 上次学习的章节上次学习的章节上次学习的章节</div>
+								<div class="meta-value" title="${(curCourseSection.name)!}">${(curCourseSection.name)!}</div>
 							</div>
+							
 							<div class="static-item"  >
 								<div class="meta">学习人数</div>
 								<div class="meta-value">${(course.studyCount)!}</div>
@@ -47,7 +48,7 @@
 								<div class="meta">课程时长</div>
 								<div class="meta-value">${(course.time)!}</div>
 							</div>
-							<a onclick="doFollow(this,${(course.id)!})" href="javascript:void(0)" class="following" style="float: right;margin-top:5px;" title="收藏">
+							<a id="collectionSpan" onclick="doCollect(${(course.id)!})" href="javascript:void(0)" class="following" style="float: right;margin-top:5px;" >
 							</a>
 						</div>
 						
@@ -157,6 +158,19 @@
 						$(this).find('.drop-down').html('▲');
 					}
 				});
+				
+				//判断是否已经收藏
+				var courseId = ${(course.id)!}
+				if(courseId){
+					var url = '${s.base}/collections/isCollection.html';
+					doCollect(courseId,url);
+				}
+				//判断是否已经关注教师 
+				var followId = ${(courseTeacher.id!)};
+				if(followId){
+					var url = '${s.base}/follow/isFollow.html';
+					doFollow(followId,url);
+				}
 			});	
 			
 			/**
@@ -202,17 +216,41 @@
 						);
 			};
 			
-			//关注 
-			function doFollow(followId){
+			//收藏 
+			function doCollect(courseId,url){
+				if(url == undefined){
+					url = '${s.base}/collections/doCollection.html';
+				}
+				//处理收藏 
 				$.ajax({
-					url:'${s.base}/follow/doFollow.html',
+					url:url,
+				    type:'POST',
+				    dataType:'json',
+				    data:{"courseId":courseId},
+				    success:function(resp){
+				    	if(resp.errcode == 1){//已收藏 
+				    		$('#collectionSpan').attr('class','followed');
+				    	}else if(resp.errcode == 0){//未收藏  
+				    		$('#collectionSpan').attr('class','following');
+				    	}
+				    } 
+				});
+			}
+			
+			//关注 
+			function doFollow(followId,url){
+				if(url == undefined){
+					url = '${s.base}/follow/doFollow.html';
+				}
+				$.ajax({
+					url:url,
 				    type:'POST',
 				    dataType:'json',
 				    data:{"followId":followId},
 				    success:function(resp){
-				    	if(resp.errcode == 0){
+				    	if(resp.errcode == 1){
 				    		$('#followSpan').html('已关注');
-				    	}else if(resp.errcode == 1){
+				    	}else if(resp.errcode == 0){
 				    		$('#followSpan').html('+关注');
 				    	}
 				    } 
@@ -220,5 +258,6 @@
 			}
 		</script>
 		
-	</body>	
+	</body>
+	
 </html>

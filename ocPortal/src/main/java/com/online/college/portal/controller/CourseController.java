@@ -1,5 +1,6 @@
 package com.online.college.portal.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -10,11 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.online.college.common.storage.QiniuStorage;
+import com.online.college.common.web.SessionContext;
 import com.online.college.core.auth.domain.AuthUser;
 import com.online.college.core.auth.service.IAuthUserService;
 import com.online.college.core.course.domain.Course;
 import com.online.college.core.course.domain.CourseQueryDto;
+import com.online.college.core.course.domain.CourseSection;
+import com.online.college.core.course.service.ICourseSectionService;
 import com.online.college.core.course.service.ICourseService;
+import com.online.college.core.user.domain.UserCourseSection;
+import com.online.college.core.user.service.IUserCourseSectionService;
 import com.online.college.portal.business.ICourseBusiness;
 import com.online.college.portal.vo.CourseSectionVO;
 
@@ -33,6 +39,12 @@ public class CourseController {
 	
 	@Autowired
 	private IAuthUserService authUserService;
+	
+	@Autowired
+	private ICourseSectionService courseSectionService;
+	
+	@Autowired
+	private IUserCourseSectionService userCourseSectionService;
 	
 	@RequestMapping("/learn/{courseId}")
 	public ModelAndView learn(@PathVariable Long courseId) {
@@ -68,6 +80,51 @@ public class CourseController {
 		queryEntity.setSubClassify(course.getSubClassify());
 		List<Course> recomdCourseList = this.courseService.queryList(queryEntity);
 		mv.addObject("recomdCourseList", recomdCourseList);	// 向learn.html页面传递参数4：推荐课程recomdCourseList集合对象
+		
+		return mv;
+	}
+	
+	/**
+	 * 视频学习页面
+	 * @param sectionId
+	 * @return
+	 */
+	@RequestMapping("/video/{sectionId}")
+	public ModelAndView video(@PathVariable Long sectionId) {
+		if (null == sectionId) {
+			return new ModelAndView("error/404");
+		}
+		
+		CourseSection courseSection = courseSectionService.getById(sectionId);
+		if (null == courseSection) {
+			return new ModelAndView("error/404");
+		}
+		
+		// 课程章节
+		ModelAndView mv = new ModelAndView("video");
+		// courseBusiness.queryCourseSection方法其实是将t_course_section中所有记录做了一个数据归类。
+		List<CourseSectionVO> chaptSections = this.courseBusiness.queryCourseSection(courseSection.getCourseId());
+		mv.addObject("courseSection", courseSection);
+		mv.addObject("chaptSections", chaptSections);
+		
+		// 学习记录
+		UserCourseSection userCourseSection = new UserCourseSection();
+		userCourseSection.setUserId(SessionContext.getUserId());
+		userCourseSection.setCourseId(courseSection.getCourseId());
+		userCourseSection.setSectionId(courseSection.getId());
+		UserCourseSection result = userCourseSectionService.queryLatest(userCourseSection);
+		
+		if (null == result) {	// 如果没有，插入
+			userCourseSection.setCreateTime(new Date());	// 这个地方的Date类型数据可以对应到数据表中的datetime类型么？
+			userCourseSection.setCreateUser(SessionContext.getUsername());
+			userCourseSection.setUpdateTime(new Date());
+			userCourseSection.setUpdateUser(SessionContext.getUsername());
+			
+			userCourseSectionService.createSelectivity(userCourseSection);
+		} else {
+			result.setUpdateTime(new Date());
+			userCourseSectionService.update(result);
+		}
 		
 		return mv;
 	}

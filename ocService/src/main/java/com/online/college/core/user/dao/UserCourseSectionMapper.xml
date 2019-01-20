@@ -27,7 +27,37 @@
 		SELECT 
 		<include refid="All_Columns" />
 		FROM t_user_course_section 
+		<trim prefix="WHERE " prefixOverrides="AND |OR "> 
+			<if test="userId != null">
+				AND user_id = #{userId, jdbcType=INTEGER}
+			</if>
+			<if test="courseId != null">
+				AND course_id = #{courseId, jdbcType=INTEGER}
+			</if>
+			<if test="sectionId != null">
+				AND section_id = #{sectionId, jdbcType=INTEGER}
+			</if>
+		</trim>
 		ORDER BY id
+	</select>
+	
+	<select id="queryLatest" parameterType="com.online.college.core.user.domain.UserCourseSection" resultType="com.online.college.core.user.domain.UserCourseSection">
+		SELECT 
+		<include refid="All_Columns" />
+		FROM t_user_course_section 
+		<trim prefix="WHERE " prefixOverrides="AND |OR "> 
+			<if test="userId != null">
+				AND user_id = #{userId, jdbcType=INTEGER}
+			</if>
+			<if test="courseId != null">
+				AND course_id = #{courseId, jdbcType=INTEGER}
+			</if>
+			<if test="sectionId != null">
+				AND section_id = #{sectionId, jdbcType=INTEGER}
+			</if>
+		</trim>
+		ORDER BY update_time DESC
+		LIMIT 0, 1
 	</select>
 
 	<select id="getTotalItemsCount" parameterType="com.online.college.core.user.domain.UserCourseSection" resultType="java.lang.Integer">
@@ -186,5 +216,4 @@
 		SET del = 1
 		WHERE id = #{id, jdbcType=INTEGER}
 	</update>
-
 </mapper>

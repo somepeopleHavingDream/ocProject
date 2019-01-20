@@ -25,6 +25,10 @@ public class UserCourseSectionServiceImpl implements IUserCourseSectionService{
 	public List<UserCourseSection> queryAll(UserCourseSection queryEntity){
 		return entityDao.queryAll(queryEntity);
 	}
+	
+	public UserCourseSection queryLatest(UserCourseSection queryEntity){
+		return entityDao.queryLatest(queryEntity);
+	}
 
 	public TailPage<UserCourseSectionDto> queryPage(UserCourseSection queryEntity , TailPage<UserCourseSectionDto> page){
 		Integer itemsTotalCount = entityDao.getTotalItemsCount(queryEntity);
@@ -34,8 +38,8 @@ public class UserCourseSectionServiceImpl implements IUserCourseSectionService{
 		return page;
 	}
 
-	public void create(UserCourseSection entity){
-		entityDao.create(entity);
+	public void createSelectivity(UserCourseSection entity){
+		entityDao.createSelectivity(entity);
 	}
 
 	public void update(UserCourseSection entity){
@@ -53,8 +57,4 @@ public class UserCourseSectionServiceImpl implements IUserCourseSectionService{
 	public void deleteLogic(UserCourseSection entity){
 		entityDao.deleteLogic(entity);
 	}
-
-
-
 }
-

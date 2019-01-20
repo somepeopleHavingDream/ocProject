@@ -5,120 +5,137 @@ import com.online.college.common.orm.BaseEntity;
 /**
  * 课程评论&QA
  */
-public class CourseComment extends BaseEntity{
+public class CourseComment extends BaseEntity {
 
 	private static final long serialVersionUID = 789165716801545108L;
-	
+
 	/**
-	*用户username
-	**/
+	 * 用户username
+	 **/
 	private String username;
 
 	/**
-	*评论对象username
-	**/
+	 * 评论对象username
+	 **/
 	private String toUsername;
 
 	/**
-	*课程id
-	**/
+	 * 课程id
+	 **/
 	private Long courseId;
 
 	/**
-	*章节id
-	**/
+	 * 章节id
+	 **/
 	private Long sectionId;
 
 	/**
-	*章节标题
-	**/
+	 * 章节标题
+	 **/
 	private String sectionTitle;
 
 	/**
-	*评论内容
-	**/
+	 * 评论内容
+	 **/
 	private String content;
 
 	/**
-	*引用id
-	**/
+	 * 引用id
+	 **/
 	private Long refId;
 
 	/**
-	*引用内容
-	**/
+	 * 引用内容
+	 **/
 	private String refContent;
 
 	/**
-	*类型：0-评论；1-答疑QA
-	**/
+	 * 类型：0-评论；1-答疑QA
+	 **/
 	private Integer type;
 
-	
-	public String getUsername(){
+	/**
+	 * 用户头像
+	 */
+	private String header;
+
+	public String getUsername() {
 		return username;
 	}
-	public void setUsername(String username){
+
+	public void setUsername(String username) {
 		this.username = username;
 	}
 
-	public String getToUsername(){
+	public String getToUsername() {
 		return toUsername;
 	}
-	public void setToUsername(String toUsername){
+
+	public void setToUsername(String toUsername) {
 		this.toUsername = toUsername;
 	}
 
-	public Long getCourseId(){
+	public Long getCourseId() {
 		return courseId;
 	}
-	public void setCourseId(Long courseId){
+
+	public void setCourseId(Long courseId) {
 		this.courseId = courseId;
 	}
 
-	public Long getSectionId(){
+	public Long getSectionId() {
 		return sectionId;
 	}
-	public void setSectionId(Long sectionId){
+
+	public void setSectionId(Long sectionId) {
 		this.sectionId = sectionId;
 	}
 
-	public String getSectionTitle(){
+	public String getSectionTitle() {
 		return sectionTitle;
 	}
-	public void setSectionTitle(String sectionTitle){
+
+	public void setSectionTitle(String sectionTitle) {
 		this.sectionTitle = sectionTitle;
 	}
 
-	public String getContent(){
+	public String getContent() {
 		return content;
 	}
-	public void setContent(String content){
+
+	public void setContent(String content) {
 		this.content = content;
 	}
 
-	public Long getRefId(){
+	public Long getRefId() {
 		return refId;
 	}
-	public void setRefId(Long refId){
+
+	public void setRefId(Long refId) {
 		this.refId = refId;
 	}
 
-	public String getRefContent(){
+	public String getRefContent() {
 		return refContent;
 	}
-	public void setRefContent(String refContent){
+
+	public void setRefContent(String refContent) {
 		this.refContent = refContent;
 	}
 
-	public Integer getType(){
+	public Integer getType() {
 		return type;
 	}
-	public void setType(Integer type){
+
+	public void setType(Integer type) {
 		this.type = type;
 	}
 
+	public String getHeader() {
+		return header;
+	}
 
-
+	public void setHeader(String header) {
+		this.header = header;
+	}
 }
-
