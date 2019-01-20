@@ -34,7 +34,7 @@ public class UserFollowsServiceImpl implements IUserFollowsService{
 	}
 
 	public void create(UserFollows entity){
-		entityDao.create(entity);
+		//entityDao.create(entity);
 	}
 
 	public void update(UserFollows entity){
@@ -51,6 +51,11 @@ public class UserFollowsServiceImpl implements IUserFollowsService{
 
 	public void deleteLogic(UserFollows entity){
 		entityDao.deleteLogic(entity);
+	}
+
+	@Override
+	public void createSelectivity(UserFollows entity) {
+		entityDao.createSelectivity(entity);
 	}
 
 

@@ -54,7 +54,7 @@ public class UserCollectionsController{
 	@RequestMapping(value = "/doMerge")
 	public ModelAndView doMerge(UserCollections entity){
 		if(entity.getId() == null){
-			entityService.create(entity);
+			//entityService.create(entity);
 		}else{
 			entityService.update(entity);
 		}
@@ -72,8 +72,5 @@ public class UserCollectionsController{
 		entityService.deleteLogic(entity);
 		return new ModelAndView("redirect:/user/userCollections/queryPage.html");
 	}
-
-
-
 }
 

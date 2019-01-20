@@ -54,7 +54,7 @@ public class UserFollowsController{
 	@RequestMapping(value = "/doMerge")
 	public ModelAndView doMerge(UserFollows entity){
 		if(entity.getId() == null){
-			entityService.create(entity);
+			//entityService.create(entity);
 		}else{
 			entityService.update(entity);
 		}

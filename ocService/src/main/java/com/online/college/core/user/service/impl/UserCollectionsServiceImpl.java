@@ -53,7 +53,9 @@ public class UserCollectionsServiceImpl implements IUserCollectionsService{
 		entityDao.deleteLogic(entity);
 	}
 
-
-
+	@Override
+	public void createSelectivity(UserCollections entity) {
+		entityDao.createSelectivity(entity);
+	}
 }
 
