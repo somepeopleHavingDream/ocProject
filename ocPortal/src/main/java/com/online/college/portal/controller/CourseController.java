@@ -46,6 +46,11 @@ public class CourseController {
 	@Autowired
 	private IUserCourseSectionService userCourseSectionService;
 	
+	/**
+	 * 课程学习页
+	 * @param courseId
+	 * @return
+	 */
 	@RequestMapping("/learn/{courseId}")
 	public ModelAndView learn(@PathVariable Long courseId) {
 		if (null == courseId) {
@@ -81,6 +86,16 @@ public class CourseController {
 		List<Course> recomdCourseList = this.courseService.queryList(queryEntity);
 		mv.addObject("recomdCourseList", recomdCourseList);	// 向learn.html页面传递参数4：推荐课程recomdCourseList集合对象
 		
+		// 当前学习的章节
+		UserCourseSection userCourseSection = new UserCourseSection();
+		userCourseSection.setCourseId(course.getId());
+		userCourseSection.setUserId(SessionContext.getUserId());
+		userCourseSection = this.userCourseSectionService.queryLatest(userCourseSection);
+		if (null != userCourseSection) {
+			CourseSection curCourseSection = this.courseSectionService.getById(userCourseSection.getSectionId());
+			mv.addObject("curCourseSection", curCourseSection);
+		}
+		
 		return mv;
 	}
 	
@@ -115,7 +130,7 @@ public class CourseController {
 		UserCourseSection result = userCourseSectionService.queryLatest(userCourseSection);
 		
 		if (null == result) {	// 如果没有，插入
-			userCourseSection.setCreateTime(new Date());	// 这个地方的Date类型数据可以对应到数据表中的datetime类型么？
+			userCourseSection.setCreateTime(new Date());
 			userCourseSection.setCreateUser(SessionContext.getUsername());
 			userCourseSection.setUpdateTime(new Date());
 			userCourseSection.setUpdateUser(SessionContext.getUsername());

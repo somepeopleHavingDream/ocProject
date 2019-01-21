@@ -138,4 +138,11 @@ public class CourseComment extends BaseEntity {
 	public void setHeader(String header) {
 		this.header = header;
 	}
+
+	@Override
+	public String toString() {
+		return "CourseComment [username=" + username + ", toUsername=" + toUsername + ", courseId=" + courseId
+				+ ", sectionId=" + sectionId + ", sectionTitle=" + sectionTitle + ", content=" + content + ", refId="
+				+ refId + ", refContent=" + refContent + ", type=" + type + ", header=" + header + "]";
+	}
 }

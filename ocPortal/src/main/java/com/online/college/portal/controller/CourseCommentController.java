@@ -67,21 +67,23 @@ public class CourseCommentController {
 	 */
 	@RequestMapping(value = "/doComment")
 	@ResponseBody
-	public String doComment(HttpServletRequest request, CourseComment entity, String identityCode) {	// 目前不知道后面两个入参为什么要传进来？
-		// 验证码判断
-		if (null == identityCode || (identityCode != null && !identityCode.equalsIgnoreCase(SessionContext.getIdentifyCode(request)))) {
-			return new JsonView(2).toString();	// 验证码错误
+	public String doComment(HttpServletRequest request, CourseComment entity,String indeityCode){
+		
+		//验证码判断
+		if(null == indeityCode || 
+				(indeityCode != null && !indeityCode.equalsIgnoreCase(SessionContext.getIdentifyCode(request)))){
+			return new JsonView(2).toString();//验证码错误
 		}
 		
-		// 文字太长
-		if (entity.getContent().trim().length() > 200 || entity.getContent().trim().length() == 0) {
-			return new JsonView(3).toString();	// 文字太长或者为空
+		//文字太长
+		if(entity.getContent().trim().length() > 200 || entity.getContent().trim().length() == 0){
+			return new JsonView(3).toString();//文字太长或者为空
 		}
 		
 		CourseSection courseSection = courseSectionService.getById(entity.getSectionId());
-		if (null != courseSection) {
+		if(null != courseSection){
 			entity.setSectionTitle(courseSection.getName());
-			entity.setToUsername(entity.getCreateUser());// toUsername可以作为页面入参
+			entity.setToUsername(entity.getCreateUser());//toUsername可以作为页面入参
 			entity.setUsername(SessionContext.getUsername());
 			entity.setCreateTime(new Date());
 			entity.setCreateUser(SessionContext.getUsername());
@@ -90,7 +92,7 @@ public class CourseCommentController {
 			
 			this.courseCommentService.createSelectivity(entity);
 			return new JsonView(1).toString();
-		} else {
+		}else{
 			return new JsonView(0).toString();
 		}
 	}
