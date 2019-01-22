@@ -18,7 +18,7 @@ import com.online.college.common.web.JsonView;
  * shiro 对用户是否登录的 filter
  */
 public class AuthFilter extends FormAuthenticationFilter {
-	private static final Integer TIME_OUT = 1000;
+	private static final Integer SHIRO_TIME_OUT = 1001;
 	
 	@Override
 	protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
@@ -40,11 +40,12 @@ public class AuthFilter extends FormAuthenticationFilter {
 		if (subject.isAuthenticated()) {
 			return true;
 		}
+		
 		// 判断是否为ajax请求
 		if (HttpHelper.isAjaxRequest(httpservletrequest)) {
 			JsonView jv = new JsonView();
-			jv.setMessage("登录超时");
-			jv.setErrcode(TIME_OUT);
+			jv.setMessage("SHIRO登录超时");
+			jv.setErrcode(SHIRO_TIME_OUT);
 			HttpServletResponse _response = (HttpServletResponse) response;
 			PrintWriter pw = _response.getWriter();
 			_response.setContentType("application/json");
@@ -54,8 +55,8 @@ public class AuthFilter extends FormAuthenticationFilter {
 		} else {
 			saveRequestAndRedirectToLogin(request, response);
 		}
+		
 		// 如果没有授权则跳转到登录页面
 		return false;
-	}
-	
+	}	
 }

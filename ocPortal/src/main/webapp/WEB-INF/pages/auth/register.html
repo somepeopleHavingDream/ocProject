@@ -11,16 +11,20 @@
 	</head>
 
 	<body>
-		<#include "../common/header.html">
+		<#include "../common/header2.html">
 		<div class="f-main">
 			<div class="types-block clearfix" style="text-align: center;">
 				<h3 class="types-title">注册</h3>
 				<form id="registerForm" method="post" action="${s.base}/auth/doRegister.html" class="oc-form"  style="text-align: center;border: 1px solid #CCC;width: 600px;margin:0 auto;padding:20px;" >
 						<li><label>用户名</label> 
-							<input maxlength="12" id="username" name="username"  type="text"  class="input-text"  placeholder="请输入用户名（英文数字）" >
+							<input maxlength="20" id="username" name="username"  type="text"  class="input-text"  placeholder="请输入用户名（英文数字）" >
 						</li>
 						<li><label>密码</label> 
-							<input maxlength="12" id="password" name="password" type="password" class="input-text" placeholder="请输入密码" autocomplete="off" />
+							<input maxlength="20" id="password" name="password" type="password" class="input-text" placeholder="请输入密码" autocomplete="off" />
+						</li>
+						<li><label>验证码</label> 
+						<input id="identiryCode" name="identiryCode" maxlength="6" class="input-text" type="text" style="width: 150px;" placeholder="请输入验证码"/>
+						<a class="vali-base"><img  onclick="reloadIndityImg('indeityImgRegister');" id="indeityImgRegister"  src="${s.base}/tools/identiry/code.html" style="width:80px;height:40px;float:left;margin-left:10px;"/></a>
 						</li>
 						<li id="errorMsg" class="clearfix" style="display: none;color:red;">用户名密码不能为空</li>
 						<li class="clearfix" style="margin-top: 30px;">
@@ -53,17 +57,30 @@
 				return;
 			}
 			
+			//验证码不能为空
+			var code = $('#identiryCode').val();
+			if(oc.isEmpty(code)){
+				$('#errorMsg').show();
+				$('#errorMsg').html("请输入验证码");
+				return;
+			}
+			
 			//提交注册
 			$('#registerForm').ajaxSubmit({
 				datatype : 'json',
-				success : function(resp) {
-					var resp = $.parseJSON(resp);
+				success : function(respText) {
+					var resp = $.parseJSON(respText);
 					if (resp.errcode == 0) {
-						$('#errorMsg').show();
-						$('#errorMsg').html("注册成功！可以去登录了！");
+						//$('#errorMsg').show();
+						//$('#errorMsg').html("注册成功！可以去登录了！");
+						window.location.href="${s.base}/auth/login.html";
 					} else if(resp.errcode == 1) {
 						$('#errorMsg').show();
 						$('#errorMsg').html("用户名已被注册，请更换！");
+					}else if(resp.errcode == 2){
+						$('#errorMsg').show();
+						$('#errorMsg').html("验证码输入错误！");
+						reloadIndityImg('indeityImgRegister');
 					}
 				},
 				error : function(xhr) {
@@ -72,5 +89,7 @@
 			});
 			
 		}
+		
+		
 	</script>
 </html>

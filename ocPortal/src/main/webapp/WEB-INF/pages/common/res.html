@@ -13,5 +13,26 @@
 <link rel="icon" type="image/png" href="${s.base}/res/i/ico.png" sizes="16x16">
 
 <script type="text/javascript">
-CONETXT_PATH = '${s.base}';
+CONTEXT_PATH = '${s.base}';
+
+<@shiro.guest>
+SHIRO_LOGIN = false;
+</@shiro.guest>
+
+<@shiro.user>
+SHIRO_LOGIN = true;//是否已经登录 
+</@shiro.user>
+
+$(function(){  
+    // 设置jQuery Ajax全局的参数  
+    $.ajaxSetup({  
+        type: "POST",  
+        complete:function(xhr,status){
+        	if(xhr.responseJSON.errcode == 1001){//登录超时 
+        		window.location.href=CONTEXT_PATH+"/auth/login.html";
+        	}
+        }
+    });  
+});  
 </script>
+

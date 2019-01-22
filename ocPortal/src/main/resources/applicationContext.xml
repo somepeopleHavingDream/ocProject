@@ -111,4 +111,8 @@
 	<!-- 配置多部件处理器，主要用于上传下载 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</bean>
+	
+	<!-- 关于shiro在applicationContext.xml文件中唯一的改变 -->
+	<!-- 引入shiro -->
+	<import resource="shiro.xml"/>
 </beans>

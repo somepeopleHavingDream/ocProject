@@ -22,7 +22,8 @@
 	<mvc:resources location="/static/" mapping="/static/**" cache-period="3600"></mvc:resources>
 	
 	<!-- 配置freemarker -->
-	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+	<!-- 因为要将freemarker与shiro整合，所以将freemarker的配置改至ShiroFreeMarkerConfigurer -->
+	<bean id="freemarkerConfig" class="com.online.college.common.web.shiro.ShiroFreeMarkerConfigurer">
 		<property name="templateLoaderPath" value=""></property>
 		<property name="freemarkerSettings">
 			<props>

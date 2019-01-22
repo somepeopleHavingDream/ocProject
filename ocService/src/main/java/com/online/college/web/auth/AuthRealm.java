@@ -29,24 +29,8 @@ public class AuthRealm extends AuthorizingRealm {
 	@Autowired
 	private IAuthUserService authUserService;
 	
-	@Override
-	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		if (principals == null)
-			throw new AuthorizationException("PrincipalCollection method argument cannot be null.");
-		// 获取当前登录用户
-		SessionUser user = SessionContext.getAuthUser();
-		if (user == null) {
-			return null;
-		}
-		// 设置权限
-		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-		// 获取用户权限并设置 以供shiro框架 
-		info.setStringPermissions(user.getPermissions());
-		return info;
-	}
-	
 	/**
-	 * 用户登陆
+	 * 实现用户登陆
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authToken) throws AuthenticationException {
@@ -72,7 +56,7 @@ public class AuthRealm extends AuthorizingRealm {
 				if(!StringUtils.isBlank(tmpAuthUser.getHeader())){
 					authUser.setHeader(QiniuStorage.getUrl(tmpAuthUser.getHeader(),ThumbModel.THUMB_48));//设置头像
 				}else{
-					authUser.setHeader("/res/i/header.jpg");//设置头像
+					authUser.setHeader("/res/i/header.jpg");//设置默认头像
 				}
 			}else{
 				throw new AuthenticationException("## user password is not correct! ");
@@ -83,7 +67,7 @@ public class AuthRealm extends AuthorizingRealm {
 		//业务代码-end
 		// 设置用户权限信息
 		/*try {
-			authUser.setPermissions(jdbcDao.queryPermissions());
+			authUser.setPermissions(permissions);
 		} catch (Exception e) {
 			throw new AuthenticationException("## user permission setter exception! ");
 		}*/
@@ -91,5 +75,21 @@ public class AuthRealm extends AuthorizingRealm {
 		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(authUser, password, getName());
 		return info;
 	}
-
+	
+	@Override
+	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+		if (principals == null)
+			throw new AuthorizationException("PrincipalCollection method argument cannot be null.");
+		// 获取当前登录用户
+		SessionUser user = SessionContext.getAuthUser();
+		if (user == null) {
+			return null;
+		}
+		// 设置权限
+		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+		// 获取用户权限并设置 以供shiro框架 
+		info.setStringPermissions(user.getPermissions());
+		return info;
+	}
 }
+
