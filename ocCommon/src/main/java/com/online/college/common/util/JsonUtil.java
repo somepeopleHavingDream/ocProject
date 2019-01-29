@@ -5,9 +5,14 @@ import java.io.IOException;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
+/**
+ * 该类的作用是将对象转换成Json格式的字符串
+ * 
+ * @author yx
+ */
 public class JsonUtil {
 	
-    private static  ObjectMapper mapper;
+    private static ObjectMapper mapper;
     static{
         mapper=new ObjectMapper();
     }

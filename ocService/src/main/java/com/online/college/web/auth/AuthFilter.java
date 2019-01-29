@@ -58,5 +58,6 @@ public class AuthFilter extends FormAuthenticationFilter {
 		
 		// 如果没有授权则跳转到登录页面
 		return false;
-	}	
+	}
+	
 }

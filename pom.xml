@@ -12,6 +12,7 @@
 	<properties>
 		<!-- 将spring相关依赖包的版本改至4.3.18，以不使github弹出相关安全警告 -->
 		<spring.version>4.3.18.RELEASE</spring.version>
+		<!-- Shiro的1.4.0版本是到2019/01/27的最新版本 -->
 		<shiro.version>1.4.0</shiro.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -167,6 +168,7 @@
 			<version>${spring.version}</version>
 		</dependency>
 
+        <!-- Shiro相关依赖包 -->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-core</artifactId>

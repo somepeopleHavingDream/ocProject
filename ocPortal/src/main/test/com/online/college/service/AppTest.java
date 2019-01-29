@@ -9,6 +9,11 @@ import com.online.college.test.dao.TestDao;
 
 import junit.framework.TestCase;
 
+/**
+ * 搭建好SSM环境，测试增删查改
+ * 
+ * @author yx
+ */
 public class AppTest extends TestCase {
 
 	Logger log = Logger.getLogger(AppTest.class);

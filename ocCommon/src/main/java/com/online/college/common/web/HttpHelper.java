@@ -45,6 +45,7 @@ public class HttpHelper extends org.springframework.web.util.WebUtils{
 	}
 	
 	//获取ip地址；
+	// 事实上我不太清楚这里是怎么获取到ip的
 	public static String getIpAddr(HttpServletRequest request) {
 		String ip = request.getHeader("X-Forwarded-For");
 		if (StringUtils.isNotEmpty(ip) && !"unKnown".equalsIgnoreCase(ip)) {
@@ -96,7 +97,6 @@ public class HttpHelper extends org.springframework.web.util.WebUtils{
 			e.printStackTrace();
 		}
 	}
-	
 }
 
 

@@ -7,16 +7,38 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * 公共工具类
+ * 
+ * @author yx
+ */
 public class CommonUtil {
 
+	/**
+	 * 得到UUID
+	 * 
+	 * @return
+	 */
 	public static String getUID(){
 		return UUID.randomUUID().toString().replace("-", "");
 	}
 	
+	/**
+	 * 将字符串的首字符转换成小写。
+	 * 
+	 * @param str
+	 * @return
+	 */
 	public static String stringCap(String str){
 		return str.substring(0,1).toLowerCase() + str.substring(1);
 	}
 	
+	/**
+	 * 将字节类型的集合转换成字节类型数组
+	 * 
+	 * @param list
+	 * @return
+	 */
 	public static byte[][] toArray(List<byte[]> list){
 		byte[][] bytes = new byte[list.size()][];
 		for(int i = 0; i < list.size() ;i++){
@@ -25,6 +47,12 @@ public class CommonUtil {
 		return bytes;
 	}
 	
+	/**
+	 * 将文件类型的文件对象转换成字节类型数组
+	 * 
+	 * @param file
+	 * @return
+	 */
 	public static byte[] getFileBytes(File file) {  
         byte[] ret = null;  
         try {  
@@ -46,5 +74,4 @@ public class CommonUtil {
         }  
         return ret;  
     }  
-	
 }

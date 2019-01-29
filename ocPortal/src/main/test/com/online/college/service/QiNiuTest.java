@@ -14,21 +14,51 @@ import junit.framework.TestCase;
  */
 public class QiNiuTest extends TestCase {
 
-	Logger log = Logger.getLogger(QiNiuTest.class);
-	
-	public void testImages() {
-		// 测试上传代码
-		byte[] buff = CommonUtil.getFileBytes(new File("E://大学//实训//最后项目//七牛云图片//丁当和小老虎在上网.jpg"));
-		String key = QiniuStorage.uploadImage(buff);
-		System.out.println("key = " + key);
-		
-		/*String key = "/default/all/0/db919738859f402e855b826a78c51bc4.png";
-		// 测试下载图片
-		String url = QiniuStorage.getUrl(key);
-		System.out.println("url = " + url);
-		
-		// 测试下载不同大小的图片
-		url = QiniuStorage.getUrl(key, ThumbModel.THUMB_256);
-		System.out.println("url = " + url);*/
-	}
+    Logger log = Logger.getLogger(QiNiuTest.class);
+
+    /**
+     * 测试批量文件上传
+     */
+    public void testBatchImages() {
+        // 批量文件图片上传
+        File rootDir = new File("/media/yx/新加卷1/上传到七牛云的图片");
+        if (rootDir.isDirectory()) {
+            File[] files = rootDir.listFiles();
+            if (null != files) {
+                for (File file : files) {
+                    testImages(file);
+                }
+            }
+        }
+    }
+
+    /**
+     * 带参数的图片文件上传
+     * 
+     * @param file
+     */
+    public void testImages(File file) {
+        // 测试上传代码，单个文件图片上传
+        byte[] buff = CommonUtil.getFileBytes(file);
+        String key = QiniuStorage.uploadImage(buff);
+        System.out.println("key = " + key);
+    }
+
+    /**
+     * 无参的图片文件上传
+     */
+    public void testImages() {
+        // 测试上传代码，单个文件图片上传
+        byte[] buff = CommonUtil.getFileBytes(new File("/media/yx/新加卷1/上传到七牛云的图片/丁当和小老虎在上网.jpg"));
+        String key = QiniuStorage.uploadImage(buff);
+        System.out.println("key = " + key);
+
+        /*
+         * String key = "/default/all/0/db919738859f402e855b826a78c51bc4.png"; // 测试下载图片
+         * String url = QiniuStorage.getUrl(key); System.out.println("url = " + url);
+         * 
+         * // 测试下载不同大小的图片 url = QiniuStorage.getUrl(key, ThumbModel.THUMB_256);
+         * System.out.println("url = " + url);
+         */
+    }
 }

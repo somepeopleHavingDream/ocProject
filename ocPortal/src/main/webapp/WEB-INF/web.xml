@@ -66,10 +66,13 @@
 	</filter-mapping>
 	
 	<!-- springmvc -->
+	<!-- 这是在web.xml文件中注册SpringMVC中的核心调度器DispatcherServlet -->
 	<servlet>
 		<servlet-name>app-servlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
+		    <!-- 这个contextConfigLocation属性不可以更改，因为此属性在FramworkServlet中存在定义 -->
+		    <!-- 利用Spring的注入特性，此属性值会通过setPropertyValues方法被设置到对应实例中 -->
 			<param-name>contextConfigLocation</param-name>
 			<param-value>classpath:app-servlet.xml</param-value>
 		</init-param>
@@ -80,13 +83,8 @@
 		<url-pattern>*.html</url-pattern>
 	</servlet-mapping>
 	
-	<listener>
-		<listener-class>
-			org.springframework.web.context.ContextLoaderListener
-		</listener-class>
-	</listener>
-	
 	<!-- ShiroFilter start -->
+	<!-- 在web.xml文件中配置Shiro的过滤器shiroFilter -->
 	<filter>
 		<filter-name>shiroFilter</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -98,11 +96,23 @@
 	<filter-mapping>
 		<filter-name>shiroFilter</filter-name>
 		<url-pattern>/*</url-pattern>
+		<!-- 对转发的请求进行过滤 -->
 		<dispatcher>REQUEST</dispatcher>
+		<!-- 对重定向的请求也要进行过滤 -->
 		<dispatcher>FORWARD</dispatcher>
+		
+		<!-- 解决org.apache.shiro.UnavailableSecurityManagerException所尝试的代码 -->
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
 	</filter-mapping>
 	<!-- ShiroFilter end -->
 	
+	<listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+    
 	<session-config>
 		<session-timeout>120</session-timeout>
 	</session-config>

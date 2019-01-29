@@ -19,15 +19,18 @@
         <property name="httpOnly" value="true"/>  
         <property name="maxAge" value="2592000"/><!-- 30天 -->  
     </bean>
+    
     <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">  
 	    <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>  
      	<property name="cookie" ref="rememberMeCookie"/>  
 	</bean>
 	
     <!-- 自定义Realm -->  
+    <!-- 配置进行授权和认证的Realm，要新增一个Java类来实现，class=包名.类名，init-method是初始化方法 -->
     <bean id="authRealm" class="com.online.college.web.auth.AuthRealm"></bean>
     
     <!-- 保存在内存 -->
+    <!-- 配置Shiro的SecurityManager Bean. -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="authRealm" />
 		<property name="rememberMeManager" ref="rememberMeManager"/>  
@@ -37,16 +40,23 @@
 	<!-- 自定义 filter -->
 	<bean id="authFilter" class="com.online.college.web.auth.AuthFilter" />
 	
+	<!-- 配置ShiroFilter bean:该bean的id必须和web.xml文件中配置的Shiro Filter的name一致 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+	    <!-- 装配securityManager，这个属性是必须的 -->
 		<property name="securityManager" ref="securityManager" />
+		<!-- 没有权限默认跳转的页面-->
 		<property name="unauthorizedUrl" value="/error/403.html" />
+		<!-- 登录成功默认跳转页面 -->
 		<property name="successUrl" value="/" />
+		<!-- 配置登录页面，没有登录的用户请求，需要登录时自动跳转到的登录页面路径，这个路径也会经过SpringMVC的处理 -->
 		<property name="loginUrl" value="/auth/login.html" />
+        <!-- 配置过滤器 -->		
 		<property name="filters">
 			<map>
 				<entry key="authc" value-ref="authFilter" />
 			</map>
 		</property>
+		<!-- 具体配置需要拦截哪些URL，以及访问对应的URL时使用Shiro的什么Filter进行拦截 -->
 		<property name="filterChainDefinitions">
 			<value>
 				/error/** = anon

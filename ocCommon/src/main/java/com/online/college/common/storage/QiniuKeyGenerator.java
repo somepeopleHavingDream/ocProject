@@ -13,6 +13,11 @@ public class QiniuKeyGenerator {
 	
 	public static final String KEY = "/{0}/{1}/{2}/{3}";// 多图片可以按照：/表名/字段名/业务值(refId)/时间戳 处理
 	
+	/**
+	 * 这里是由服务端对要上传到云空间的文件进行资源标识处理，而不是文件上传到云上以后，反过来记录图片的标识
+	 * 
+	 * @return
+	 */
 	public static String generateKey(){
 		return MessageFormat.format(KEY, "default", "all", "0", CommonUtil.getUID());
 	}
