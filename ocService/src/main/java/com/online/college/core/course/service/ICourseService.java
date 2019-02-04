@@ -44,7 +44,5 @@ public interface ICourseService {
 	/**
 	*逻辑删除
 	**/
-	public void deleteLogic(Course entity);
-	
+	public void deleteLogic(Course entity);	
 }
-

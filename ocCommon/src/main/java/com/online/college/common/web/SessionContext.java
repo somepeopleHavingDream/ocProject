@@ -15,19 +15,26 @@ public class SessionContext {
 	public static final String IDENTIFY_CODE_KEY = "_consts_identify_code_key_";// 其他人不得占用
 	public static final String AUTH_USER_KEY = "_consts_auth_user_key_";// 其他人不得占用
 
-	public static Long getUserId() {
-		return 1L;
-		// return getAuthUser().getUserId();
+	public static Long getUserId(){
+		if(null != getAuthUser()){
+			return getAuthUser().getUserId();
+		}
+		return null;
 	}
-
-	public static String getUsername() {
-		return "wangyangming";
-		// return getAuthUser().getUserId();
+	
+	public static String getUsername(){
+		if(null != getAuthUser()){
+			return getAuthUser().getUsername();
+		}
+		return null;
 	}
-
+	
 	// 获取当前登录用户
 	public static SessionUser getAuthUser() {
-		return (SessionUser) SecurityUtils.getSubject().getPrincipal();
+		if(null != SecurityUtils.getSubject().getPrincipal()){
+			return (SessionUser) SecurityUtils.getSubject().getPrincipal();
+		}
+		return null;
 	}
 
 	// 获取验证码
@@ -53,9 +60,17 @@ public class SessionContext {
 	public static void removeAttribute(HttpServletRequest request, String key) {
 		request.getSession().removeAttribute(key);
 	}
-
-	// shiro logout
-	public static void shiroLogout() {
+	
+	public static boolean isLogin(){
+		Subject currentUser = SecurityUtils.getSubject();
+		if(null != currentUser && null != currentUser.getPrincipal()){
+			return true;
+		}
+		return false;
+	}
+	
+	//shiro logout
+	public static void shiroLogout(){
 		Subject currentUser = SecurityUtils.getSubject();
 		try {
 			currentUser.logout();

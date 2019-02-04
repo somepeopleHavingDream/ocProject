@@ -28,9 +28,9 @@ $(function(){
     $.ajaxSetup({  
         type: "POST",  
         complete:function(xhr,status){
-        	if(xhr.responseJSON.errcode == 1001){//登录超时 
-        		window.location.href=CONTEXT_PATH+"/auth/login.html";
-        	}
+            if(xhr.responseJSON.errcode == 1001){//登录超时 
+                window.location.href=CONTEXT_PATH+"/auth/login.html";
+            }
         }
     });  
 });  

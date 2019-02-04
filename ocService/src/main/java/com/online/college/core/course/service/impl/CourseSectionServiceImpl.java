@@ -24,6 +24,13 @@ public class CourseSectionServiceImpl implements ICourseSectionService{
 	public List<CourseSection> queryAll(CourseSection queryEntity){
 		return entityDao.queryAll(queryEntity);
 	}
+	
+	/**
+	 * 获取课程章最大的sort
+	 */
+	public Integer getMaxSort(Long courseId){
+		return entityDao.getMaxSort(courseId);
+	}
 
 	public TailPage<CourseSection> queryPage(CourseSection queryEntity ,TailPage<CourseSection> page){
 		Integer itemsTotalCount = entityDao.getTotalItemsCount(queryEntity);
@@ -33,8 +40,15 @@ public class CourseSectionServiceImpl implements ICourseSectionService{
 		return page;
 	}
 
-	public void create(CourseSection entity){
-		entityDao.create(entity);
+	public void createSelectivity(CourseSection entity){
+		entityDao.createSelectivity(entity);
+	}
+	
+	/**
+	*批量创建
+	**/
+	public void createList(List<CourseSection> entityList){
+		entityDao.createList(entityList);
 	}
 
 	public void update(CourseSection entity){
@@ -52,8 +66,4 @@ public class CourseSectionServiceImpl implements ICourseSectionService{
 	public void deleteLogic(CourseSection entity){
 		entityDao.deleteLogic(entity);
 	}
-
-
-
 }
-

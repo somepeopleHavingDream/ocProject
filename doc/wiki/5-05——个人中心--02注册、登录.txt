@@ -9,16 +9,16 @@
 二、 设计（思路）：
 	改了哪些类、文件，这里列出来说明
 	项目：ocPortal
-	1) WEB-INF/auth/login.html
-	2) WEB-INF/auth/register.html
-	3) WEB-INF/common/header.html
-	4) AuthController
-	5) UserController
-	6) CourseController
+	1) WEB-INF/auth/login.html @
+	2) WEB-INF/auth/register.html @
+	3) WEB-INF/common/header.html @
+	4) AuthController @
+	5) UserController @
+	6) CourseController @
 	
 	其他：
-		res.html(ajax shiro 请求统一处理）
-		learn.html（案例）
+		res.html(ajax shiro 请求统一处理）@
+		learn.html（案例）@
 
 三、 开发（实战）：
 	代码实战讲解

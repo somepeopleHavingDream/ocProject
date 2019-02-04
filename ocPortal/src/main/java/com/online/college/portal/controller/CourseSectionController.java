@@ -56,7 +56,7 @@ public class CourseSectionController {
 	@RequestMapping(value = "/doMerge")
 	public ModelAndView doMerge(CourseSection entity) {
 		if (entity.getId() == null) {
-			entityService.create(entity);
+			//entityService.create(entity);
 		} else {
 			entityService.update(entity);
 		}

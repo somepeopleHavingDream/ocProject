@@ -1,6 +1,7 @@
 package com.online.college.core.course.dao;
 
 import java.util.List;
+
 import com.online.college.common.page.TailPage;
 import com.online.college.core.course.domain.CourseSection;
 
@@ -18,6 +19,11 @@ public interface CourseSectionDao {
 	public List<CourseSection> queryAll(CourseSection queryEntity);
 
 	/**
+	 * 
+	 */
+	public Integer getMaxSort(Long courseId);
+	
+	/**
 	*获取总数量
 	**/
 	public Integer getTotalItemsCount(CourseSection queryEntity);
@@ -30,7 +36,12 @@ public interface CourseSectionDao {
 	/**
 	*创建新记录
 	**/
-	public void create(CourseSection entity);
+	public void createSelectivity(CourseSection entity);
+	
+	/**
+	 * 批量创建
+	 */
+	public void createList(List<CourseSection> entityList);
 
 	/**
 	*根据id更新
@@ -62,4 +73,3 @@ public interface CourseSectionDao {
 	**/
 	public void deleteLogicByCourseId(CourseSection entity);
 }
-
