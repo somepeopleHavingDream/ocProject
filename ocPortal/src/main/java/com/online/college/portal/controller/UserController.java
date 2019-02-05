@@ -27,6 +27,22 @@ public class UserController {
 		ModelAndView mv = new ModelAndView("user/home");
 		mv.addObject("curNav","home");
 		
+		//加载关注用户的动态
+		UserFollowStudyRecord queryEntity = new UserFollowStudyRecord();
+		queryEntity.setUserId(SessionContext.getUserId());
+		page.setPageSize(2);
+		page = userFollowsService.queryUserFollowStudyRecordPage(queryEntity, page);
+		
+		//处理用户头像
+		for(UserFollowStudyRecord item : page.getItems()){
+			if(StringUtils.isNotEmpty(item.getHeader())){
+				item.setHeader(QiniuStorage.getUrl(item.getHeader()));
+			}
+		}
+		System.out.println("UserController类中index方法中，page是否为空？" + (page == null));
+		System.out.println("UserController类中index方法中，page.items是否为空？" + (page.getItems() == null));
+		mv.addObject("page", page);
+		
 		return mv;
 	}
 	

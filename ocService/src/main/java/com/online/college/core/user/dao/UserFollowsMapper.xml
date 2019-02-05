@@ -183,4 +183,5 @@
         SET del = 1
         WHERE id = #{id, jdbcType=INTEGER}
     </update>
+
 </mapper>
