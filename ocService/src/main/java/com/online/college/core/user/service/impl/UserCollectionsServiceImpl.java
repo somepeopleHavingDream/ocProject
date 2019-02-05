@@ -33,8 +33,8 @@ public class UserCollectionsServiceImpl implements IUserCollectionsService{
 		return page;
 	}
 
-	public void create(UserCollections entity){
-		entityDao.create(entity);
+	public void createSelectivity(UserCollections entity){
+		entityDao.createSelectivity(entity);
 	}
 
 	public void update(UserCollections entity){
@@ -53,9 +53,7 @@ public class UserCollectionsServiceImpl implements IUserCollectionsService{
 		entityDao.deleteLogic(entity);
 	}
 
-	@Override
-	public void createSelectivity(UserCollections entity) {
-		entityDao.createSelectivity(entity);
-	}
+
+
 }
 
