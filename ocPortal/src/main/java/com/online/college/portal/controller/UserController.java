@@ -1,10 +1,14 @@
 package com.online.college.portal.controller;
 
+import java.io.IOException;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.online.college.common.page.TailPage;
@@ -93,4 +97,84 @@ public class UserController {
 		return mv;
 	}
 	
+	/**
+	 * 信息
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/info")
+	public ModelAndView info() {
+	    ModelAndView mv = new ModelAndView("user/info");
+	    mv.addObject("curNav", "info");
+	    
+	    AuthUser authUser = authUserService.getById(SessionContext.getUserId());
+	    if (null != authUser && StringUtils.isNotEmpty(authUser.getHeader())) {
+	        authUser.setHeader(QiniuStorage.getUrl(authUser.getHeader()));
+	    }
+	    mv.addObject("authUser", authUser);
+	    
+	    return mv;
+	}
+	
+	/**
+	 * 保存信息
+	 * 
+	 * @param authUser
+	 * @param pictureImg
+	 * @return
+	 */
+	@RequestMapping("/saveInfo")
+	@ResponseBody
+	public String saveInfo(AuthUser authUser, @RequestParam MultipartFile pictureImg) {
+	    try {
+	        authUser.setId(SessionContext.getUserId());
+	        if (null != pictureImg && pictureImg.getBytes().length > 0) {
+	            String key = QiniuStorage.uploadImage(pictureImg.getBytes());
+	            authUser.setHeader(key);
+	        }
+	        authUserService.updateSelectivity(authUser);
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return new JsonView().toString();
+	}
+	
+	/**
+	 * 密码
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/passwd")
+	public ModelAndView passwd() {
+	    ModelAndView mv = new ModelAndView("user/passwd");
+	    mv.addObject("curNav", "passwd");
+	    
+	    return mv;
+	}
+	
+	@RequestMapping("/savePasswd")
+	@ResponseBody
+	public String savePasswd(String oldPassword, String password, String rePassword) {
+	    AuthUser currentUser = authUserService.getById(SessionContext.getUserId());
+	    if (null == currentUser) {
+	        return JsonView.render(1, "用户不存在！");
+	    }
+	    
+	    oldPassword = EncryptUtil.encodedByMD5(oldPassword.trim());
+	    if (!oldPassword.equals(currentUser.getPassword())) {
+	        return JsonView.render(1, "旧密码不正确！");
+	    }
+	    if (StringUtils.isEmpty(password.trim())) {
+	        return JsonView.render(1, "新密码不能为空！");
+	    }
+	    if (!password.trim().equals(rePassword.trim())) {
+	        return JsonView.render(1, "新密码与重复密码不一致！");
+	    }
+	    
+	    currentUser.setPassword(EncryptUtil.encodedByMD5(password));
+	    authUserService.updateSelectivity(currentUser);
+	    
+	    return new JsonView().toString();
+	}
 }
