@@ -56,4 +56,8 @@ public interface ICourseSectionService {
 	*逻辑删除
 	**/
 	public void deleteLogic(CourseSection entity);
+
+
+
 }
+

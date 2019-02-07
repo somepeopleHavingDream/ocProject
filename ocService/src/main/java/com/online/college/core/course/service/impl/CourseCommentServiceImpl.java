@@ -35,6 +35,15 @@ public class CourseCommentServiceImpl implements ICourseCommentService{
 		page.setItems(items);
 		return page;
 	}
+	
+	@Override
+	public TailPage<CourseComment> queryMyQAItemsPage(CourseComment queryEntity ,TailPage<CourseComment> page){
+		Integer itemsTotalCount = entityDao.getMyQAItemsCount(queryEntity);
+		List<CourseComment> items = entityDao.queryMyQAItemsPage(queryEntity,page);
+		page.setItemsTotalCount(itemsTotalCount);
+		page.setItems(items);
+		return page;
+	}
 
 	@Override
 	public void create(CourseComment entity){
@@ -67,6 +76,8 @@ public class CourseCommentServiceImpl implements ICourseCommentService{
 	public void deleteLogic(CourseComment entity){
 		entityDao.deleteLogic(entity);
 	}
-}
 
+
+
+}
 

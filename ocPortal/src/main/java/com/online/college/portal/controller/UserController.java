@@ -18,6 +18,8 @@ import com.online.college.common.web.JsonView;
 import com.online.college.common.web.SessionContext;
 import com.online.college.core.auth.domain.AuthUser;
 import com.online.college.core.auth.service.IAuthUserService;
+import com.online.college.core.course.domain.CourseComment;
+import com.online.college.core.course.service.ICourseCommentService;
 import com.online.college.core.user.domain.UserCollections;
 import com.online.college.core.user.domain.UserCourseSection;
 import com.online.college.core.user.domain.UserCourseSectionDto;
@@ -41,6 +43,9 @@ public class UserController {
 	
 	@Autowired
 	private IUserCollectionsService userCollectionsService;
+	
+	@Autowired
+	private ICourseCommentService courseCommentService;
 	
 	/**
 	 * 首页
@@ -176,5 +181,18 @@ public class UserController {
 	    authUserService.updateSelectivity(currentUser);
 	    
 	    return new JsonView().toString();
+	}
+	
+	@RequestMapping("/qa")
+	public ModelAndView qa(TailPage<CourseComment> page) {
+	    ModelAndView mv = new ModelAndView("user/qa");
+	    mv.addObject("curNav", "qa");
+	    
+	    CourseComment queryEntity = new CourseComment();
+	    queryEntity.setUsername(SessionContext.getUsername());
+	    page = courseCommentService.queryMyQAItemsPage(queryEntity, page);
+	    mv.addObject("page", page);
+	    
+	    return mv;
 	}
 }

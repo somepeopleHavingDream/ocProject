@@ -246,4 +246,5 @@
         SET del = 1
         WHERE course_id = #{courseId, jdbcType=INTEGER}
     </update>
+
 </mapper>
