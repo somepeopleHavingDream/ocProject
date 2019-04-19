@@ -10,25 +10,37 @@ import javax.crypto.spec.SecretKeySpec;
 
 /**
  * 加解密工具类
+ *
+ * @author yangxin
+ * @createtime 2019/04/19 22:20
  */
 public class EncryptUtil {
+    /**
+     * MD5加密
+     */
     public static String encodedByMD5(String source) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] results = md.digest(source.getBytes());
             String result = bytesToHex(results);
-            return result.toUpperCase();
+            if (result != null) {
+                return result.toUpperCase();
+            }
         } catch (NoSuchAlgorithmException e) {
             throw new IllegalArgumentException(e);
         }
+        return null;
     }
 
-    public static String bytesToHex(byte[] src) {
+    /**
+     * 将字节数组转换成十六进制字符的字符串
+     */
+    private static String bytesToHex(byte[] src) {
         StringBuilder stringBuilder = new StringBuilder();
         if (src == null || src.length <= 0)
             return null;
-        for (int i = 0; i < src.length; i++) {
-            int v = src[i] & 0xFF;
+        for (byte b : src) {
+            int v = b & 0xFF;
             String hv = Integer.toHexString(v);
             if (hv.length() < 2) {
                 stringBuilder.append(0);
@@ -62,11 +74,9 @@ public class EncryptUtil {
 
     /**
      * 使用AES的CBC模式加密
-     * 
-     * @param key
-     *            加密的秘钥
-     * @param text
-     *            待加密的内容
+     *
+     * @param key  加密的秘钥
+     * @param text 待加密的内容
      * @return 经过Base64编码的密文
      */
     public static String encryptByAESWithCBC(byte[] key, byte[] text) {
@@ -85,11 +95,8 @@ public class EncryptUtil {
     }
 
     /**
-     *
-     * @param key
-     *            经Base64编码的AES秘钥
-     * @param text
-     *            经Base64编码的加密串
+     * @param key  经Base64编码的AES秘钥
+     * @param text 经Base64编码的加密串
      * @return
      */
     public static byte[] decryptByAESWithCBC(byte[] key, byte[] text) {

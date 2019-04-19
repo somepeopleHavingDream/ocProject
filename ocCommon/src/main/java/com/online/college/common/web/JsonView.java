@@ -2,6 +2,11 @@ package com.online.college.common.web;
 
 import net.sf.json.JSONObject;
 
+/**
+ * Json视图类
+ * @author yx
+ * @createtime 2019/04/19 22:33
+ */
 public class JsonView {
     
     //错误代码 0-成功
