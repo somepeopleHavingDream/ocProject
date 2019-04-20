@@ -1,12 +1,5 @@
 package com.online.college.core.course.service.impl;
 
-import java.util.List;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.online.college.common.page.TailPage;
 import com.online.college.common.storage.QiniuStorage;
 import com.online.college.core.consts.CourseEnum;
@@ -16,22 +9,43 @@ import com.online.college.core.course.domain.Course;
 import com.online.college.core.course.domain.CourseQueryDto;
 import com.online.college.core.course.domain.CourseSection;
 import com.online.college.core.course.service.ICourseService;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+/**
+ * 课程服务实现类
+ *
+ * @author yx
+ * @createtime 2019/04/20 18:02
+ */
 @Service
 public class CourseServiceImpl implements ICourseService{
-	
+	private final CourseDao entityDao;
+	private final CourseSectionDao courseSectionDao;
+
 	@Autowired
-	private CourseDao entityDao;
-	
-	@Autowired
-	private CourseSectionDao courseSectionDao;
-	
+	public CourseServiceImpl(CourseDao entityDao, CourseSectionDao courseSectionDao) {
+		this.entityDao = entityDao;
+		this.courseSectionDao = courseSectionDao;
+	}
+
+	/**
+	 * 准备课程图片
+	 * @param course 课程对象
+	 */
 	private void prepareCoursePicture(Course course){
 		if(null != course && StringUtils.isNotEmpty(course.getPicture())){
 			course.setPicture(QiniuStorage.getUrl(course.getPicture()));
 		}
 	}
 
+	/**
+	 * 通过Id得到课程对象
+	 */
 	@Override
 	public Course getById(Long id){
 		Course course = entityDao.getById(id);

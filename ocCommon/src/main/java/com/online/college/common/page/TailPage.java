@@ -23,7 +23,8 @@ public class TailPage<E> extends AbstractPage<E> {
     private List<Integer> showNums = new ArrayList<>();
     private boolean showDot = true;    // 不知道这个属性是用来干嘛的？好像是用来高亮显示当前页号按钮的。
 
-    public TailPage() {}
+    public TailPage() {
+    }
 
     /**
      * 构造函数，将一个已有的分页对象中的分页参数，设置给自己，items需独立设置

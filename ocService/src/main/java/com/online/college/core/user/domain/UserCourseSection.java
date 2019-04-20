@@ -1,8 +1,18 @@
 package com.online.college.core.user.domain;
 
 import com.online.college.common.orm.BaseEntity;
+import lombok.Getter;
+import lombok.Setter;
 
 
+/**
+ * 用户课程章节实体类
+ *
+ * @author yx
+ * @createtime 2019/04/20 17:47
+ */
+@Setter
+@Getter
 public class UserCourseSection extends BaseEntity{
 
     private static final long serialVersionUID = 5447461555053008202L;
@@ -31,40 +41,5 @@ public class UserCourseSection extends BaseEntity{
      * 进度
      */
     private Integer rate;
-
-    public Long getUserId(){
-        return userId;
-    }
-    public void setUserId(Long userId){
-        this.userId = userId;
-    }
-
-    public Long getCourseId(){
-        return courseId;
-    }
-    public void setCourseId(Long courseId){
-        this.courseId = courseId;
-    }
-
-    public Long getSectionId(){
-        return sectionId;
-    }
-    public void setSectionId(Long sectionId){
-        this.sectionId = sectionId;
-    }
-
-    public Integer getStatus(){
-        return status;
-    }
-    public void setStatus(Integer status){
-        this.status = status;
-    }
-    public Integer getRate() {
-        return rate;
-    }
-    public void setRate(Integer rate) {
-        this.rate = rate;
-    }
-
 }
 
