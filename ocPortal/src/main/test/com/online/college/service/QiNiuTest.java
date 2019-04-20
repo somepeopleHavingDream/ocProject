@@ -1,25 +1,30 @@
 package com.online.college.service;
 
-import java.io.File;
-
-import org.apache.log4j.Logger;
-
 import com.online.college.common.storage.QiniuStorage;
 import com.online.college.common.util.CommonUtil;
+import lombok.extern.slf4j.Slf4j;
 
-import junit.framework.TestCase;
+import java.io.File;
 
 /**
  * 七牛云服务器图片测试
+ *
+ * @author yx
+ * @createtime 2019/04/20 20:44
  */
-public class QiNiuTest extends TestCase {
-
-    Logger log = Logger.getLogger(QiNiuTest.class);
+@Slf4j
+public class QiNiuTest {
+    /**
+     * 测试本类方法
+     */
+    public static void main(String[] args) {
+        new QiNiuTest().testBatchImages();
+    }
 
     /**
      * 测试批量文件上传
      */
-    public void testBatchImages() {
+    private void testBatchImages() {
         // 批量文件图片上传
         File rootDir = new File("/media/yx/新加卷1/上传到七牛云的图片");
         if (rootDir.isDirectory()) {
@@ -34,14 +39,12 @@ public class QiNiuTest extends TestCase {
 
     /**
      * 带参数的图片文件上传
-     * 
-     * @param file
      */
-    public void testImages(File file) {
+    private void testImages(File file) {
         // 测试上传代码，单个文件图片上传
         byte[] buff = CommonUtil.getFileBytes(file);
         String key = QiniuStorage.uploadImage(buff);
-        System.out.println("key = " + key);
+        log.info("testImages -> key: [{}]", key);
     }
 
     /**

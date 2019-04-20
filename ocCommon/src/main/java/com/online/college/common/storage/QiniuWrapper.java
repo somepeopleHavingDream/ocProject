@@ -67,7 +67,7 @@ public class QiniuWrapper {
 	 * @param key    文件在七牛中的key
 	 * @param update 是否是更新
 	 */
-	public static String upload(byte[] data, String key, boolean update) {
+	static String upload(byte[] data, String key, boolean update) {
 		try {
 			String token = update ? auth.uploadToken(bucketName, key) : auth.uploadToken(bucketName);
 			Response response = uploadManager.put(data, getFullKey(data, key), token);
