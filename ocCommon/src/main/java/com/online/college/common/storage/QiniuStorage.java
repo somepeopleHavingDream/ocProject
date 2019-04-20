@@ -4,12 +4,13 @@ package com.online.college.common.storage;
 /**
  * 七牛云存储管理器
  * 上传图像和查看图像
+ * @author yx
+ * @createtime 2019/04/20 16:26
  */
 public class QiniuStorage {
 	
 	/**
 	 * 上传单张图片；返回上传图片的key
-	 * @param buff
 	 */
 	public static String uploadImage(byte[] buff){
 		String key = QiniuKeyGenerator.generateKey();
@@ -19,8 +20,6 @@ public class QiniuStorage {
 	
 	/**
 	 * 上传单张图片；返回上传图片的url，此url会过期，切记不要存储在数据库中；
-	 * @param buff
-	 * @param img
 	 * @return QiniuImg
 	 */
 	public static QiniuImg uploadImage(byte[] buff,QiniuImg img){
@@ -34,7 +33,6 @@ public class QiniuStorage {
 	 * 上传多个图片
 	 * @param imageBuffs 图片字节数组
 	 * @param img 分组图片的属性
-	 * @return
 	 */
 	public static QiniuImg[] uploadImages(byte[][] imageBuffs,QiniuImg img){
 		QiniuImg[] images = new QiniuImg[imageBuffs.length];
@@ -50,8 +48,6 @@ public class QiniuStorage {
 	
 	/**
 	 * 获取图片链接
-	 * @param key
-	 * @return
 	 */
 	public static String getUrl(String key){
 		return QiniuWrapper.getUrl(key);
@@ -59,9 +55,6 @@ public class QiniuStorage {
 	
 	/**
 	 * 获取有有效期的图片链接
-	 * @param key
-	 * @param expires 单位：秒
-	 * @return
 	 */
 	public static String getUrl(String key,long expires){
 		return QiniuWrapper.getUrl(key,expires);
@@ -70,8 +63,6 @@ public class QiniuStorage {
 	
 	/**
 	 * 获取图片链接
-	 * @param key
-	 * @return
 	 */
 	public static String getUrl(String key,ThumbModel model){
 		return QiniuWrapper.getUrl(key,model.getValue());
@@ -79,9 +70,6 @@ public class QiniuStorage {
 	
 	/**
 	 * 获取有有效期的图片链接
-	 * @param key
-	 * @param expires 单位：秒
-	 * @return
 	 */
 	public static String getUrl(String key,ThumbModel model,long expires){
 		return QiniuWrapper.getUrl(key,model.getValue(),expires);

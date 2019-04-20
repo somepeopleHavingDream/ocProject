@@ -1,57 +1,61 @@
 package com.online.college.core.user.service;
 
-import java.util.List;
-
 import com.online.college.common.page.TailPage;
 import com.online.college.core.user.domain.UserFollowStudyRecord;
 import com.online.college.core.user.domain.UserFollows;
 
+import java.util.List;
+
+/**
+ * 用户记录服务类
+ * @author yx
+ * @createtime 2019/04/20 16:07
+ */
 public interface IUserFollowsService {
 
     /**
      * 根据id获取
      **/
-    public UserFollows getById(Long id);
+    UserFollows getById(Long id);
 
     /**
      * 获取所有
      **/
-    public List<UserFollows> queryAll(UserFollows queryEntity);
+    List<UserFollows> queryAll(UserFollows queryEntity);
 
     /**
      * 分页获取
      **/
-    public TailPage<UserFollows> queryPage(UserFollows queryEntity, TailPage<UserFollows> page);
+    TailPage<UserFollows> queryPage(UserFollows queryEntity, TailPage<UserFollows> page);
 
     /**
      * 分页获取
      **/
-    public TailPage<UserFollowStudyRecord> queryUserFollowStudyRecordPage(UserFollowStudyRecord queryEntity,
-            TailPage<UserFollowStudyRecord> page);
+    TailPage<UserFollowStudyRecord> queryUserFollowStudyRecordPage(UserFollowStudyRecord queryEntity,
+                                                                   TailPage<UserFollowStudyRecord> page);
 
     /**
      * 创建
      **/
-    public void createSelectivity(UserFollows entity);
+    void createSelectivity(UserFollows entity);
 
     /**
      * 根据id更新
      **/
-    public void update(UserFollows entity);
+    void update(UserFollows entity);
 
     /**
      * 根据id 进行可选性更新
      **/
-    public void updateSelectivity(UserFollows entity);
+    void updateSelectivity(UserFollows entity);
 
     /**
      * 物理删除
      **/
-    public void delete(UserFollows entity);
+    void delete(UserFollows entity);
 
     /**
      * 逻辑删除
      **/
-    public void deleteLogic(UserFollows entity);
-
+    void deleteLogic(UserFollows entity);
 }

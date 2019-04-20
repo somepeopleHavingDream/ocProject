@@ -1,16 +1,14 @@
 package com.online.college.common.web;
 
-import javax.servlet.http.HttpServletRequest;
-
+import com.online.college.common.web.auth.SessionUser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
 
-import com.online.college.common.web.auth.SessionUser;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * session工具类
- *
  * @author yangxin
  * @createtime 2019/04/19 22:13
  */
@@ -32,7 +30,9 @@ public class SessionContext {
         return null;
     }
 
-    // 获取当前登录用户
+    /**
+     * 获取当前登录用户
+     */
     public static SessionUser getAuthUser() {
         if (null != SecurityUtils.getSubject().getPrincipal()) {
             return (SessionUser) SecurityUtils.getSubject().getPrincipal();
@@ -70,10 +70,7 @@ public class SessionContext {
 
     public static boolean isLogin() {
         Subject currentUser = SecurityUtils.getSubject();
-        if (null != currentUser && null != currentUser.getPrincipal()) {
-            return true;
-        }
-        return false;
+        return null != currentUser && null != currentUser.getPrincipal();
     }
 
     //shiro logout

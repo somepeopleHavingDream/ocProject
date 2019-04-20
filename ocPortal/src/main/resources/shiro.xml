@@ -27,7 +27,7 @@
 	
     <!-- 自定义Realm -->  
     <!-- 配置进行授权和认证的Realm，要新增一个Java类来实现，class=包名.类名，init-method是初始化方法 -->
-    <bean id="authRealm" class="com.online.college.web.auth.AuthRealm"></bean>
+	<bean id="authRealm" class="com.online.college.web.auth.AuthRealm"/>
     
     <!-- 保存在内存 -->
     <!-- 配置Shiro的SecurityManager Bean. -->
