@@ -64,12 +64,12 @@ public class CourseController {
         if (null == courseId)
             return new ModelAndView("error/404");
 
-        //获取课程
+        // 获取课程
         Course course = courseService.getById(courseId);
         if (null == course)
             return new ModelAndView("error/404");
 
-        //获取课程章节
+        // 获取所有课程章节
         ModelAndView mv = new ModelAndView("learn");
         List<CourseSectionVO> chaptSections = this.courseBusiness.queryCourseSection(courseId);
         mv.addObject("course", course);
@@ -112,6 +112,7 @@ public class CourseController {
         if (null == sectionId)
             return new ModelAndView("error/404");
 
+        // 课程章节
         CourseSection courseSection = courseSectionService.getById(sectionId);
         if (null == courseSection)
             return new ModelAndView("error/404");

@@ -1,7 +1,10 @@
 package com.online.college.core.consts;
 
 /**
- * 课程使用的枚举
+ * 课程使用的枚举类
+ *
+ * @author yx
+ * @createtime 2019/04/21 12:10
  */
 public enum CourseEnum {
 
@@ -14,7 +17,7 @@ public enum CourseEnum {
 	COLLECTION_CLASSIFY_COURSE(1);	// 课程收藏
 	
 	private Integer value;
-	private CourseEnum(Integer value) {
+	CourseEnum(Integer value) {
 		this.value = value;
 	}
 	

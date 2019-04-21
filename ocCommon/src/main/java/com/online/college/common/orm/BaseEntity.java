@@ -1,7 +1,18 @@
 package com.online.college.common.orm;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 
+/**
+ * 基础实体类
+ *
+ * @author yx
+ * @createtime 2019/04/21 12:56
+ */
+@Getter
+@Setter
 public class BaseEntity extends LongModel{
 	private static final long serialVersionUID = 968132587307913395L;
 	
@@ -29,36 +40,5 @@ public class BaseEntity extends LongModel{
 	 * 逻辑删除
 	 */
 	private Integer del = 0;
-	
-	public Date getCreateTime() {
-		return createTime;
-	}
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-	public Integer getDel() {
-		return del;
-	}
-	public void setDel(Integer del) {
-		this.del = del;
-	}
-	public String getCreateUser() {
-		return createUser;
-	}
-	public void setCreateUser(String createUser) {
-		this.createUser = createUser;
-	}
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-	public String getUpdateUser() {
-		return updateUser;
-	}
-	public void setUpdateUser(String updateUser) {
-		this.updateUser = updateUser;
-	}
 }
 

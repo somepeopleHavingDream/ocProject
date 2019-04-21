@@ -3,9 +3,9 @@ package com.online.college.common.orm;
 import java.io.Serializable;
 
 /**
- * @param <KEY>
+ * @author yx
+ * @createtime 2019/04/21 12:58
  */
 public interface Identifier<KEY extends Serializable> {
-
-	public KEY getId(); 
+	KEY getId();
 }

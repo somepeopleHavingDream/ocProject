@@ -160,14 +160,22 @@ public class UserController {
         return mv;
     }
 
+    /**
+     * 保存密码
+     * @param oldPassword 旧密码
+     * @param password 第一次输入的新密码
+     * @param rePassword 第二次输入的新密码
+     */
     @RequestMapping("/savePasswd")
     @ResponseBody
     public String savePasswd(String oldPassword, String password, String rePassword) {
+        // 获取当前用户对象
         AuthUser currentUser = authUserService.getById(SessionContext.getUserId());
         if (null == currentUser) {
             return JsonView.render(1, "用户不存在！");
         }
 
+        // 密码判断
         oldPassword = EncryptUtil.encodedByMD5(oldPassword.trim());
         if (!Objects.equals(oldPassword, currentUser.getPassword())) {
             return JsonView.render(1, "旧密码不正确！");
@@ -179,12 +187,16 @@ public class UserController {
             return JsonView.render(1, "新密码与重复密码不一致！");
         }
 
+        // 将新密码更新后存入数据库
         currentUser.setPassword(EncryptUtil.encodedByMD5(password));
         authUserService.updateSelectivity(currentUser);
 
         return new JsonView().toString();
     }
 
+    /**
+     * 答疑
+     */
     @RequestMapping("/qa")
     public ModelAndView qa(TailPage<CourseComment> page) {
         ModelAndView mv = new ModelAndView("user/qa");

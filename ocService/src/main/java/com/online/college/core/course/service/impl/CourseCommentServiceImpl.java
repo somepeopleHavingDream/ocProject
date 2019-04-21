@@ -1,21 +1,28 @@
 package com.online.college.core.course.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.online.college.common.page.TailPage;
 import com.online.college.core.course.dao.CourseCommentDao;
 import com.online.college.core.course.domain.CourseComment;
 import com.online.college.core.course.service.ICourseCommentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
 
+/**
+ * 课程评论服务层实现类
+ *
+ * @author yx
+ * @createtime 2019/04/21 22:05
+ */
 @Service
 public class CourseCommentServiceImpl implements ICourseCommentService{
+	private final CourseCommentDao entityDao;
 
 	@Autowired
-	private CourseCommentDao entityDao;
+	public CourseCommentServiceImpl(CourseCommentDao entityDao) {
+		this.entityDao = entityDao;
+	}
 
 	@Override
 	public CourseComment getById(Long id){
@@ -35,7 +42,10 @@ public class CourseCommentServiceImpl implements ICourseCommentService{
 		page.setItems(items);
 		return page;
 	}
-	
+
+	/**
+	 * 查询指定用户对象的答疑评论记录
+	 */
 	@Override
 	public TailPage<CourseComment> queryMyQAItemsPage(CourseComment queryEntity ,TailPage<CourseComment> page){
 		Integer itemsTotalCount = entityDao.getMyQAItemsCount(queryEntity);

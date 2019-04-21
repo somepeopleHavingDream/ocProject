@@ -18,7 +18,7 @@ public class CourseSectionVO extends CourseSection {
     /**
      * 小节
      */
-    private List<CourseSection> sections = new ArrayList<CourseSection>();
+    private List<CourseSection> sections = new ArrayList<>();
 
     public List<CourseSection> getSections() {
         return sections;
