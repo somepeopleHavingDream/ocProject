@@ -38,7 +38,7 @@ public interface ConstsClassifyDao {
 	/**
 	*分页获取
 	**/
-	public List<ConstsClassify> queryPage(ConstsClassify queryEntity , TailPage<ConstsClassify> page);
+	public List<ConstsClassify> queryPage(ConstsClassify queryEntity, TailPage<ConstsClassify> page);
 
 	/**
 	*创建新记录
@@ -69,5 +69,8 @@ public interface ConstsClassifyDao {
 	*逻辑删除
 	**/
 	public void deleteLogic(ConstsClassify entity);
+
+
+
 }
 

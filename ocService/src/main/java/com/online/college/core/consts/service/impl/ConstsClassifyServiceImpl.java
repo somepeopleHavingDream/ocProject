@@ -12,67 +12,71 @@ import com.online.college.core.consts.dao.ConstsClassifyDao;
 import com.online.college.core.consts.domain.ConstsClassify;
 import com.online.college.core.consts.service.IConstsClassifyService;
 
+
 @Service
-public class ConstsClassifyServiceImpl implements IConstsClassifyService {
+public class ConstsClassifyServiceImpl implements IConstsClassifyService{
 
 	@Autowired
 	private ConstsClassifyDao entityDao;
 
-	public ConstsClassify getById(Long id) {
+	public ConstsClassify getById(Long id){
 		return entityDao.getById(id);
 	}
 
-	public List<ConstsClassify> queryAll() {
+	public List<ConstsClassify> queryAll(){
 		return entityDao.queryAll();
 	}
-
+	
 	@Override
-	public List<ConstsClassify> queryByCondition(ConstsClassify queryEntity) {
+	public List<ConstsClassify> queryByCondition(ConstsClassify queryEntity){
 		return entityDao.queryByCondition(queryEntity);
 	}
-
+	
 	@Override
-	public ConstsClassify getByCode(String code) {
-		if (StringUtils.isEmpty(code))
+	public ConstsClassify getByCode(String code){
+		if(StringUtils.isEmpty(code))
 			return null;
 		ConstsClassify queryEntity = new ConstsClassify();
 		queryEntity.setCode(code);
 		List<ConstsClassify> list = entityDao.queryByCondition(queryEntity);
-		if (CollectionUtils.isNotEmpty(list))
+		if(CollectionUtils.isNotEmpty(list))
 			return list.get(0);
 		return null;
 	}
 
-	public TailPage<ConstsClassify> queryPage(ConstsClassify queryEntity, TailPage<ConstsClassify> page) {
+	public TailPage<ConstsClassify> queryPage(ConstsClassify queryEntity ,TailPage<ConstsClassify> page){
 		Integer itemsTotalCount = entityDao.getTotalItemsCount(queryEntity);
-		List<ConstsClassify> items = entityDao.queryPage(queryEntity, page);
+		List<ConstsClassify> items = entityDao.queryPage(queryEntity,page);
 		page.setItemsTotalCount(itemsTotalCount);
 		page.setItems(items);
 		return page;
 	}
 
 	@Override
-	public void create(ConstsClassify entity) {
+	public void create(ConstsClassify entity){
 		entityDao.create(entity);
 	}
 
 	@Override
-	public void createSelectivity(ConstsClassify entity) {
+	public void createSelectivity(ConstsClassify entity){
 		entityDao.createSelectivity(entity);
 	}
 
 	@Override
-	public void updateSelectivity(ConstsClassify entity) {
+	public void updateSelectivity(ConstsClassify entity){
 		entityDao.updateSelectivity(entity);
 	}
 
 	@Override
-	public void delete(ConstsClassify entity) {
+	public void delete(ConstsClassify entity){
 		entityDao.delete(entity);
 	}
 
 	@Override
-	public void deleteLogic(ConstsClassify entity) {
+	public void deleteLogic(ConstsClassify entity){
 		entityDao.deleteLogic(entity);
 	}
+	
+	
 }
+

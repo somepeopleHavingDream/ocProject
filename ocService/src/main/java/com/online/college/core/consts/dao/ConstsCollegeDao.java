@@ -30,7 +30,7 @@ public interface ConstsCollegeDao {
 	/**
 	*分页获取
 	**/
-	public List<ConstsCollege> queryPage(ConstsCollege queryEntity , TailPage<ConstsCollege> page);
+	public List<ConstsCollege> queryPage(ConstsCollege queryEntity, TailPage<ConstsCollege> page);
 
 	/**
 	*创建新记录

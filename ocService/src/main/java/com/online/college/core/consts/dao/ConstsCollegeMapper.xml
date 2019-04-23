@@ -30,6 +30,9 @@
 	<select id="getTotalItemsCount" parameterType="com.online.college.core.consts.domain.ConstsCollege" resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM t_consts_college
 		WHERE del = 0 
+		<if test="name != null">
+		AND name like CONCAT('%',#{name},'%' ) 
+		</if>
 	</select>
 
 	<select id="queryPage" resultType="com.online.college.core.consts.domain.ConstsCollege">
@@ -37,6 +40,11 @@
 		<include refid="All_Columns" />
 		FROM t_consts_college
 		WHERE del = 0 
+		
+		<if test="param1.name != null">
+		AND name like CONCAT('%',#{param1.name},'%' ) 
+		</if>
+		
 		ORDER BY id
 		LIMIT #{param2.startIndex, jdbcType=INTEGER} , #{param2.pageSize, jdbcType=INTEGER} 
 	</select>
