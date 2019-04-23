@@ -68,6 +68,9 @@ public class SessionContext {
         request.getSession().removeAttribute(key);
     }
 
+    /**
+     * 是否登录
+     */
     public static boolean isLogin() {
         Subject currentUser = SecurityUtils.getSubject();
         return null != currentUser && null != currentUser.getPrincipal();
