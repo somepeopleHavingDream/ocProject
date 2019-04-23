@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans        
+<beans  xmlns="http://www.springframework.org/schema/beans" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:tx="http://www.springframework.org/schema/tx"   
+		xmlns:util="http://www.springframework.org/schema/util" 
+		xmlns:aop="http://www.springframework.org/schema/aop"  
+		xmlns:mvc="http://www.springframework.org/schema/mvc"        
+    	xsi:schemaLocation="http://www.springframework.org/schema/beans        
     						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd        
     						http://www.springframework.org/schema/context        
    							http://www.springframework.org/schema/context/spring-context-2.5.xsd
@@ -15,104 +15,92 @@
      						http://www.springframework.org/schema/aop 
      						http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
    							http://www.springframework.org/schema/mvc  
-						    http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
-
-	<!-- 默认的注解映射的支持 -->
-	<!-- 注解配置 -->
-	<context:annotation-config/>
-	
-	<!-- 成分扫描 -->
-	<context:component-scan base-package="com.online.college"/>
-	
-	<!-- 针对ResponseBody转码 -->
-	<mvc:annotation-driven>
-		<mvc:message-converters>
-			<bean class="com.online.college.common.web.UTF8HttpMessageConverter"/>
-		</mvc:message-converters>
-	</mvc:annotation-driven>
-	
-	<!-- 加载jdbc和app配置文件 -->
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" lazy-init="true">
-		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE">
-		</property>
-		<property name="ignoreResourceNotFound" value="true"/>
-		<property name="locations">
-			<list>
-				<value>classpath:/jdbc.properties</value>
-				<value>classpath:/application.properties</value>
-			</list>
-		</property>
-	</bean>
-	
-	<!-- 配置数据源 -->
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="${datasource.driverClassName}"/>
-		<property name="jdbcUrl" value="${datasource.url}"/>
-		<property name="user" value="${datasource.username}"/>
-		<property name="password" value="${datasource.password}"/>
-		<property name="acquireIncrement" value="${c3p0.acquireIncrement}"/>
-		<property name="initialPoolSize" value="${c3p0.initialPoolSize}"/>
-		<property name="minPoolSize" value="${c3p0.minPoolSize}"/>
-		<property name="maxPoolSize" value="${c3p0.maxPoolSize}"/>
-		<property name="maxStatements" value="${c3p0.maxStatements}"/>
-		<property name="autoCommitOnClose" value="${c3p0.autoCommitOnClose}"/>
-	</bean>
-	
-	<!-- 配置sql会话工厂 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="configLocation" value="classpath:mybatis-config.xml"/>
-		<property name="dataSource" ref="dataSource"/>
-		<property name="mapperLocations" value="classpath*:com/**/dao/*Mapper.xml"/>
-	</bean>
-	
-	<!-- sqlSession -->
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg index="0" ref="sqlSessionFactory"/>
-	</bean>
-	
-	<!-- mapper扫描配置 -->
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.**.dao"/>
-	</bean>
-	
-	<!-- 配置数据库事务管理器 -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"/>
-	</bean>
-	
-	<!-- 配置事务 -->
-	<tx:advice id="txAdvice">
-		<tx:attributes>
-			<!-- REQUIRED：指定当前方法必须在事务环境中运行，如果当前有事务环境就加入当前正在执行的事务环境，如果当前没有事务，就新建一个事务 -->
-			<tx:method name="do*"/>
-			<tx:method name="delete*"/>
-			<tx:method name="merge*"/>
-			<tx:method name="add*"/>
-			<tx:method name="save*"/>
-			<tx:method name="create*"/>
-			<tx:method name="insert*"/>
-			<tx:method name="update*"/>
-			<tx:method name="enable*"/>
-			<tx:method name="disable*"/>
-			<tx:method name="generate*"/>
-			
-			<!-- 只读事务 -->
-			<tx:method name="*" read-only="true"/>
-		</tx:attributes>
-	</tx:advice>
-	
-	<!-- 配置AOP切面 -->
-	<aop:config>
-		<!-- 定义切点函数 -->
-		<aop:pointcut expression="execution(* com.online.college.*.service.*.*(..))" id="services"/>
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="services"/>
-	</aop:config>
-	
-	<!-- 配置多部件处理器，主要用于上传下载 -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	</bean>
-	
-	<!-- 关于shiro在applicationContext.xml文件中唯一的改变 -->
-	<!-- 引入shiro -->
-	<import resource="shiro.xml"/>
+						    http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd"> 
+		
+		
+		<!-- 默认的注解映射的支持 -->  
+		<context:annotation-config />
+		<context:component-scan base-package="com.online.college"/>  
+    	
+    	<!-- 针对 Responsebody 转码 -->
+    	<mvc:annotation-driven>
+			<mvc:message-converters>
+				<bean class="com.online.college.common.web.UTF8HttpMessageConverter" />
+			</mvc:message-converters>
+		</mvc:annotation-driven>
+		
+		<!-- 加载jdbc 和 app配置文件 -->
+		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" lazy-init="true">
+			<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+			<property name="ignoreResourceNotFound" value="true" />
+			<property name="locations">
+				<list>
+					<value>classpath:/jdbc.properties</value>
+					<value>classpath:/application.properties</value> 
+				</list>
+			</property>
+		</bean>
+		
+	    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		    <property name="driverClass" value="${datasource.driverClassName}" />
+		    <property name="jdbcUrl" value="${datasource.url}" />
+		    <property name="user" value="${datasource.username}" />
+		    <property name="password" value="${datasource.password}" />
+		    <property name="acquireIncrement" value="${c3p0.acquireIncrement}" />
+		    <property name="initialPoolSize" value="${c3p0.initialPoolSize}" />
+		    <property name="minPoolSize" value="${c3p0.minPoolSize}" />
+		    <property name="maxPoolSize" value="${c3p0.maxPoolSize}" />
+		    <property name="maxIdleTime" value="${c3p0.maxIdleTime}" />
+		    <property name="maxStatements" value="${c3p0.maxStatements}" />
+		    <property name="autoCommitOnClose" value="${c3p0.autoCommitOnClose}" />
+	    </bean>
+	    
+	    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		    <property name="configLocation" value="classpath:mybatis-config.xml" />  
+		    <property name="dataSource" ref="dataSource" />
+		    <property name="mapperLocations" value="classpath*:com/**/dao/*Mapper.xml"/>
+		</bean>
+		
+		<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"> 
+		  <constructor-arg index="0" ref="sqlSessionFactory" />  
+		</bean>
+		
+		<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+			<property name="basePackage" value="com.**.dao" />
+		</bean>
+		
+				
+		<!-- 配置事务管理器 -->
+		<bean id="transactionManager"
+			class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+			<property name="dataSource" ref="dataSource" />
+		</bean>
+		
+		<tx:advice id="txAdvice">
+			<tx:attributes>
+				<tx:method name="do*"/>
+				<tx:method name="delete*"/>
+				<tx:method name="merge*"/>
+				<tx:method name="add*"/>
+				<tx:method name="save*"/>
+				<tx:method name="create*"/>
+				<tx:method name="insert*"/>
+				<tx:method name="update*"/>
+				<tx:method name="enable*"/>
+				<tx:method name="disable*"/>
+				<tx:method name="generate*"/>
+				<tx:method name="*" read-only="true"/> 
+			</tx:attributes>
+		</tx:advice>
+		
+		<aop:config >
+			<aop:pointcut expression="execution (* com.online.college.*.service.*.*(..))"  id="services" />
+			<aop:advisor advice-ref="txAdvice" pointcut-ref="services" />
+		</aop:config>
+	    
+	    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+		 
+		<!-- 引入shiro -->
+        <import resource="shiro.xml" />
+		 
 </beans>
