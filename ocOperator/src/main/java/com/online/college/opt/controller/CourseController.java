@@ -2,6 +2,7 @@ package com.online.college.opt.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.online.college.common.page.TailPage;
 import com.online.college.common.storage.QiniuStorage;
+import com.online.college.common.util.CalendarUtil;
+import com.online.college.common.util.JsonUtil;
 import com.online.college.common.web.JsonView;
 import com.online.college.core.auth.domain.AuthUser;
 import com.online.college.core.auth.service.IAuthUserService;
@@ -25,6 +28,9 @@ import com.online.college.core.consts.domain.ConstsClassify;
 import com.online.college.core.consts.service.IConstsClassifyService;
 import com.online.college.core.course.domain.Course;
 import com.online.college.core.course.service.ICourseService;
+import com.online.college.core.statics.domain.CourseStudyStaticsDto;
+import com.online.college.core.statics.domain.StaticsVO;
+import com.online.college.core.statics.service.IStaticsService;
 import com.online.college.opt.business.IPortalBusiness;
 import com.online.college.opt.vo.ConstsClassifyVO;
 import com.online.college.opt.vo.CourseSectionVO;
@@ -47,6 +53,9 @@ public class CourseController {
 	
 	@Autowired
 	private IAuthUserService authUserService;
+	
+	@Autowired
+	private IStaticsService staticsService;
 	
 	/**
 	 * 课程管理
@@ -133,6 +142,20 @@ public class CourseController {
 		}
 		mv.addObject("subClassifys", subClassifys);//所有二级分类
 		
+		//获取报表统计信息
+//		CourseStudyStaticsDto staticsDto = new CourseStudyStaticsDto();
+//		staticsDto.setCourseId(course.getId());
+//		staticsDto.setEndDate(new Date());
+//		staticsDto.setStartDate(CalendarUtil.getPreNDay(new Date(), 7));
+//
+//		StaticsVO staticsVo = staticsService.queryCourseStudyStatistics(staticsDto);
+//		if(null != staticsVo){
+//			try {
+//				mv.addObject("staticsVo", JsonUtil.toJson(staticsVo));
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		return mv;
 	}
 	
