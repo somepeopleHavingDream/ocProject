@@ -1,36 +1,26 @@
 package com.online.college.core.course.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.online.college.common.page.TailPage;
 import com.online.college.core.course.dao.CourseSectionDao;
 import com.online.college.core.course.domain.CourseSection;
 import com.online.college.core.course.service.ICourseSectionService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
 
-/**
- * 课程章节服务层实现类
- *
- * @author yx
- * @createtime 2019/04/21 12:15
- */
 @Service
 public class CourseSectionServiceImpl implements ICourseSectionService{
-	private final CourseSectionDao entityDao;
 
 	@Autowired
-	public CourseSectionServiceImpl(CourseSectionDao entityDao) {
-		this.entityDao = entityDao;
-	}
+	private CourseSectionDao entityDao;
 
 	public CourseSection getById(Long id){
 		return entityDao.getById(id);
 	}
 
-	/**
-	 * 查出所有的课程章节记录
-	 */
 	public List<CourseSection> queryAll(CourseSection queryEntity){
 		return entityDao.queryAll(queryEntity);
 	}
@@ -76,4 +66,24 @@ public class CourseSectionServiceImpl implements ICourseSectionService{
 	public void deleteLogic(CourseSection entity){
 		entityDao.deleteLogic(entity);
 	}
+
+	/**
+	 * 比当前sort大的，正序排序的第一个
+	 * @param curCourseSection
+	 * @return
+	 */
+	public CourseSection getSortSectionMax(CourseSection curCourseSection){
+		return entityDao.getSortSectionMax(curCourseSection);
+	}
+	
+	/**
+	 * 比当前sort小的，倒序排序的第一个
+	 * @param curCourseSection
+	 * @return
+	 */
+	public CourseSection getSortSectionMin(CourseSection curCourseSection){
+		return entityDao.getSortSectionMin(curCourseSection);
+	}
+
 }
+

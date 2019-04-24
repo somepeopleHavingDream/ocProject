@@ -24,7 +24,7 @@
     	
     	<!-- 针对 Responsebody 转码 -->
     	<mvc:annotation-driven>
-			<mvc:message-converters>
+			<mvc:message-converters register-defaults="true">
 				<bean class="com.online.college.common.web.UTF8HttpMessageConverter" />
 			</mvc:message-converters>
 		</mvc:annotation-driven>
@@ -76,19 +76,19 @@
 			<property name="dataSource" ref="dataSource" />
 		</bean>
 		
-		<tx:advice id="txAdvice">
+		<tx:advice id="txAdvice" transaction-manager="transactionManager">
 			<tx:attributes>
-				<tx:method name="do*"/>
-				<tx:method name="delete*"/>
-				<tx:method name="merge*"/>
-				<tx:method name="add*"/>
-				<tx:method name="save*"/>
-				<tx:method name="create*"/>
-				<tx:method name="insert*"/>
-				<tx:method name="update*"/>
-				<tx:method name="enable*"/>
-				<tx:method name="disable*"/>
-				<tx:method name="generate*"/>
+				<tx:method name="do*" propagation="REQUIRED" />
+				<tx:method name="delete*" propagation="REQUIRED" />
+				<tx:method name="merge*" propagation="REQUIRED" />
+				<tx:method name="add*" propagation="REQUIRED" />
+				<tx:method name="save*" propagation="REQUIRED" />
+				<tx:method name="create*" propagation="REQUIRED" />
+				<tx:method name="insert*" propagation="REQUIRED" />
+				<tx:method name="update*" propagation="REQUIRED" />
+				<tx:method name="enable*" propagation="REQUIRED" />
+				<tx:method name="disable*" propagation="REQUIRED" />
+				<tx:method name="generate*" propagation="REQUIRED" />
 				<tx:method name="*" read-only="true"/> 
 			</tx:attributes>
 		</tx:advice>
