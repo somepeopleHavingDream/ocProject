@@ -19,7 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.online.college.common.page.TailPage;
 import com.online.college.common.storage.QiniuStorage;
 import com.online.college.common.web.JsonView;
+import com.online.college.core.auth.domain.AuthUser;
+import com.online.college.core.auth.service.IAuthUserService;
 import com.online.college.core.consts.domain.ConstsClassify;
+import com.online.college.core.consts.service.IConstsClassifyService;
 import com.online.college.core.course.domain.Course;
 import com.online.college.core.course.service.ICourseService;
 import com.online.college.opt.business.IPortalBusiness;
@@ -38,6 +41,12 @@ public class CourseController {
 	
 	@Autowired
 	private IPortalBusiness portalBusiness;
+	
+	@Autowired
+	private IConstsClassifyService constsClassifyService;
+	
+	@Autowired
+	private IAuthUserService authUserService;
 	
 	/**
 	 * 课程管理
@@ -97,8 +106,9 @@ public class CourseController {
 	@RequestMapping("/read")
 	public ModelAndView courseRead(Long id){
 		Course course = courseService.getById(id);
-		if(null == course)
+		if(null == course){
 			return new ModelAndView("error/404"); 
+		} 
 		
 		ModelAndView mv = new ModelAndView("cms/course/read");
 		mv.addObject("curNav", "course");
@@ -141,12 +151,77 @@ public class CourseController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		//判断教师
+		if(StringUtils.isNotEmpty(entity.getUsername())){
+			AuthUser user = authUserService.getByUsername(entity.getUsername());
+			if(null == user){
+				return JsonView.render(1).toString();
+			}
+		}else{
+			return JsonView.render(1).toString();
+		}
+
 		if(null != entity.getId()){
 			courseService.updateSelectivity(entity);
 		}else{
+			//判断获取分类
+			if(StringUtils.isNotEmpty(entity.getClassify())){
+				ConstsClassify classify = this.constsClassifyService.getByCode(entity.getClassify());
+				if(null != classify){
+					entity.setClassifyName(classify.getName());
+				}
+			}
+			if(StringUtils.isNotEmpty(entity.getSubClassify())){
+				ConstsClassify subClassify = this.constsClassifyService.getByCode(entity.getSubClassify());
+				if(null != subClassify){
+					entity.setSubClassifyName(subClassify.getName());
+				}
+			}
 			courseService.createSelectivity(entity);
 		}
 		return JsonView.render(entity).toString();
+	}
+	
+	
+	/**
+	 * 添加课程
+	 */
+	@RequestMapping("/add")
+	public ModelAndView add(){
+		ModelAndView mv = new ModelAndView("cms/course/add");
+		mv.addObject("curNav", "course");
+		Map<String,ConstsClassifyVO> classifyMap = portalBusiness.queryAllClassifyMap();
+		//所有一级分类
+		List<ConstsClassifyVO> classifysList = new ArrayList<ConstsClassifyVO>();
+		for(ConstsClassifyVO vo : classifyMap.values()){
+			classifysList.add(vo);
+		}
+		mv.addObject("classifys", classifysList);
+		
+		List<ConstsClassify> subClassifys = new ArrayList<ConstsClassify>();
+		for(ConstsClassifyVO vo : classifyMap.values()){
+			subClassifys.addAll(vo.getSubClassifyList());
+		}
+		mv.addObject("subClassifys", subClassifys);//所有二级分类
+		return mv; 
+	}
+	
+	//继续添加章节
+	@RequestMapping("/append")
+	public ModelAndView appendSection(Long courseId){
+		Course course = courseService.getById(courseId);
+		if(null == course)
+			return new ModelAndView("error/404"); 
+		
+		ModelAndView mv = new ModelAndView("cms/course/append");
+		mv.addObject("curNav", "course");
+		mv.addObject("course", course);
+		
+		List<CourseSectionVO> chaptSections = this.portalBusiness.queryCourseSection(courseId);
+		mv.addObject("chaptSections", chaptSections);
+		
+		return mv;
 	}
 	
 }

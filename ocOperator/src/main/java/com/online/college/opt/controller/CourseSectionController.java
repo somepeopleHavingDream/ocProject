@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.online.college.common.page.TailPage;
 import com.online.college.common.web.JsonView;
 import com.online.college.core.course.domain.CourseSection;
 import com.online.college.core.course.service.ICourseSectionService;
@@ -85,6 +83,31 @@ public class CourseSectionController{
 	@ResponseBody
 	public String deleteLogic(CourseSection entity){
 		entityService.deleteLogic(entity);
+		return new JsonView().toString();
+	}
+	
+	//批量添加章节
+	@RequestMapping(value = "/batchAdd")
+	@ResponseBody
+	public String batchAdd(@RequestBody List<CourseSectionVO> batchSections){
+		courseSectionBusiness.batchAdd(batchSections);
+		return new JsonView().toString();
+	}
+	
+	/**
+	 * 导入excel
+	 */
+	@RequestMapping("/doImport")
+	@ResponseBody
+	public String doImport(Long courseId ,@RequestParam(value="courseSectionExcel",required=true)MultipartFile excelFile){
+		try {
+			if (null != excelFile && excelFile.getBytes().length > 0) {
+				InputStream is = excelFile.getInputStream();
+				courseSectionBusiness.batchImport(courseId, is);//批量导入
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return new JsonView().toString();
 	}
 	
