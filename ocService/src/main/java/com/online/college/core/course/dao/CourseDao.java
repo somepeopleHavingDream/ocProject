@@ -5,8 +5,9 @@ import java.util.List;
 import com.online.college.common.page.TailPage;
 import com.online.college.core.course.domain.Course;
 import com.online.college.core.course.domain.CourseQueryDto;
+import org.springframework.stereotype.Repository;
 
-
+@Repository
 public interface CourseDao {
 
 	/**

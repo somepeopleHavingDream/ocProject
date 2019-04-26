@@ -75,10 +75,12 @@
 							<#else>
 							<div class="course-card-top brown-bg">
 							</#if>
-								<span>${item.subClassifyName!}</span>
+								<!--<span>${item.subClassifyName!}</span>-->
+								<span>课程</span>
 							</div>
 
 							<div class="course-card-content">
+								<img width="100%" height="100%" border-radius="8px" src="${item.picture!}">
 								<h3 class="course-card-name" title="${item.name!}">${item.name!}</h3>
 								<p  class="course-card-brief" title="${item.brief!}">${item.brief!}</p>
 								<div class="course-card-bottom">

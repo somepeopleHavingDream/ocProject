@@ -26,7 +26,7 @@ public class QiNiuTest {
      */
     private void testBatchImages() {
         // 批量文件图片上传
-        File rootDir = new File("/media/yx/新加卷1/上传到七牛云的图片");
+        File rootDir = new File("/media/yx/新加卷1/上传到七牛云的用户头像");
         if (rootDir.isDirectory()) {
             File[] files = rootDir.listFiles();
             if (null != files) {

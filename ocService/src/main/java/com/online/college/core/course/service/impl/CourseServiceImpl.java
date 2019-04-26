@@ -39,7 +39,16 @@ public class CourseServiceImpl implements ICourseService{
 		if(null == queryEntity.getOnsale()){//是否上架
 			queryEntity.setOnsale(CourseEnum.ONSALE.value());
 		}
-		return entityDao.queryList(queryEntity);
+		List<Course> courseList = entityDao.queryList(queryEntity);
+		if (courseList != null) {
+			for (Course course : courseList) {
+				if (course.getPicture() != null) {
+					course.setPicture(QiniuStorage.getUrl(course.getPicture()));
+				}
+			}
+		}
+		return courseList;
+		//		return entityDao.queryList(queryEntity);
 	}
 
 	@Override
