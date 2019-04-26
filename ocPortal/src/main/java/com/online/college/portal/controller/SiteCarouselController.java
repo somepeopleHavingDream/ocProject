@@ -24,9 +24,13 @@ import com.online.college.core.consts.service.IConstsSiteCarouselService;
 @RequestMapping("/carousel")
 public class SiteCarouselController {
 
+	private final IConstsSiteCarouselService entityService;
+
 	@Autowired
-	private IConstsSiteCarouselService entityService;
-	
+	public SiteCarouselController(IConstsSiteCarouselService entityService) {
+		this.entityService = entityService;
+	}
+
 	@RequestMapping(value = "/queryPage")
 	public ModelAndView queryPage(ConstsSiteCarousel queryEntity, TailPage<ConstsSiteCarousel> page) {
 		ModelAndView mv = new ModelAndView("cms/carousel/pagelist");
@@ -56,7 +60,7 @@ public class SiteCarouselController {
 	
 	@RequestMapping(value = "/doMerge")
 	public ModelAndView doMerge(ConstsSiteCarousel entity, @RequestParam MultipartFile pictureImg) {
-		String key = null;
+		String key;
 		try {
 			if (null != pictureImg && pictureImg.getBytes().length > 0) {
 				key = QiniuStorage.uploadImage(pictureImg.getBytes());

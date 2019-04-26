@@ -1,7 +1,10 @@
 package com.online.college.portal.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
+import com.online.college.common.util.EncryptUtil;
+import com.online.college.common.web.JsonView;
+import com.online.college.common.web.SessionContext;
+import com.online.college.core.auth.domain.AuthUser;
+import com.online.college.core.auth.service.IAuthUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -13,11 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.online.college.common.util.EncryptUtil;
-import com.online.college.common.web.JsonView;
-import com.online.college.common.web.SessionContext;
-import com.online.college.core.auth.domain.AuthUser;
-import com.online.college.core.auth.service.IAuthUserService;
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -31,8 +30,12 @@ import com.online.college.core.auth.service.IAuthUserService;
 @RequestMapping("/auth")
 public class AuthController {
 
+    private final IAuthUserService authUserService;
+
     @Autowired
-    private IAuthUserService authUserService;
+    public AuthController(IAuthUserService authUserService) {
+        this.authUserService = authUserService;
+    }
 
     /**
      * 注册页面

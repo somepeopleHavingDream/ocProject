@@ -1,13 +1,18 @@
 package com.online.college.opt.controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
+import com.online.college.common.page.TailPage;
+import com.online.college.common.storage.QiniuStorage;
+import com.online.college.common.web.JsonView;
+import com.online.college.core.auth.domain.AuthUser;
+import com.online.college.core.auth.service.IAuthUserService;
+import com.online.college.core.consts.domain.ConstsClassify;
+import com.online.college.core.consts.service.IConstsClassifyService;
+import com.online.college.core.course.domain.Course;
+import com.online.college.core.course.service.ICourseService;
+import com.online.college.core.statics.service.IStaticsService;
+import com.online.college.opt.business.IPortalBusiness;
+import com.online.college.opt.vo.ConstsClassifyVO;
+import com.online.college.opt.vo.CourseSectionVO;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,23 +22,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.online.college.common.page.TailPage;
-import com.online.college.common.storage.QiniuStorage;
-import com.online.college.common.util.CalendarUtil;
-import com.online.college.common.util.JsonUtil;
-import com.online.college.common.web.JsonView;
-import com.online.college.core.auth.domain.AuthUser;
-import com.online.college.core.auth.service.IAuthUserService;
-import com.online.college.core.consts.domain.ConstsClassify;
-import com.online.college.core.consts.service.IConstsClassifyService;
-import com.online.college.core.course.domain.Course;
-import com.online.college.core.course.service.ICourseService;
-import com.online.college.core.statics.domain.CourseStudyStaticsDto;
-import com.online.college.core.statics.domain.StaticsVO;
-import com.online.college.core.statics.service.IStaticsService;
-import com.online.college.opt.business.IPortalBusiness;
-import com.online.college.opt.vo.ConstsClassifyVO;
-import com.online.college.opt.vo.CourseSectionVO;
+import javax.annotation.Resource;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 课程管理
@@ -45,17 +38,21 @@ public class CourseController {
     @Resource
     private ICourseService courseService;
 
-    @Autowired
-    private IPortalBusiness portalBusiness;
+    private final IPortalBusiness portalBusiness;
+
+    private final IConstsClassifyService constsClassifyService;
+
+    private final IAuthUserService authUserService;
+
+    private final IStaticsService staticsService;
 
     @Autowired
-    private IConstsClassifyService constsClassifyService;
-
-    @Autowired
-    private IAuthUserService authUserService;
-
-    @Autowired
-    private IStaticsService staticsService;
+    public CourseController(IPortalBusiness portalBusiness, IConstsClassifyService constsClassifyService, IAuthUserService authUserService, IStaticsService staticsService) {
+        this.portalBusiness = portalBusiness;
+        this.constsClassifyService = constsClassifyService;
+        this.authUserService = authUserService;
+        this.staticsService = staticsService;
+    }
 
     /**
      * 课程管理
@@ -130,13 +127,10 @@ public class CourseController {
         //课程分类
         Map<String,ConstsClassifyVO> classifyMap = portalBusiness.queryAllClassifyMap();
         //所有一级分类
-        List<ConstsClassifyVO> classifysList = new ArrayList<ConstsClassifyVO>();
-        for(ConstsClassifyVO vo : classifyMap.values()){
-            classifysList.add(vo);
-        }
+        List<ConstsClassifyVO> classifysList = new ArrayList<>(classifyMap.values());
         mv.addObject("classifys", classifysList);
 
-        List<ConstsClassify> subClassifys = new ArrayList<ConstsClassify>();
+        List<ConstsClassify> subClassifys = new ArrayList<>();
         for(ConstsClassifyVO vo : classifyMap.values()){
             subClassifys.addAll(vo.getSubClassifyList());
         }
@@ -165,7 +159,7 @@ public class CourseController {
     @RequestMapping("/doMerge")
     @ResponseBody
     public String doMerge(Course entity,@RequestParam MultipartFile pictureImg){
-        String key = null;
+        String key;
         try {
             if (null != pictureImg && pictureImg.getBytes().length > 0) {
                 key = QiniuStorage.uploadImage(pictureImg.getBytes());//七牛上传图片
@@ -179,10 +173,10 @@ public class CourseController {
         if(StringUtils.isNotEmpty(entity.getUsername())){
             AuthUser user = authUserService.getByUsername(entity.getUsername());
             if(null == user){
-                return JsonView.render(1).toString();
+                return JsonView.render(1);
             }
         }else{
-            return JsonView.render(1).toString();
+            return JsonView.render(1);
         }
 
         if(null != entity.getId()){
@@ -203,7 +197,7 @@ public class CourseController {
             }
             courseService.createSelectivity(entity);
         }
-        return JsonView.render(entity).toString();
+        return JsonView.render(entity);
     }
 
 
@@ -216,13 +210,10 @@ public class CourseController {
         mv.addObject("curNav", "course");
         Map<String,ConstsClassifyVO> classifyMap = portalBusiness.queryAllClassifyMap();
         //所有一级分类
-        List<ConstsClassifyVO> classifysList = new ArrayList<ConstsClassifyVO>();
-        for(ConstsClassifyVO vo : classifyMap.values()){
-            classifysList.add(vo);
-        }
+        List<ConstsClassifyVO> classifysList = new ArrayList<>(classifyMap.values());
         mv.addObject("classifys", classifysList);
 
-        List<ConstsClassify> subClassifys = new ArrayList<ConstsClassify>();
+        List<ConstsClassify> subClassifys = new ArrayList<>();
         for(ConstsClassifyVO vo : classifyMap.values()){
             subClassifys.addAll(vo.getSubClassifyList());
         }

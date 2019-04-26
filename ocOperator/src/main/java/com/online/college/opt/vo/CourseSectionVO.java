@@ -12,7 +12,7 @@ public class CourseSectionVO extends CourseSection{
 	private static final long serialVersionUID = 180753077428934254L;
 
 	//小节
-	private List<CourseSection> sections = new ArrayList<CourseSection>();
+	private List<CourseSection> sections = new ArrayList<>();
 
 	
 	public List<CourseSection> getSections() {

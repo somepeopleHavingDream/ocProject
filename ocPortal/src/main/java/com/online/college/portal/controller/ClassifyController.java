@@ -24,12 +24,16 @@ import com.online.college.portal.vo.ConstsClassifyVO;
 @RequestMapping("/classify")
 public class ClassifyController {
 
-	@Autowired
-	private IConstsClassifyService entityService;
+	private final IConstsClassifyService entityService;
 	
+	private final IPortalService portalService;
+
 	@Autowired
-	private IPortalService portalService;
-	
+	public ClassifyController(IConstsClassifyService entityService, IPortalService portalService) {
+		this.entityService = entityService;
+		this.portalService = portalService;
+	}
+
 	@RequestMapping(value = "/getById")
 	@ResponseBody
 	public String getById(Long id) {
@@ -43,13 +47,10 @@ public class ClassifyController {
 		Map<String, ConstsClassifyVO> classifyMap = portalService.queryAllClassifyMap();
 		
 		// 所有一级分类
-		List<ConstsClassifyVO> classifysList = new ArrayList<ConstsClassifyVO>();
-		for (ConstsClassifyVO vo : classifyMap.values()) {
-			classifysList.add(vo);
-		}
+		List<ConstsClassifyVO> classifysList = new ArrayList<>(classifyMap.values());
 		mv.addObject("classifys", classifysList);
 		
-		List<ConstsClassify> subClassifys = new ArrayList<ConstsClassify>();
+		List<ConstsClassify> subClassifys = new ArrayList<>();
 		for (ConstsClassifyVO vo : classifyMap.values()) {
 			subClassifys.addAll(vo.getSubClassifyList());
 		}

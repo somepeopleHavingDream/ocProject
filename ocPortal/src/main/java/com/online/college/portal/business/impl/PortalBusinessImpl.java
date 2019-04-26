@@ -25,37 +25,35 @@ import com.online.college.portal.vo.ConstsClassifyVO;
 @Service
 public class PortalBusinessImpl implements IPortalBusiness {
 	
-	@Autowired
-	private IConstsClassifyService constsClassifyService;
+	private final IConstsClassifyService constsClassifyService;
 	
+	private final ICourseService courseService;
+
 	@Autowired
-	private ICourseService courseService;
+	public PortalBusinessImpl(IConstsClassifyService constsClassifyService, ICourseService courseService) {
+		this.constsClassifyService = constsClassifyService;
+		this.courseService = courseService;
+	}
 
 	/**
 	 * 获取所有，包括一级分类&二级分类
 	 */
 	public List<ConstsClassifyVO> queryAllClassify(){
-		List<ConstsClassifyVO> resultList = new ArrayList<ConstsClassifyVO>();
-		for(ConstsClassifyVO vo : this.queryAllClassifyMap().values()){
-			resultList.add(vo);
-		}
-		return resultList;
+		return new ArrayList<>(this.queryAllClassifyMap().values());
 	}
 	
 	/**
 	 * 获取所有分类
 	 */
 	public Map<String,ConstsClassifyVO> queryAllClassifyMap(){
-		Map<String,ConstsClassifyVO> resultMap = new LinkedHashMap<String,ConstsClassifyVO>();
-		Iterator<ConstsClassify> it = constsClassifyService.queryAll().iterator();
-		while(it.hasNext()){
-			ConstsClassify c = it.next();
-			if("0".equals(c.getParentCode())){//一级分类
+		Map<String,ConstsClassifyVO> resultMap = new LinkedHashMap<>();
+		for (ConstsClassify c : constsClassifyService.queryAll()) {
+			if ("0".equals(c.getParentCode())) {//一级分类
 				ConstsClassifyVO vo = new ConstsClassifyVO();
 				BeanUtils.copyProperties(c, vo);
 				resultMap.put(vo.getCode(), vo);
-			}else{//二级分类
-				if(null != resultMap.get(c.getParentCode())){
+			} else {//二级分类
+				if (null != resultMap.get(c.getParentCode())) {
 					resultMap.get(c.getParentCode()).getSubClassifyList().add(c);//添加到子分类中
 				}
 			}

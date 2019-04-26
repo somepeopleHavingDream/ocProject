@@ -16,7 +16,7 @@ public class ConstsClassifyVO extends ConstsClassify{
 	/**
 	 * 子分类列表
 	 */
-	private List<ConstsClassify> subClassifyList = new ArrayList<ConstsClassify>();
+	private List<ConstsClassify> subClassifyList = new ArrayList<>();
 	
 	/**
 	 * 课程推荐列表

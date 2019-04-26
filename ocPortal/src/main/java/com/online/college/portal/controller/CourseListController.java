@@ -25,21 +25,24 @@ import com.online.college.portal.vo.ConstsClassifyVO;
 @RequestMapping("/course")
 public class CourseListController {
 
-    @Autowired
-    private IConstsClassifyService constsClassifyService;
+    private final IConstsClassifyService constsClassifyService;
+
+    private final IPortalBusiness portalBusiness;
+
+    private final ICourseService courseService;
 
     @Autowired
-    private IPortalBusiness portalBusiness;
-
-    @Autowired
-    private ICourseService courseService;
+    public CourseListController(IConstsClassifyService constsClassifyService, IPortalBusiness portalBusiness, ICourseService courseService) {
+        this.constsClassifyService = constsClassifyService;
+        this.portalBusiness = portalBusiness;
+        this.courseService = courseService;
+    }
 
     /**
      * 课程分类页
      * @param c 分类code
      * @param sort 排序
      * @param page 分页
-     * @return
      */
     @RequestMapping("/list")
     public ModelAndView list(String c, String sort, TailPage<Course> page) {
@@ -50,10 +53,7 @@ public class CourseListController {
         // 加载所有课程分类
         Map<String, ConstsClassifyVO> classifyMap = portalBusiness.queryAllClassifyMap();
         // 所有一级分类
-        List<ConstsClassifyVO> classifysList = new ArrayList<ConstsClassifyVO>();
-        for (ConstsClassifyVO vo : classifyMap.values()) {
-            classifysList.add(vo);
-        }
+        List<ConstsClassifyVO> classifysList = new ArrayList<>(classifyMap.values());
         mv.addObject("classifys", classifysList);	// 返回给list页面的参数1：一级分类集合对象
 
         // 当前分类，这个地方可以根据从页面传进来的参数设置当前分类对象，再通过当前分类对象得到当前方向code和当前分类code
@@ -61,7 +61,7 @@ public class CourseListController {
 
         // 返回给list页面的参数2：二级分类集合对象
         if (null == curClassify) {	// 没有此分类，加载所有二级分类
-            List<ConstsClassify> subClassifys = new ArrayList<ConstsClassify>();
+            List<ConstsClassify> subClassifys = new ArrayList<>();
             for (ConstsClassifyVO vo : classifyMap.values()) {
                 subClassifys.addAll(vo.getSubClassifyList());
             }

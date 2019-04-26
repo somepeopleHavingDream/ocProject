@@ -26,9 +26,13 @@ import com.online.college.opt.vo.CourseSectionVO;
 @Service
 public class CourseSectionBusinessImpl implements ICourseSectionBusiness {
 
+	private final ICourseSectionService entityService;
+
 	@Autowired
-	private ICourseSectionService entityService;
-	
+	public CourseSectionBusinessImpl(ICourseSectionService entityService) {
+		this.entityService = entityService;
+	}
+
 	/**
 	 * 循环添加和批量添加
 	 */
@@ -101,12 +105,12 @@ public class CourseSectionBusinessImpl implements ICourseSectionBusiness {
 		Integer second1 = Integer.parseInt(time1Arr[0]) * 60 + Integer.parseInt(time1Arr[1]);
 		Integer second2 = Integer.parseInt(time2Arr[0]) * 60 + Integer.parseInt(time2Arr[1]);
 		Integer secondTotal = second1 + second2;
-		Integer minute = secondTotal/60;
+		int minute = secondTotal/60;
 		String minuteStr = minute + "";
 		if(minute < 10){
 			minuteStr = "0"+minute;
 		}
-		Integer secode = secondTotal%60;
+		int secode = secondTotal%60;
 		String secodeStr = secode + "";
 		if(secode < 10){
 			secodeStr = "0"+secode;
@@ -125,7 +129,7 @@ public class CourseSectionBusinessImpl implements ICourseSectionBusiness {
 			Sheet sheet = wb.getSheetAt(0);
 			sheet.removeRow(sheet.getRow(0));//第一行（title移除掉）
 			
-			List<CourseSectionVO> courseSections = new ArrayList<CourseSectionVO>();
+			List<CourseSectionVO> courseSections = new ArrayList<>();
 			//遍历行
 			for (Row row : sheet) {
 				Cell cell0 = row.getCell(0, Row.CREATE_NULL_AS_BLANK);//章标题
@@ -174,9 +178,7 @@ public class CourseSectionBusinessImpl implements ICourseSectionBusiness {
 				this.batchAdd(courseSections);
 			}
 			
-		} catch (InvalidFormatException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (InvalidFormatException | IOException e) {
 			e.printStackTrace();
 		}
 	}

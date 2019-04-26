@@ -21,9 +21,13 @@ import com.online.college.core.user.service.IUserFollowsService;
 @RequestMapping("follow")
 public class FollowerController {
 
+	private final IUserFollowsService userFollowsService;
+
 	@Autowired
-	private IUserFollowsService userFollowsService;
-	
+	public FollowerController(IUserFollowsService userFollowsService) {
+		this.userFollowsService = userFollowsService;
+	}
+
 	@RequestMapping(value = "/doFollow")
 	@ResponseBody
 	public String doFollow(Long followId) {

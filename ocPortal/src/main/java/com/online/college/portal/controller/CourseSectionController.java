@@ -17,9 +17,13 @@ import com.online.college.core.course.service.ICourseSectionService;
 @RequestMapping("/courseSection")
 public class CourseSectionController {
 
+	private final ICourseSectionService entityService;
+
 	@Autowired
-	private ICourseSectionService entityService;
-	
+	public CourseSectionController(ICourseSectionService entityService) {
+		this.entityService = entityService;
+	}
+
 	@RequestMapping(value = "/getById")
 	@ResponseBody
 	public String getById(Long id) {

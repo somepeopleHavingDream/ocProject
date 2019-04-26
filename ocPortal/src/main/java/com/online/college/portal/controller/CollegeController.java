@@ -18,9 +18,13 @@ import com.online.college.core.consts.service.IConstsCollegeService;
 @RequestMapping("/college")
 public class CollegeController {
 
+	private final IConstsCollegeService entityService;
+
 	@Autowired
-	private IConstsCollegeService entityService;
-	
+	public CollegeController(IConstsCollegeService entityService) {
+		this.entityService = entityService;
+	}
+
 	@RequestMapping(value = "/queryPageList")
 	public ModelAndView queryPage(ConstsCollege queryEntity, TailPage<ConstsCollege> page) {
 		ModelAndView mv = new ModelAndView("cms/college/collegePageList");

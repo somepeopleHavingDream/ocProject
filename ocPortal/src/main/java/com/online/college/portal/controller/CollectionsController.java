@@ -21,9 +21,13 @@ import com.online.college.core.user.service.IUserCollectionsService;
 @RequestMapping("/collections")
 public class CollectionsController {
 	
+	private final IUserCollectionsService userCollectionsService;
+
 	@Autowired
-	private IUserCollectionsService userCollectionsService;
-	
+	public CollectionsController(IUserCollectionsService userCollectionsService) {
+		this.userCollectionsService = userCollectionsService;
+	}
+
 	@RequestMapping(value = "/doCollection")
 	@ResponseBody
 	public String doCollection(Long courseId) {
@@ -48,8 +52,6 @@ public class CollectionsController {
 	
 	/**
 	 * 是否已经收藏
-	 * @param courseId
-	 * @return
 	 */
 	@RequestMapping(value = "/isCollection")
 	@ResponseBody

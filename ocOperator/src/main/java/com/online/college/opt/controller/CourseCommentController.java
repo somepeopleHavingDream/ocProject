@@ -20,9 +20,13 @@ import com.online.college.core.course.service.ICourseCommentService;
 @RequestMapping("/courseComment")
 public class CourseCommentController {
 	
+	private final ICourseCommentService courseCommentService;
+
 	@Autowired
-	private ICourseCommentService courseCommentService;
-	
+	public CourseCommentController(ICourseCommentService courseCommentService) {
+		this.courseCommentService = courseCommentService;
+	}
+
 	/**
 	 * 课程评论管理
 	 */

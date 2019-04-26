@@ -25,17 +25,21 @@ import com.online.college.portal.vo.ConstsClassifyVO;
 @RequestMapping()
 public class PortalController {
 
-    @Autowired
-    private IPortalBusiness portalBusiness;
+    private final IPortalBusiness portalBusiness;
+
+    private final IConstsSiteCarouselService siteCarouselService;
+
+    private final ICourseService courseService;
+
+    private final IAuthUserService authUserService;
 
     @Autowired
-    private IConstsSiteCarouselService siteCarouselService;
-
-    @Autowired
-    private ICourseService courseService;
-
-    @Autowired
-    private IAuthUserService authUserService;
+    public PortalController(IPortalBusiness portalBusiness, IConstsSiteCarouselService siteCarouselService, ICourseService courseService, IAuthUserService authUserService) {
+        this.portalBusiness = portalBusiness;
+        this.siteCarouselService = siteCarouselService;
+        this.courseService = courseService;
+        this.authUserService = authUserService;
+    }
 
 
     /**

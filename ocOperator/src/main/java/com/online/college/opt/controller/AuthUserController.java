@@ -16,49 +16,53 @@ import com.online.college.core.auth.service.IAuthUserService;
 @RequestMapping("/user")
 public class AuthUserController{
 
-	@Autowired
-	private IAuthUserService entityService;
+    private final IAuthUserService entityService;
 
-	@RequestMapping(value = "/getById")
-	@ResponseBody
-	public String getById(Long id){
-		AuthUser user = entityService.getById(id);
-		return JsonView.render(user);
-	}
+    @Autowired
+    public AuthUserController(IAuthUserService entityService) {
+        this.entityService = entityService;
+    }
 
-	/**
-	 * 分页
-	 */
-	@RequestMapping(value = "/userPageList")
-	public  ModelAndView queryPage(AuthUser queryEntity , TailPage<AuthUser> page){
-		ModelAndView mv = new ModelAndView("cms/user/userPageList");
-		mv.addObject("curNav", "user");
-		
-		if(StringUtils.isNotEmpty(queryEntity.getUsername())){
-			queryEntity.setUsername(queryEntity.getUsername().trim());
-		}else{
-			queryEntity.setUsername(null);
-		}
-		
-		if(Integer.valueOf(-1).equals(queryEntity.getStatus())){
-			queryEntity.setStatus(null);
-		}
-		
-		page = entityService.queryPage(queryEntity,page);
-		mv.addObject("page",page);
-		mv.addObject("queryEntity",queryEntity);
-		
-		return mv;
-	}
-	
-	@RequestMapping(value = "/doMerge")
-	@ResponseBody
-	public String doMerge(AuthUser entity){
-		entity.setUsername(null);//不更新
-		entity.setRealname(null);//不更新
-		entityService.updateSelectivity(entity);
-		return new JsonView(0).toString();
-	}
-	
+    @RequestMapping(value = "/getById")
+    @ResponseBody
+    public String getById(Long id){
+        AuthUser user = entityService.getById(id);
+        return JsonView.render(user);
+    }
+
+    /**
+     * 分页
+     */
+    @RequestMapping(value = "/userPageList")
+    public  ModelAndView queryPage(AuthUser queryEntity , TailPage<AuthUser> page){
+        ModelAndView mv = new ModelAndView("cms/user/userPageList");
+        mv.addObject("curNav", "user");
+
+        if(StringUtils.isNotEmpty(queryEntity.getUsername())){
+            queryEntity.setUsername(queryEntity.getUsername().trim());
+        }else{
+            queryEntity.setUsername(null);
+        }
+
+        if(Integer.valueOf(-1).equals(queryEntity.getStatus())){
+            queryEntity.setStatus(null);
+        }
+
+        page = entityService.queryPage(queryEntity,page);
+        mv.addObject("page",page);
+        mv.addObject("queryEntity",queryEntity);
+
+        return mv;
+    }
+
+    @RequestMapping(value = "/doMerge")
+    @ResponseBody
+    public String doMerge(AuthUser entity){
+        entity.setUsername(null);//不更新
+        entity.setRealname(null);//不更新
+        entityService.updateSelectivity(entity);
+        return new JsonView(0).toString();
+    }
+
 }
 

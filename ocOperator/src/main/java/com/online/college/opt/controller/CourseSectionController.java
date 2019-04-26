@@ -25,12 +25,16 @@ import com.online.college.opt.vo.CourseSectionVO;
 @RequestMapping("/courseSection")
 public class CourseSectionController{
 
-	@Autowired
-	private ICourseSectionService entityService;
+	private final ICourseSectionService entityService;
 	
 	@Resource
 	private ICourseSectionBusiness courseSectionBusiness;
-	
+
+	@Autowired
+	public CourseSectionController(ICourseSectionService entityService) {
+		this.entityService = entityService;
+	}
+
 	@RequestMapping(value = "/getById")
 	@ResponseBody
 	public String getById(Long id){
@@ -50,7 +54,7 @@ public class CourseSectionController{
 	public String sortSection(CourseSection entity, Integer sortType){
 		CourseSection curCourseSection = entityService.getById(entity.getId());
 		if(null != curCourseSection){
-			CourseSection tmpCourseSection = null;
+			CourseSection tmpCourseSection;
 			if(Integer.valueOf(1).equals(sortType)){//降序
 				//比当前sort大的，正序排序的第一个
 				tmpCourseSection = entityService.getSortSectionMax(curCourseSection);
@@ -99,7 +103,7 @@ public class CourseSectionController{
 	 */
 	@RequestMapping("/doImport")
 	@ResponseBody
-	public String doImport(Long courseId ,@RequestParam(value="courseSectionExcel",required=true)MultipartFile excelFile){
+	public String doImport(Long courseId ,@RequestParam(value="courseSectionExcel")MultipartFile excelFile){
 		try {
 			if (null != excelFile && excelFile.getBytes().length > 0) {
 				InputStream is = excelFile.getInputStream();
