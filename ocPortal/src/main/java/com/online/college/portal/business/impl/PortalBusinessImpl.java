@@ -24,60 +24,60 @@ import com.online.college.portal.vo.ConstsClassifyVO;
  */
 @Service
 public class PortalBusinessImpl implements IPortalBusiness {
-	
-	private final IConstsClassifyService constsClassifyService;
-	
-	private final ICourseService courseService;
 
-	@Autowired
-	public PortalBusinessImpl(IConstsClassifyService constsClassifyService, ICourseService courseService) {
-		this.constsClassifyService = constsClassifyService;
-		this.courseService = courseService;
-	}
+    private final IConstsClassifyService constsClassifyService;
 
-	/**
-	 * 获取所有，包括一级分类&二级分类
-	 */
-	public List<ConstsClassifyVO> queryAllClassify(){
-		return new ArrayList<>(this.queryAllClassifyMap().values());
-	}
-	
-	/**
-	 * 获取所有分类
-	 */
-	public Map<String,ConstsClassifyVO> queryAllClassifyMap(){
-		Map<String,ConstsClassifyVO> resultMap = new LinkedHashMap<>();
-		for (ConstsClassify c : constsClassifyService.queryAll()) {
-			if ("0".equals(c.getParentCode())) {//一级分类
-				ConstsClassifyVO vo = new ConstsClassifyVO();
-				BeanUtils.copyProperties(c, vo);
-				resultMap.put(vo.getCode(), vo);
-			} else {//二级分类
-				if (null != resultMap.get(c.getParentCode())) {
-					resultMap.get(c.getParentCode()).getSubClassifyList().add(c);//添加到子分类中
-				}
-			}
-		}
-		return resultMap;
-	}
-	
-	/**
-	 * 为分类设置课程推荐
-	 */
-	public void prepareRecomdCourses(List<ConstsClassifyVO> classifyVoList){
-		if(CollectionUtils.isNotEmpty(classifyVoList)){
-			for(ConstsClassifyVO item : classifyVoList){
-				CourseQueryDto queryEntity = new CourseQueryDto();
-				queryEntity.setCount(5);
-				queryEntity.descSortField("weight");
-				queryEntity.setClassify(item.getCode());//分类code
-				
-				List<Course> tmpList = this.courseService.queryList(queryEntity);
-				if(CollectionUtils.isNotEmpty(tmpList)){
-					item.setRecomdCourseList(tmpList);
-				}
-			}
-		}
-	}
-	
+    private final ICourseService courseService;
+
+    @Autowired
+    public PortalBusinessImpl(IConstsClassifyService constsClassifyService, ICourseService courseService) {
+        this.constsClassifyService = constsClassifyService;
+        this.courseService = courseService;
+    }
+
+    /**
+     * 获取所有，包括一级分类&二级分类
+     */
+    public List<ConstsClassifyVO> queryAllClassify(){
+        return new ArrayList<>(this.queryAllClassifyMap().values());
+    }
+
+    /**
+     * 获取所有分类
+     */
+    public Map<String,ConstsClassifyVO> queryAllClassifyMap(){
+        Map<String,ConstsClassifyVO> resultMap = new LinkedHashMap<>();
+        for (ConstsClassify c : constsClassifyService.queryAll()) {
+            if ("0".equals(c.getParentCode())) {//一级分类
+                ConstsClassifyVO vo = new ConstsClassifyVO();
+                BeanUtils.copyProperties(c, vo);
+                resultMap.put(vo.getCode(), vo);
+            } else {//二级分类
+                if (null != resultMap.get(c.getParentCode())) {
+                    resultMap.get(c.getParentCode()).getSubClassifyList().add(c);//添加到子分类中
+                }
+            }
+        }
+        return resultMap;
+    }
+
+    /**
+     * 为分类设置课程推荐
+     */
+    public void prepareRecomdCourses(List<ConstsClassifyVO> classifyVoList){
+        if(CollectionUtils.isNotEmpty(classifyVoList)){
+            for(ConstsClassifyVO item : classifyVoList){
+                CourseQueryDto queryEntity = new CourseQueryDto();
+                queryEntity.setCount(5);
+                queryEntity.descSortField("weight");
+                queryEntity.setClassify(item.getCode());//分类code
+
+                List<Course> tmpList = this.courseService.queryList(queryEntity);
+                if(CollectionUtils.isNotEmpty(tmpList)){
+                    item.setRecomdCourseList(tmpList);
+                }
+            }
+        }
+    }
+
 }
