@@ -71,9 +71,6 @@ public class HttpUtil  extends org.springframework.web.util.WebUtils{
 	
 	/**
 	 * 重定向
-	 * @param httpServletRequest
-	 * @param httpServletResponse
-	 * @param url
 	 */
 	public static void redirectUrl(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse,String url){
 		try {
@@ -85,9 +82,6 @@ public class HttpUtil  extends org.springframework.web.util.WebUtils{
 	
 	/**
 	 * 重定向到http://的url
-	 * @param httpServletRequest
-	 * @param httpServletResponse
-	 * @param url
 	 */
 	public static void redirectHttpUrl(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse,String url){
 		try {
