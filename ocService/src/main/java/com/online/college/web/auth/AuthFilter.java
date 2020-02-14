@@ -1,6 +1,6 @@
 package com.online.college.web.auth;
 
-import com.online.college.common.util.JsonUtil;
+import com.online.college.common.util.JSONUtil;
 import com.online.college.common.web.HttpHelper;
 import com.online.college.common.web.JsonView;
 import org.apache.shiro.subject.Subject;
@@ -50,7 +50,7 @@ public class AuthFilter extends FormAuthenticationFilter {
             HttpServletResponse _response = (HttpServletResponse) response;
             PrintWriter pw = _response.getWriter();
             _response.setContentType("application/json");
-            pw.write(JsonUtil.toJson(jv));
+            pw.write(JSONUtil.toJson(jv));
             pw.flush();
             pw.close();
         } else {

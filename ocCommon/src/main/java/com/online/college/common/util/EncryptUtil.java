@@ -54,11 +54,11 @@ public class EncryptUtil {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-1");
             digest.update(content.getBytes());
-            byte messageDigest[] = digest.digest();
+            byte[] messageDigest = digest.digest();
             // Create Hex String
-            StringBuffer hexString = new StringBuffer();
-            for (int i = 0; i < messageDigest.length; i++) {
-                String shaHex = Integer.toHexString(messageDigest[i] & 0xFF);
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : messageDigest) {
+                String shaHex = Integer.toHexString(b & 0xFF);
                 if (shaHex.length() < 2) {
                     hexString.append(0);
                 }
@@ -86,8 +86,7 @@ public class EncryptUtil {
             IvParameterSpec iv = new IvParameterSpec(key, 0, 16);
             cipher.init(Cipher.ENCRYPT_MODE, keySpec, iv);
             byte[] encrypted = cipher.doFinal(text);
-            String base64Encrypted = new org.apache.commons.codec.binary.Base64().encodeToString(encrypted);
-            return base64Encrypted;
+            return new org.apache.commons.codec.binary.Base64().encodeToString(encrypted);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -97,7 +96,6 @@ public class EncryptUtil {
     /**
      * @param key  经Base64编码的AES秘钥
      * @param text 经Base64编码的加密串
-     * @return
      */
     public static byte[] decryptByAESWithCBC(byte[] key, byte[] text) {
         byte[] original = null;

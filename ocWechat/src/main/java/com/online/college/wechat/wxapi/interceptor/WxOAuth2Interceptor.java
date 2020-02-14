@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.online.college.common.util.HttpUtil;
+import com.online.college.common.util.HTTPUtil;
 import com.online.college.wechat.wxapi.process.MpAccount;
 import com.online.college.wechat.wxapi.process.OAuthScope;
 import com.online.college.wechat.wxapi.process.WxApi;
@@ -58,18 +58,18 @@ public class WxOAuth2Interceptor extends HandlerInterceptorAdapter {
 				}
 			} else {	// oauth获取code
 				MpAccount mpAccount = WxMemoryCacheClient.getSingleMpAccount();	// 获取缓存中的唯一账号
-				String redirectUrl = HttpUtil.getRequestFullUriNoContextPath(request);
+				String redirectUrl = HTTPUtil.getRequestFullUriNoContextPath(request);
 				// 请求code的回调url
 				String state = OAuth2RequestParamHelper.prepareState(request);
 				String url = WxApi.getOAuthCodeUrl(mpAccount.getAppid(), redirectUrl, OAuthScope.Base.toString(), state);
-				HttpUtil.redirectHttpUrl(request, response, url);
+				HTTPUtil.redirectHttpUrl(response, url);
 				return false;
 			}
 		} else {
 			System.out.println("#### WxOAuth2Interceptor Session : openid = " + openid);
 			return true;
 		}
-		HttpUtil.redirectUrl(request, response, "/error/101.html");
+		HTTPUtil.redirectUrl(request, response, "/error/101.html");
 		return false;
 	}
 

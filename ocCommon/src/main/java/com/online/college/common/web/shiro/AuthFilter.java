@@ -7,10 +7,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.online.college.common.util.JSONUtil;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 
-import com.online.college.common.util.JsonUtil;
 import com.online.college.common.web.HttpHelper;
 import com.online.college.common.web.JsonView;
 
@@ -48,7 +48,7 @@ public class AuthFilter extends FormAuthenticationFilter {
 			HttpServletResponse _response = (HttpServletResponse) response;
 			PrintWriter pw = _response.getWriter();
 			_response.setContentType("application/json");
-			pw.write(JsonUtil.toJson(jv));
+			pw.write(JSONUtil.toJson(jv));
 			pw.flush();
 			pw.close();
 		} else {

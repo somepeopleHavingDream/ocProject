@@ -145,7 +145,7 @@ public class CourseController {
 //		StaticsVO staticsVo = staticsService.queryCourseStudyStatistics(staticsDto);
 //		if(null != staticsVo){
 //			try {
-//				mv.addObject("staticsVo", JsonUtil.toJson(staticsVo));
+//				mv.addObject("staticsVo", JSONUtil.toJson(staticsVo));
 //			} catch (IOException e) {
 //				e.printStackTrace();
 //			}

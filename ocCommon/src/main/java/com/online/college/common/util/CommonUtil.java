@@ -18,23 +18,23 @@ public class CommonUtil {
     /**
      * 得到UUID
      */
-    public static String getUID(){
+    public static String getUID() {
         return UUID.randomUUID().toString().replace("-", "");
     }
 
     /**
      * 将字符串的首字符转换成小写。
      */
-    public static String stringCap(String str){
-        return str.substring(0,1).toLowerCase() + str.substring(1);
+    public static String stringCap(String str) {
+        return str.substring(0, 1).toLowerCase() + str.substring(1);
     }
 
     /**
      * 将字节类型的集合转换成字节类型数组
      */
-    public static byte[][] toArray(List<byte[]> list){
+    public static byte[][] toArray(List<byte[]> list) {
         byte[][] bytes = new byte[list.size()][];
-        for(int i = 0; i < list.size() ;i++){
+        for (int i = 0; i < list.size(); i++) {
             bytes[i] = list.get(i);
         }
         return bytes;
