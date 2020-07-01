@@ -255,7 +255,8 @@
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
-            <version>1.4.6</version>
+            <version>1.4.10</version>
+<!--            <version>1.4.6</version>-->
         </dependency>
 
         <!-- mysql驱动依赖，将5.1.5版本升级到8.0.13 -->
@@ -283,7 +284,6 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>29.0-jre</version>
-<!--            <version>18.0</version>-->
         </dependency>
 
         <dependency>
