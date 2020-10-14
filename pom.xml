@@ -10,8 +10,9 @@
     <packaging>pom</packaging>
 
     <properties>
-        <!-- 将spring相关依赖包的版本改至4.3.18，以不使github弹出相关安全警告 -->
-        <spring.version>4.3.18.RELEASE</spring.version>
+        <!-- 将spring相关依赖包的版本改至5.2.9.RELEASE，以不使github弹出相关安全警告 -->
+        <spring.version>5.2.9.RELEASE</spring.version>
+<!--        <spring.version>4.3.18.RELEASE</spring.version>-->
         <!-- Shiro的1.4.0版本是到2019/01/27的最新版本 -->
         <shiro.version>1.5.0</shiro.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -256,7 +257,6 @@
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
             <version>1.4.11</version>
-<!--            <version>1.4.6</version>-->
         </dependency>
 
         <!-- mysql驱动依赖，将5.1.5版本升级到8.0.13 -->
