@@ -256,7 +256,7 @@
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
-            <version>1.4.11</version>
+            <version>1.4.13-java7</version>
         </dependency>
 
         <!-- mysql驱动依赖，将5.1.5版本升级到8.0.13 -->
